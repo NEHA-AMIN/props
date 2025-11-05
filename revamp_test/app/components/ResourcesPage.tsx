@@ -239,9 +239,9 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
       
       {/* Main Content Section */}
       <section className="relative bg-black transition-colors duration-500">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 sm:py-24">
+        {/* <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 sm:py-24"> */}
           {/* Page Header - THIS IS WHAT YOU'RE LOOKING FOR */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -256,21 +256,21 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
             <p className="mt-1 text-base md:text-lg bg-gradient-to-r from-teal-200 via-teal-400 to-teal-200 bg-clip-text text-transparent">
               from our archive of blogs, videos and more
             </p>
-          </motion.div>
+          </motion.div> */}
 
           {/* Rest of your content... */}
 
           {/* Featured Content */}
-          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-8 mb-12">
+          {/* <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-8 mb-12"> */}
             {/* Left visual */}
-            <div className="rounded-2xl bg-gradient-to-br from-teal-900 via-teal-800 to-teal-700 p-6 md:p-8 shadow-sm transition-all duration-500 hover:shadow-lg">
+            {/* <div className="rounded-2xl bg-gradient-to-br from-teal-900 via-teal-800 to-teal-700 p-6 md:p-8 shadow-sm transition-all duration-500 hover:shadow-lg">
               <div className="aspect-[16/9] rounded-xl bg-black/40 backdrop-blur-sm ring-1 ring-teal-500/30 flex items-center justify-center text-gray-200 transition-colors duration-300">
                 <span className="text-sm">Featured visual placeholder</span>
               </div>
-            </div>
+            </div> */}
 
             {/* Right content */}
-            <div className="rounded-2xl border border-gray-700 bg-gray-900/60 backdrop-blur-sm p-6 md:p-8 transition-all duration-500 hover:shadow-lg hover:bg-gray-900/80">
+            {/* <div className="rounded-2xl border border-gray-700 bg-gray-900/60 backdrop-blur-sm p-6 md:p-8 transition-all duration-500 hover:shadow-lg hover:bg-gray-900/80">
               <p className="text-xs font-semibold text-teal-300 mb-2">
                 {resources[0]?.category}
               </p>
@@ -289,11 +289,11 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
               >
                 {resources[0]?.ctaLabel ?? "Read"} →
               </a>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
 
           {/* Category filter buttons removed per request */}
-        </div>
+        {/* </div> */}
 
         {/* Case Studies Grid Section */}
         <CaseStudiesGrid />

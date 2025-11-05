@@ -257,8 +257,15 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
           </div>
         )}
         
+        {/* Learn More Button - Bottom Right Corner */}
+        <div className="absolute bottom-5 right-5 z-20">
+          <span className="inline-block bg-blue-900/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-blue-800/90 transition-colors duration-200">
+            Learn More
+          </span>
+        </div>
+        
         {/* Content Container with Slide-Up Animation */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-4">
+        <div className="absolute bottom-0 left-0 right-0 p-6 pr-28 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-4">
           {/* Title - Slides up with description */}
           <h3 className="text-2xl font-bold text-white mb-3 transition-all duration-500 ease-in-out">
             {resource.title}
