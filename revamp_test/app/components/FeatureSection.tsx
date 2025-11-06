@@ -3,82 +3,107 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const FeatureSection = () => {
+const DigitalAtlasAccessSection = () => {
+  const steps = [
+    {
+      number: "01",
+      title: "Query Digital Atlas directly",
+      icon: (
+        <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      )
+    },
+    {
+      number: "02",
+      title: "API Call",
+      icon: (
+        <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      )
+    },
+    {
+      number: "03",
+      title: "Plug in Applications",
+      icon: (
+        <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+        </svg>
+      )
+    },
+    {
+      number: "04",
+      title: "Feed into models",
+      icon: (
+        <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+        </svg>
+      )
+    }
+  ];
+
   return (
-    <section
-      className="relative py-24 sm:py-32 overflow-hidden bg-black"
-    >
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-black">
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 border-y border-slate-900 dark:border-slate-800"></div>
       
       <div className="relative z-10 container mx-auto px-6">
-        {/* Three Column Cards Section */}
+        {/* Section Title */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6 }}
         >
-          {/* Context Tuning Card */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-colors duration-300">
-            <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 rounded-full border-2 border-teal-500 flex items-center justify-center">
-                <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" strokeWidth="2"/>
-                  <circle cx="12" cy="12" r="6" strokeWidth="2"/>
-                  <circle cx="12" cy="12" r="2" strokeWidth="2"/>
-                </svg>
-              </div>
-            </div>
-            <h3 className="text-2xl font-bold text-white text-center mb-4">
-              Context Tuning
-            </h3>
-            <p className="text-gray-300 text-center leading-relaxed">
-              Align data to your industry, domain, and question — whether it's retail demand, site selection, neighborhood enrichment, or network planning.
-            </p>
-          </div>
-
-          {/* Continuous Curation Card */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-colors duration-300">
-            <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 rounded-full border-2 border-teal-500 flex items-center justify-center">
-                <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="2"/>
-                  <line x1="3" y1="9" x2="21" y2="9" strokeWidth="2"/>
-                  <line x1="3" y1="15" x2="21" y2="15" strokeWidth="2"/>
-                </svg>
-              </div>
-            </div>
-            <h3 className="text-2xl font-bold text-white text-center mb-4">
-              Continuous Curation
-            </h3>
-            <p className="text-gray-300 text-center leading-relaxed">
-              Assemble live signals into Walkability, Safety, Neighborhood Vibe, Visit Momentum, and more — ready to plug into models and workflows. Keep signals fresh and near real-time.
-            </p>
-          </div>
-
-          {/* Driving ROI with AI Card */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-colors duration-300">
-            <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 rounded-full border-2 border-teal-500 flex items-center justify-center">
-                <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" strokeWidth="2"/>
-                  <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                </svg>
-              </div>
-            </div>
-            <h3 className="text-2xl font-bold text-white text-center mb-4">
-              Driving ROI with AI
-            </h3>
-            <p className="text-gray-300 text-center leading-relaxed">
-              A cross-functional crew works with the Digital Atlas to combine AI mastery and deep domain expertise — deploying fast and driving measurable outcomes.
-            </p>
-          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            How can you access the <span className="text-teal-500">Digital Atlas</span>?
+          </h2>
         </motion.div>
+
+        {/* Four Column Steps */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              className="relative bg-slate-900/50 border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 * index }}
+            >
+              {/* Step Number */}
+              <div className="absolute top-4 right-4 text-5xl font-bold text-slate-800 group-hover:text-slate-700 transition-colors duration-300">
+                {step.number}
+              </div>
+
+              {/* Icon */}
+              <div className="flex justify-center mb-6 mt-4">
+                <div className="w-16 h-16 rounded-full border-2 border-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  {step.icon}
+                </div>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold text-white text-center leading-snug min-h-[3.5rem] flex items-center justify-center">
+                {step.title}
+              </h3>
+
+              {/* Connector Arrow (hidden on last item and on mobile) */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20">
+                  {/* <svg className="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg> */}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default FeatureSection;
+export default DigitalAtlasAccessSection;

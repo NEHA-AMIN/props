@@ -248,17 +248,15 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
         {/* Gradient Overlay - Enhanced on hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-500" />
         
-        {/* Category Badge - Only show for specific categories */}
-        {resource.category === "CPG" && (
-          <div className="absolute top-4 left-4 z-10">
-            <span className="inline-block bg-blue-900/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm">
-              {resource.category}
-            </span>
-          </div>
-        )}
+        {/* Category Badge - Show for all cards */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="inline-block bg-blue-900/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm">
+            {resource.category}
+          </span>
+        </div>
         
         {/* Learn More Button - Bottom Right Corner */}
-        <div className="absolute bottom-5 right-5 z-20">
+        <div className="absolute bottom-6 right-6 z-20">
           <span className="inline-block bg-blue-900/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-blue-800/90 transition-colors duration-200">
             Learn More
           </span>
@@ -328,14 +326,30 @@ export const NewIndustriesPage: React.FC = () => {
           </div>
         </div>
         
-        {/* Background Elements - Grid Pattern */}
-        <div className="absolute inset-0 bg-[#0b0e14] z-0">
-          <div className="absolute inset-0 opacity-20"
-               style={{
-                 backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
-                 backgroundSize: '80px 80px'
-               }}>
-          </div>
+        {/* Background Elements - Glowing Grid Pattern */}
+        <div className="absolute inset-0 bg-[#0a0a0a] z-0">
+          {/* Grid lines with glow */}
+          <div 
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(100, 200, 255, 0.3) 1px, transparent 1px)
+              `,
+              backgroundSize: '80px 80px',
+              filter: 'blur(0.5px)'
+            }}
+          />
+          
+          {/* Intersection dots */}
+          <div 
+            className="absolute inset-0 opacity-60"
+            style={{
+              backgroundImage: 'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
+              backgroundSize: '80px 80px',
+              filter: 'blur(1px)'
+            }}
+          />
         </div>
       </section>
       

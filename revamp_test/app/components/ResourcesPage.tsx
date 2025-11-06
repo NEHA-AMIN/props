@@ -22,102 +22,25 @@ export type ResourcesPageProps = {
   footerSlot?: React.ReactNode;
 };
 
-// Dropdown Component for Hero Section
-interface DropdownProps {
+// Simple Button Component for Hero Section
+interface HeroButtonProps {
   label: string;
-  options: string[];
-  selectedOption: string;
-  onSelect: (option: string) => void;
-  isOpen: boolean;
-  onToggle: () => void;
+  onClick: () => void;
 }
 
-const HeroDropdown: React.FC<DropdownProps> = ({
-  label,
-  options,
-  selectedOption,
-  onSelect,
-  isOpen,
-  onToggle,
-}) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        if (!(event.target as Element)?.closest('[data-dropdown-button]')) {
-          onToggle();
-        }
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, onToggle]);
-
+const HeroButton: React.FC<HeroButtonProps> = ({ label, onClick }) => {
   return (
-    <div className="relative" ref={dropdownRef}>
-      {/* Hero Style Dropdown Button - Matching image */}
-      <div
-        className="inline-block group relative bg-gradient-to-b from-teal-500/20 to-teal-600/10 
-          p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg shadow-teal-500/20 
-          hover:shadow-xl hover:shadow-teal-500/30 transition-shadow duration-300"
-      >
-        <button
-          data-dropdown-button
-          onClick={onToggle}
-          className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md 
-            bg-gray-900/80 hover:bg-gray-900/90 border border-teal-500/30 hover:border-teal-400/50
-            text-white transition-all duration-300 group-hover:-translate-y-0.5 
-            hover:shadow-md hover:shadow-teal-500/20 min-w-[220px] flex items-center justify-between"
-        >
-          <span className="opacity-90 group-hover:opacity-100 transition-opacity capitalize">
-            {label}
-          </span>
-          <svg
-            className={`ml-3 h-5 w-5 transition-all duration-300 text-teal-300 ${
-              isOpen ? 'rotate-180 group-hover:translate-x-0' : 'group-hover:translate-x-1.5'
-            }`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {/* Dropdown Menu */}
-      {isOpen && (
-        <div className="absolute top-full left-0 mt-4 w-full bg-gray-900/95 backdrop-blur-md border border-teal-500/30 rounded-2xl shadow-xl shadow-teal-500/20 z-50 overflow-hidden">
-          {options.map((option) => (
-            <button
-              key={option}
-              onClick={() => {
-                onSelect(option);
-                onToggle();
-              }}
-              className={`w-full px-6 py-4 text-left text-base transition-all duration-200 hover:bg-gray-800/60 hover:shadow-inner ${
-                selectedOption === option
-                  ? 'bg-teal-600/20 text-teal-300 border-l-4 border-teal-500'
-                  : 'text-gray-200'
-              }`}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    <button
+      onClick={onClick}
+      className="group px-8 py-6 text-lg font-semibold backdrop-blur-md 
+        bg-transparent hover:bg-gray-900/30 border border-teal-500/30 hover:border-teal-400/50
+        text-white transition-all duration-300 rounded-full
+        hover:shadow-md hover:shadow-teal-500/20 min-w-[220px]"
+    >
+      <span className="opacity-90 group-hover:opacity-100 transition-opacity capitalize">
+        {label}
+      </span>
+    </button>
   );
 };
 
@@ -149,15 +72,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Dropdown states
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [selectedFilters, setSelectedFilters] = useState({
-    'case studies': 'All',
-    'use cases': 'All',
-    'blogs': 'All',
-  });
-
-  const dropdownOptions = ['All', 'Retail', 'CPG', 'O2O', 'Travel'];
+  const buttonCategories = ['Case Studies', 'Use Cases', 'Blogs'];
 
   // Handle SSR hydration
   useEffect(() => {
@@ -175,15 +90,9 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
     return () => window.removeEventListener('theme-change', handleThemeChange);
   }, []);
 
-  const handleDropdownToggle = (dropdownName: string) => {
-    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
-  };
-
-  const handleFilterSelect = (category: string, option: string) => {
-    setSelectedFilters(prev => ({
-      ...prev,
-      [category]: option
-    }));
+  const handleButtonClick = (category: string) => {
+    console.log(`${category} clicked`);
+    // Add your navigation or filtering logic here
   };
   
   return (
@@ -196,42 +105,18 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
       <div className="relative">
         <BackgroundPaths title="Resources Hub" />
         
-        {/* Dropdown Overlay on Hero */}
+        {/* Button Overlay on Hero */}
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            {/* Dropdowns positioned below the title */}
-            <div className="mt-32 flex flex-col sm:flex-row gap-6 justify-center items-center">
-              {Object.keys(selectedFilters).map((category) => (
-                <HeroDropdown
+            {/* Buttons positioned below the title with more vertical spacing */}
+            <div className="mt-64 flex flex-col sm:flex-row gap-6 justify-center items-center">
+              {buttonCategories.map((category) => (
+                <HeroButton
                   key={category}
                   label={category}
-                  options={dropdownOptions}
-                  selectedOption={selectedFilters[category as keyof typeof selectedFilters]}
-                  onSelect={(option) => handleFilterSelect(category, option)}
-                  isOpen={openDropdown === category}
-                  onToggle={() => handleDropdownToggle(category)}
+                  onClick={() => handleButtonClick(category)}
                 />
               ))}
-            </div>
-
-            {/* Active Filters Display */}
-            <div className="mt-8 flex flex-wrap gap-2 justify-center">
-              {Object.entries(selectedFilters).map(([category, filter]) => 
-                filter !== 'All' && (
-                  <span
-                    key={`${category}-${filter}`}
-                    className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-teal-600/20 text-teal-300 border border-teal-500/30 backdrop-blur-md"
-                  >
-                    {category}: {filter}
-                    <button
-                      onClick={() => handleFilterSelect(category, 'All')}
-                      className="ml-3 hover:text-white transition-colors text-lg leading-none"
-                    >
-                      ×
-                    </button>
-                  </span>
-                )
-              )}
             </div>
           </div>
         </div>

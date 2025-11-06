@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -104,38 +102,22 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
       : caseStudies.filter((study) => study.category === activeFilter);
 
   return (
-    <section className="relative bg-black py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-teal-500 to-teal-300 bg-clip-text text-transparent tracking-tight">
-            Industry Use Cases
-          </h2>
-          <p className="mt-4 text-base md:text-lg text-gray-400">
-            Discover how Nurix AI transforms businesses across industries
-          </p>
-        </motion.div>
-
+    <section className="relative bg-black py-16 sm:py-24 w-full">
+      <div className="w-full">
         {/* Filter Bar with Divider Lines */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-16"
+          className="mb-16 px-6 sm:px-8"
         >
           {/* Top Divider Line */}
           <div className="w-full h-px bg-gray-700/40 mb-8" />
           
           {/* Filter Buttons */}
           <div className="overflow-x-auto pb-4 -mx-2">
-            <div className="flex gap-3 justify-start md:justify-center min-w-max md:min-w-0 px-2">
+            <div className="flex gap-5 justify-start md:justify-center min-w-max md:min-w-0 px-2">
               {categories.map((category) => (
                 <button
                   key={category}
@@ -157,34 +139,29 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
         </motion.div>
 
         {/* Case Studies Grid with Gaps and Dividers */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            style={{
-              display: 'inline-grid',
-              gridTemplateColumns: `repeat(${Math.min(filteredCaseStudies.length, 3)}, 1fr)`,
-            }}
-            className="gap-[2px] bg-white/10 border border-white/10 rounded-lg overflow-hidden max-w-full"
-          >
+        <div className="px-6 sm:px-8 lg:px-12">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeFilter}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
             {filteredCaseStudies.map((study, index) => (
               <a
                 key={study.id}
                 href={study.href || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-black cursor-pointer p-4 block overflow-hidden min-h-[450px]"
+                className="group cursor-pointer rounded-xl overflow-hidden backdrop-blur-md bg-gray-900/30 border border-gray-700/50 hover:border-teal-500/70 hover:bg-gray-900/40 transition-all duration-300 min-h-[450px] flex flex-col hover:shadow-xl hover:shadow-teal-500/10"
               >
-                <div className="h-full min-h-[420px] flex flex-col relative rounded-lg overflow-hidden">
-                  {/* Image Section with Gradient - Always visible */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${study.imageGradient} overflow-hidden`}
-                  >
-                    {/* Overlay gradient for better text contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                <div className="h-full min-h-[420px] flex flex-col relative overflow-hidden">
+                  {/* Glass Background Section */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800/20 via-gray-900/30 to-black/40 overflow-hidden">
+                    {/* Subtle overlay for depth */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                     
                     {/* Tagline overlay - Centered in visible area (above content section) */}
                     {study.tagline && (
@@ -197,7 +174,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
                   </div>
 
                   {/* Content Section - Expands from bottom to cover entire card on hover */}
-                  <div className="relative mt-auto bg-gray-900/95 backdrop-blur-sm transition-all duration-700 ease-in-out h-auto min-h-[50%] max-h-[50%] group-hover:max-h-full group-hover:h-full p-6 flex flex-col z-20">
+                  <div className="relative mt-auto backdrop-blur-sm bg-gray-900/90 transition-all duration-700 ease-in-out h-auto min-h-[50%] max-h-[50%] group-hover:max-h-full group-hover:h-full p-6 flex flex-col z-20 border-t border-gray-700/30">
                     {/* Category Label */}
                     <p className="text-xs font-semibold text-teal-400 uppercase tracking-wide mb-2">
                       {study.category}
@@ -230,13 +207,14 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
             ))}
           </motion.div>
         </AnimatePresence>
+        </div>
 
         {/* Empty State */}
         {filteredCaseStudies.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-16 border border-gray-700/30 rounded-lg"
+            className="text-center py-16 border border-gray-700/30 rounded-lg mx-6 sm:mx-8"
           >
             <p className="text-gray-400 text-lg">
               No case studies found for this category.
@@ -249,5 +227,3 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
 };
 
 export default CaseStudiesGrid;
-
-// Made with Bob

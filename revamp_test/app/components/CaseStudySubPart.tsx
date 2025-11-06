@@ -18,7 +18,7 @@ const caseStudies: CaseStudy[] = [
       'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace, reducing cannibalization, and prioritizing high-yield catchments.',
       'The coffee chain was able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
     ],
-    image: 'https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif'
+    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif'
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ const caseStudies: CaseStudy[] = [
       'A Product Recommendation Module that fused first-party sales with Digital Atlas signals to estimate true SKU potential per outlet and guide real-time conversations.',
       'Equipped field reps with outlet-specific, real-world aware SKU recommendations and AI-generated pitches in Bahasa to support on-the-spot selling.'
     ],
-    image: 'https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif'
+    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif'
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ const caseStudies: CaseStudy[] = [
       'Leveraged Digital Atlas to optimize existing store network and identify underperforming locations for repositioning or closure.',
       'Built predictive models to forecast store performance based on catchment area characteristics and competitive landscape dynamics.'
     ],
-    image: 'https://media.giphy.com/media/3o7buirYcmV5nSwIRW/giphy.gif'
+    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif'
   }
 ];
 
@@ -70,15 +70,31 @@ const CaseStudySubPart = () => {
   };
 
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden bg-[#0b0e14]">
-      {/* Grid pattern background matching Industries section */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 opacity-20"
-             style={{
-               backgroundImage: 'linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)',
-               backgroundSize: '80px 80px'
-             }}>
-        </div>
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-[#0a0a0a]">
+      {/* Background Elements - Glowing Grid Pattern */}
+      <div className="absolute inset-0 bg-[#0a0a0a] z-0">
+        {/* Grid lines with glow */}
+        <div 
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(100, 200, 255, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+            filter: 'blur(0.5px)'
+          }}
+        />
+        
+        {/* Intersection dots */}
+        <div 
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
+            backgroundSize: '80px 80px',
+            filter: 'blur(1px)'
+          }}
+        />
       </div>
 
       {/* Navigation Arrows */}
