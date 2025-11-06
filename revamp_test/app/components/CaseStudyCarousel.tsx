@@ -238,8 +238,8 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
               onMouseEnter={() => !isMobile && isActive && setIsPaused(true)}
               onMouseLeave={() => !isMobile && isActive && setIsPaused(false)}
             >
-              <div className="w-full rounded-lg md:rounded-xl overflow-hidden shadow-2xl transition-shadow">
-                <div className="relative w-full bg-slate-900 text-white">
+              <div className="w-full rounded-lg md:rounded-xl overflow-hidden shadow-2xl transition-shadow border-[0.5px] border-teal-500/30 hover:border-teal-400/50 animated-teal-border">
+                <div className="relative w-full bg-black text-white">
                   <img 
                     src={study.imageUrl} 
                     alt={`${study.title} case study`}

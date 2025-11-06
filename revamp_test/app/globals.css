@@ -43,8 +43,8 @@ body,
 
   :root {
     /* Core shadcn/ui variables */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 0%;
+    --foreground: 210 40% 98%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -136,16 +136,16 @@ body,
 
   /* Light mode colors */
   .light {
-    @apply bg-slate-50 text-slate-900;
-    --background: 0 0% 100%;
+    @apply bg-black text-white;
+    --background: 0 0% 0%;
     --foreground: 222.2 47.4% 11.2%;
   }
 
   /* Dark mode colors */
   .dark {
-    @apply bg-slate-950 text-slate-100;
+    @apply bg-black text-white;
     /* Core shadcn/ui variables */
-    --background: 222.2 84% 4.9%;
+    --background: 0 0% 0%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;

@@ -40,7 +40,7 @@ export default function ThemeTestPage() {
       <div className="container mx-auto px-4 py-8 space-y-8">
         {/* Theme Controls */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Theme Controls</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Theme Controls</h2>
           <div className="flex flex-wrap gap-2">
             {(['light', 'dark', 'system'] as const).map((themeOption) => (
               <button
@@ -60,7 +60,7 @@ export default function ThemeTestPage() {
 
         {/* Color Palette */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Color Palette</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Color Palette</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { name: 'Background', class: 'bg-background', text: 'text-foreground' },
@@ -87,7 +87,7 @@ export default function ThemeTestPage() {
 
         {/* Buttons */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Buttons</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Buttons</h2>
           <div className="flex flex-wrap gap-4">
             <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
               Primary Button
@@ -115,10 +115,10 @@ export default function ThemeTestPage() {
 
         {/* Form Elements */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Form Elements</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Form Elements</h2>
           <form className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-1">
                 Name
               </label>
               <input
@@ -133,7 +133,7 @@ export default function ThemeTestPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-1">
                 Email
               </label>
               <input
@@ -148,7 +148,7 @@ export default function ThemeTestPage() {
             </div>
 
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="category" className="block text-sm font-semibold text-foreground mb-1">
                 Category
               </label>
               <select
@@ -166,7 +166,7 @@ export default function ThemeTestPage() {
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="message" className="block text-sm font-semibold text-foreground mb-1">
                 Message
               </label>
               <textarea
@@ -198,7 +198,7 @@ export default function ThemeTestPage() {
 
         {/* Cards and Content */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Cards and Content</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Cards and Content</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-surface border border-outline rounded-lg p-4">
               <h3 className="font-semibold text-on-surface mb-2">Surface Card</h3>
@@ -217,7 +217,7 @@ export default function ThemeTestPage() {
 
         {/* Teal Theme Elements */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Teal Theme Elements</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Teal Theme Elements</h2>
           <div className="space-y-4">
             <div className="flex flex-wrap gap-2">
               {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
@@ -241,7 +241,7 @@ export default function ThemeTestPage() {
 
         {/* Accessibility Features */}
         <section className="bg-card border border-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground">Accessibility Features</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground">Accessibility Features</h2>
           <div className="space-y-4">
             <div className="p-4 border border-border rounded-md">
               <h3 className="font-medium mb-2">Focus Indicators</h3>
@@ -268,7 +268,7 @@ export default function ThemeTestPage() {
 
         {/* Print Styles Test */}
         <section className="bg-card border border-border rounded-lg p-6 print:bg-white print:text-black">
-          <h2 className="text-xl font-semibold mb-4 text-card-foreground print:text-black">Print Styles</h2>
+        <h2 className="text-xl font-bold mb-4 text-card-foreground print:text-black">Print Styles</h2>
           <p className="text-muted-foreground print:text-gray-700">
             This section demonstrates print-friendly styles. Use your browser's print preview to test.
           </p>

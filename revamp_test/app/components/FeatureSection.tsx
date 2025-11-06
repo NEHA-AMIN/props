@@ -45,8 +45,31 @@ const DigitalAtlasAccessSection = () => {
 
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden bg-black">
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 border-y border-slate-900 dark:border-slate-800"></div>
+      {/* Subtle grid pattern background (exactly matching CaseStudySubPart) */}
+      <div className="absolute inset-0 bg-black z-0">
+        {/* Grid lines with glow */}
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              `linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
+               linear-gradient(to bottom, rgba(100, 200, 255, 0.3) 1px, transparent 1px)`,
+            backgroundSize: '80px 80px',
+            filter: 'blur(0.5px)'
+          }}
+        />
+        {/* Intersection dots */}
+        <div
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
+            backgroundSize: '80px 80px',
+            filter: 'blur(1px)'
+          }}
+        />
+      </div>
+      {/* Removed partition border overlay */}
       
       <div className="relative z-10 container mx-auto px-6">
         {/* Section Title */}
@@ -67,7 +90,7 @@ const DigitalAtlasAccessSection = () => {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className="relative bg-slate-900/50 border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-all duration-300 group"
+              className="relative bg-black border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-all duration-300 group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

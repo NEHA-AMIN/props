@@ -4,15 +4,37 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ThemeToggle from './ThemeToggle';
+import { usePathname } from 'next/navigation';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const pathname = usePathname();
+
+  React.useEffect(() => {
+    const onScroll = () => {
+      // Show navbar once user has scrolled from the very top
+      setIsVisible(window.scrollY > 0);
+    };
+
+    // Initialize visibility state on mount
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  // Only hide the navbar on the homepage until the user scrolls
+  if (pathname === '/' && !isVisible) {
+    return null;
+  }
+
   return (
-    <nav className="fixed top-4 left-4 right-4 z-[100] bg-slate-900/70 backdrop-blur-md border border-slate-700/30 rounded-xl shadow-lg transition-colors duration-300">
+    <nav className="fixed top-4 left-4 right-4 z-[100] bg-black backdrop-blur-md border border-white/10 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-colors duration-300">
+      {/* Frosted glass subtle overlay */}
+      <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-white/10 via-white/5 to-transparent opacity-10" />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-end items-center h-16 gap-12">
           {/* Logo Section */}
@@ -96,8 +118,8 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu Panel */}
       <div
         className={`fixed top-[calc(4rem+1px)] right-4 w-64 md:hidden z-[100]
-          bg-slate-800/95 backdrop-blur-md
-          border border-slate-700/30 rounded-lg shadow-lg
+          bg-black backdrop-blur-md
+          border border-white/10 rounded-lg shadow-lg
           transform transition-all duration-300 ease-in-out origin-top-right
           ${
             isMenuOpen

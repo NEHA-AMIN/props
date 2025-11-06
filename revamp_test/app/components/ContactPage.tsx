@@ -174,7 +174,7 @@ export default function ContactPage() {
               >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8"> 
               <div className="space-y-2"> 
-                <label htmlFor="name" className="block text-sm font-medium text-slate-300">Full Name <span className="text-teal-500">*</span></label> 
+      <label htmlFor="name" className="block text-sm font-semibold text-slate-300">Full Name <span className="text-teal-500">*</span></label>
                 <div className="relative"> 
                   <input 
                     type="text" 
@@ -191,7 +191,7 @@ export default function ContactPage() {
               </div> 
 
               <div className="space-y-2"> 
-                <label htmlFor="email" className="block text-sm font-medium text-slate-300">Email Address <span className="text-teal-500">*</span></label> 
+      <label htmlFor="email" className="block text-sm font-semibold text-slate-300">Email Address <span className="text-teal-500">*</span></label>
                 <div className="relative"> 
                   <input 
                     type="email" 
@@ -208,7 +208,7 @@ export default function ContactPage() {
             </div> 
 
             <div className="space-y-2 mb-8"> 
-              <label htmlFor="company" className="block text-sm font-medium text-slate-300">Company</label> 
+      <label htmlFor="company" className="block text-sm font-semibold text-slate-300">Company</label>
               <div className="relative"> 
                 <input 
                   type="text" 
@@ -223,7 +223,7 @@ export default function ContactPage() {
             </div> 
 
             <div className="space-y-2 mb-10"> 
-              <label htmlFor="message" className="block text-sm font-medium text-slate-300">Message <span className="text-teal-500">*</span></label> 
+      <label htmlFor="message" className="block text-sm font-semibold text-slate-300">Message <span className="text-teal-500">*</span></label>
               <div className="relative"> 
                 <textarea 
                   id="message" 

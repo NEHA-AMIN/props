@@ -121,7 +121,7 @@ const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPro
         {shinyContent}
         <span className={variant === 'shiny' ? 'relative z-10 flex items-center gap-2' : 'flex items-center gap-2'}>
           {icon && iconPosition === 'left' && icon}
-          {children && <span className={variant === 'shiny' ? 'text-white uppercase tracking-wider font-bold' : ''}>{children}</span>}
+          {children && <span className={variant === 'shiny' ? 'text-white uppercase tracking-wider font-semibold' : ''}>{children}</span>}
           {icon && iconPosition === 'right' && icon}
         </span>
       </>

@@ -9,9 +9,6 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -179,3 +176,34 @@ body {
   50% { transform: scale(1.08); filter: drop-shadow(0 0 6px rgba(34,211,238,0.6)); }
 }
 .stream-dot { animation: dotPulse 3.2s ease-in-out infinite; }
+
+/* Animated teal border ring for cards */
+.animated-teal-border {
+  position: relative;
+}
+.animated-teal-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* ring thickness */
+  background: conic-gradient(from 0deg,
+    rgba(45, 212, 191, 0.6),
+    rgba(6, 182, 212, 0.6),
+    rgba(45, 212, 191, 0.6)
+  );
+  /* Show only the ring using masking */
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: blur(0.6px);
+  opacity: 0.35;
+  animation: teal-border-rotate 14s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes teal-border-rotate {
+  to { transform: rotate(360deg); }
+}

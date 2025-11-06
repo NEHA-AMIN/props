@@ -109,19 +109,11 @@ const config: Config = {
   		fontFamily: {
   			sans: [
   				'Inter',
-  				'-apple-system',
-  				'BlinkMacSystemFont',
-  				'Segoe UI',
-  				'Roboto',
-  				'Helvetica Neue',
-  				'Arial',
+  				'system-ui',
   				'sans-serif'
   			],
   			mono: [
   				'JetBrains Mono',
-  				'Fira Code',
-  				'Monaco',
-  				'Courier New',
   				'monospace'
   			]
   		},

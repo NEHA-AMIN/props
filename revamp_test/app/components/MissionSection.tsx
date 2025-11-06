@@ -6,10 +6,31 @@ import { motion } from 'framer-motion';
 const MissionSection: React.FC = () => {
   return (
     <section className="relative py-24 sm:py-32 bg-black">
-      {/* Bottom border line */}
-      <div className="absolute bottom-0 left-0 w-full h-px bg-slate-800"></div>
+      {/* Subtle grid background overlay (matching CaseStudySubPart) */}
+      <div className="absolute inset-0 bg-black z-0">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              `linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
+               linear-gradient(to bottom, rgba(100, 200, 255, 0.3) 1px, transparent 1px)`,
+            backgroundSize: '80px 80px',
+            filter: 'blur(0.5px)'
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
+            backgroundSize: '80px 80px',
+            filter: 'blur(1px)'
+          }}
+        />
+      </div>
+      {/* Removed section divider line */}
       
-      <div className="container mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
           {/* Left column - Heading */}
           <motion.div

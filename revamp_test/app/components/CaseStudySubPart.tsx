@@ -59,20 +59,20 @@ const CaseStudySubPart = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev + 1) % caseStudies.length);
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 400);
   };
 
   const handlePrev = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
-    setTimeout(() => setIsTransitioning(false), 500);
+    setTimeout(() => setIsTransitioning(false), 400);
   };
 
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden bg-[#0a0a0a]">
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-black">
       {/* Background Elements - Glowing Grid Pattern */}
-      <div className="absolute inset-0 bg-[#0a0a0a] z-0">
+      <div className="absolute inset-0 bg-black z-0">
         {/* Grid lines with glow */}
         <div 
           className="absolute inset-0 opacity-40"
@@ -97,28 +97,9 @@ const CaseStudySubPart = () => {
         />
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="absolute top-8 right-8 z-20 flex gap-3">
-        <button
-          onClick={handlePrev}
-          disabled={isTransitioning}
-          className="group p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:bg-gray-700/50 hover:border-gray-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          aria-label="Previous case study"
-        >
-          <ChevronLeft className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={isTransitioning}
-          className="group p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:bg-gray-700/50 hover:border-gray-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          aria-label="Next case study"
-        >
-          <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
-        </button>
-      </div>
 
       <div 
-        className={`relative z-10 max-w-7xl mx-auto px-8 transition-opacity duration-500 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+        className={`relative z-10 max-w-7xl mx-auto px-8 transition-opacity duration-100 ease-linear ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
       >
         <div className="flex flex-col lg:flex-row items-start justify-between gap-16">
           
@@ -141,6 +122,26 @@ const CaseStudySubPart = () => {
                   {para}
                 </p>
               ))}
+            </div>
+
+            {/* Navigation Arrows moved below description (left column) */}
+            <div className="mt-8 flex gap-3">
+              <button
+                onClick={handlePrev}
+                disabled={isTransitioning}
+                className="group p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:bg-gray-700/50 hover:border-gray-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Previous case study"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={isTransitioning}
+                className="group p-3 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:bg-gray-700/50 hover:border-gray-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Next case study"
+              >
+                <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+              </button>
             </div>
           </div>
           {/* Right: Image */}
