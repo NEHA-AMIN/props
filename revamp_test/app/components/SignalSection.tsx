@@ -60,13 +60,13 @@ const SignalSection: React.FC = () => {
         <div className="mx-auto text-center max-w-3xl">
           {/* Animated Headline with SplitText */}
           {hasAnimated ? (
-            <h4 className="text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight">
+            <h4 className="text-4xl md:text-5xl font-bold italic text-white dark:text-white tracking-tight">
               Subscribe to The Signal
             </h4>
           ) : (
             <SplitText
               text="Subscribe to The Signal"
-              className="text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight"
+              className="text-4xl md:text-5xl font-normal text-white dark:text-white tracking-tight"
               delay={20}
               duration={0.4}
               ease="power2.out"
@@ -83,17 +83,17 @@ const SignalSection: React.FC = () => {
 
           {/* Description */}
           <motion.p
-            className="mt-6 text-lg md:text-xl text-gray-200 dark:text-gray-200 leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ 
-              opacity: 1, 
-              y: 0,
-              transition: { duration: 0.4, delay: hasAnimated ? 0 : 0.5, ease: "easeOut" }
-            }}
-            viewport={{ once: true }}
-          >
-            Our exclusive monthly Physical AI briefing. We dissect emerging geospatial trends, deconstruct successful enterprise strategies, and deliver the critical insights that will define the next decade of Physical AI.
-          </motion.p>
+  className="mt-6 text-lg md:text-xl font-normal italic text-gray-200 dark:text-gray-200 leading-relaxed"
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4, delay: hasAnimated ? 0 : 0.5, ease: "easeOut" }
+  }}
+  viewport={{ once: true }}
+>
+  Our exclusive <span className="font-bold">Newsletter</span>. We dissect emerging geospatial trends, deconstruct successful enterprise strategies, and deliver the critical insights that will define the next decade of Physical AI.
+</motion.p>
 
           {/* Form: single elegant line with integrated button */}
           <motion.form
@@ -111,7 +111,7 @@ const SignalSection: React.FC = () => {
               <input
                 type="email"
                 aria-label="Email address"
-                placeholder="Your Strategic Edge Awaits..."
+                placeholder="Enter your email"
                 className="flex-1 bg-transparent text-slate-900 dark:text-slate-200 placeholder-slate-500 dark:placeholder-slate-500 px-6 py-4 outline-none"
                 required
               />

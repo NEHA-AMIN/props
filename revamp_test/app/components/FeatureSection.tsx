@@ -1,9 +1,31 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView, cubicBezier } from 'framer-motion';
 
 const DigitalAtlasAccessSection = () => {
+  // Split-text heading animation setup
+  const headingRef = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(headingRef, { amount: 0.3 });
+
+  const titleText = 'How can you access the Digital Atlas?';
+  const letters = titleText.split('');
+  const tealStart = titleText.indexOf('Digital Atlas');
+  const tealEnd = tealStart + 'Digital Atlas'.length;
+
+  const letterVariants = {
+    hidden: { opacity: 0, x: 40, scaleX: 0.3 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      scaleX: 1,
+      transition: {
+        duration: 0.8,
+        delay: i * 0.025,
+        ease: cubicBezier(0.19, 1, 0.22, 1),
+      },
+    }),
+  };
   const steps = [
     {
       number: "01",
@@ -73,17 +95,23 @@ const DigitalAtlasAccessSection = () => {
       
       <div className="relative z-10 container mx-auto px-6">
         {/* Section Title */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            How can you access the <span className="text-teal-500">Digital Atlas</span>?
+        <div ref={headingRef} className="text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl font-normal italic mb-4">
+            {letters.map((ch, i) => (
+              <motion.span
+                key={i}
+                custom={i}
+                initial="hidden"
+                animate={inView ? 'visible' : 'hidden'}
+                variants={letterVariants}
+                className={`${i >= tealStart && i < tealEnd ? 'text-teal-500' : 'text-white'} inline-block`}
+                style={{ display: 'inline-block' }}
+              >
+                {ch === ' ' ? '\u00A0' : ch}
+              </motion.span>
+            ))}
           </h2>
-        </motion.div>
+        </div>
 
         {/* Four Column Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -109,7 +137,7 @@ const DigitalAtlasAccessSection = () => {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-white text-center leading-snug min-h-[3.5rem] flex items-center justify-center">
+              <h3 className="text-xl font-bold italic text-white text-center leading-snug min-h-[3.5rem] flex items-center justify-center">
                 {step.title}
               </h3>
 

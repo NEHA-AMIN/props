@@ -211,8 +211,7 @@ const INDUSTRIES: Record<IndustryKey, IndustryContent> = {
       'Physical Observability (for stores)',
       'Site Selection',
       'Demand Planning',
-      'Product Recommendation',
-      'Promotion Recommendation'
+      // Promotion Recommendation removed per request
     ],
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -228,7 +227,6 @@ const INDUSTRIES: Record<IndustryKey, IndustryContent> = {
       'Market Potential',
       'Retailer Selection',
       'Demand Planning',
-      'Product Recommendation',
       'Promotion Recommendation'
     ],
     icon: (
@@ -320,7 +318,7 @@ const GlowingSemiCircle: React.FC = () => {
   return (
     <div ref={containerRef} className="relative w-full h-[200vh] overflow-hidden my-24">
       <motion.div 
-        className="absolute bottom-0 left-1/2 bg-slate-200 dark:bg-black rounded-t-full"
+        className="absolute bottom-0 left-1/2 bg-black rounded-t-full"
         style={{
           x: "-50%",
           width,
@@ -578,7 +576,7 @@ const IndustriesCardsSection: React.FC = () => {
   const industriesArray = Object.entries(INDUSTRIES) as [IndustryKey, IndustryContent][];
 
   return (
-    <section className="py-20 px-6">
+    <section className="py-20 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
           {industriesArray.map(([key, industry]) => (
@@ -605,10 +603,10 @@ const SectionHeader: React.FC<{title: string}> = ({ title }) => (
 
 export default function IndustriesPage() {
   return (
-    <main className="bg-slate-50 dark:bg-black text-slate-900 dark:text-slate-100">
+    <main className="bg-black text-slate-900 dark:text-slate-100">
       <ParticlesBackground />
 
-      <section className="relative isolate overflow-hidden py-24 sm:py-32">
+      <section className="relative isolate overflow-hidden py-24 sm:py-32 bg-black">
         <SectionHeader title="One Atlas. Tailored for Every World." />
       </section>
 

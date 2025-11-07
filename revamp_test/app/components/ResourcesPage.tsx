@@ -32,7 +32,7 @@ const HeroButton: React.FC<HeroButtonProps> = ({ label, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="group px-8 py-6 text-lg font-semibold backdrop-blur-md 
+      className="group px-8 py-6 text-lg font-normal italic backdrop-blur-md 
         bg-transparent hover:bg-gray-900/30 border border-teal-500/30 hover:border-teal-400/50
         text-white transition-all duration-300 rounded-full
         hover:shadow-md hover:shadow-teal-500/20 min-w-[220px]"
@@ -101,6 +101,8 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
       data-theme={mounted ? resolvedTheme : 'light'}
       data-theme-preference={mounted ? theme : 'system'}
     >
+      {/* Global grid overlay background (same as Industries hero) */}
+      <div className="home-grid-overlay absolute inset-0 z-0" />
       {/* Hero Section with Overlay Dropdowns */}
       <div className="relative">
         <BackgroundPaths title="Resources Hub" />
@@ -109,7 +111,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="container mx-auto px-4 md:px-6 text-center">
             {/* Buttons positioned below the title with more vertical spacing */}
-            <div className="mt-64 flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div className="mt-48 sm:mt-56 md:mt-64 lg:mt-72 flex flex-col sm:flex-row gap-6 justify-center items-center">
               {buttonCategories.map((category) => (
                 <HeroButton
                   key={category}
@@ -123,7 +125,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
       </div>
       
       {/* Main Content Section */}
-      <section className="relative bg-black transition-colors duration-500">
+      <section className="relative bg-black transition-colors duration-500 z-10">
         {/* <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 sm:py-24"> */}
           {/* Page Header - THIS IS WHAT YOU'RE LOOKING FOR */}
           {/* <motion.div
@@ -185,7 +187,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
 
         {/* Footer slot */}
         {footerSlot && (
-          <footer className="border-t border-gray-800 py-8 text-sm text-gray-300 transition-colors duration-500 bg-gray-900/50">
+          <footer className="py-8 text-sm text-gray-300 transition-colors duration-500 bg-gray-900/50">
             <div className="mx-auto max-w-7xl px-6 sm:px-8">
               {footerSlot}
             </div>

@@ -38,20 +38,8 @@ const resourcesData: Resource[] = [
     category: "Retail",
     image: "https://images.unsplash.com/photo-1532619187608-e5375cab36aa?q=80&w=1200&auto=format&fit=crop"
   },
-  {
-    id: "4",
-    title: "Product Recommendation",
-    description: "Recommend the right products for each store, shelf, and shopper by leveraging the Digital Atlas—hyperlocal demographics, footfall patterns, neighborhood trends, weather, events, seasonality, inventory and price signals—to boost conversion, basket size, and sellthrough across channels.",
-    category: "Retail",
-    image: "https://images.unsplash.com/photo-1585386959984-a415522316d6?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    id: "5",
-    title: "Promotion Recommendation",
-    description: "Recommend the right offers, timing, and channels for each store and audience by leveraging the Digital Atlas—hyperlocal demographics, footfall patterns, weather, events, competitor activity, price elasticity, and inventory signals—to maximize uplift, ROI, and sell-through while minimizing cannibalization.",
-    category: "Retail",
-    image: "https://images.unsplash.com/photo-1581091012184-7f8b7b88a6f3?q=80&w=1200&auto=format&fit=crop"
-  },
+  
+  
 
   // CPG resources
   {
@@ -75,20 +63,7 @@ const resourcesData: Resource[] = [
     category: "CPG",
     image: "https://images.unsplash.com/photo-1532619187608-e5375cab36aa?q=80&w=1200&auto=format&fit=crop"
   },
-  {
-    id: "9",
-    title: "Product Recommendation",
-    description: "Recommend the right SKUs, pack sizes, and flavors for each retailer, store, and channel by leveraging the Digital Atlas—shopper segments and basket affinities, local trend and seasonality, weather and events, promo/price elasticity, competitor presence, and inventory/margin signals—to optimize assortments, drive cross-sell/upsell, and lift velocity and contribution margin.",
-    category: "CPG",
-    image: "https://images.unsplash.com/photo-1585386959984-a415522316d6?q=80&w=1200&auto=format&fit=crop"
-  },
-  {
-    id: "10",
-    title: "Promotion Recommendation",
-    description: "Recommend the right offers, timing, mechanics, and channels for each retailer and store by leveraging the Digital Atlas—shopper segments and price elasticity, footfall and seasonality, weather/events, competitor promos, media buzz, and inventory constraints—to maximize incremental lift and ROI while minimizing cannibalization and trade spend waste.",
-    category: "CPG",
-    image: "https://images.unsplash.com/photo-1581091012184-7f8b7b88a6f3?q=80&w=1200&auto=format&fit=crop"
-  },
+  
 
   // Online to Offline resources
   {
@@ -128,13 +103,7 @@ const resourcesData: Resource[] = [
     category: "Travel",
     image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1200&auto=format&fit=crop"
   },
-  {
-    id: "16",
-    title: "Personalized Discovery & Recommendations",
-    description: "Surfacing contextual signals like neighborhood vibe, proximity to experiences, and real-time demand to match travelers with the right destinations and stays earlier in their journey.",
-    category: "Travel",
-    image: "https://images.unsplash.com/photo-1520637836862-4d197d17c669?q=80&w=1200&auto=format&fit=crop"
-  },
+  
   {
     id: "17",
     title: "Dynamic Pricing & Bundling",
@@ -165,13 +134,7 @@ const resourcesData: Resource[] = [
     category: "FinTech",
     image: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?q=80&w=1200&auto=format&fit=crop"
   },
-  {
-    id: "21",
-    title: "Personalization",
-    description: "Deliver hyper-targeted offers based on merchant categories and customer spending for increased engagement.",
-    category: "FinTech",
-    image: "https://images.unsplash.com/photo-1520637736862-4d197d17c669?q=80&w=1200&auto=format&fit=crop"
-  },
+  
 
   // Real Estate resources
   {
@@ -232,32 +195,20 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
       className="group"
     >
       <div
-        className="relative aspect-square rounded-2xl overflow-hidden shadow-lg shadow-black/20 transition-all duration-500 ease-in-out
-        group-hover:shadow-xl group-hover:shadow-[#00a39a]/20 group-hover:scale-[1.02]"
+        className="relative aspect-square rounded-2xl overflow-hidden transition-all duration-500 ease-in-out
+        bg-black/40 backdrop-blur-md border border-white/10 hover:bg-black/50 hover:scale-[1.02] shadow-lg shadow-black/30 hover:shadow-teal-500/10"
       >
-        {/* Background Image with Gradient Overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out group-hover:scale-[1.08] group-hover:filter group-hover:brightness-75"
-          style={{
-            backgroundImage: `url(${resource.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        />
-        
-        {/* Gradient Overlay - Enhanced on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-500" />
         
         {/* Category Badge - Show for all cards */}
         <div className="absolute top-4 left-4 z-10">
-          <span className="inline-block bg-blue-900/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm">
+          <span className="inline-block bg-teal-600/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm">
             {resource.category}
           </span>
         </div>
         
         {/* Learn More Button - Bottom Right Corner */}
         <div className="absolute bottom-6 right-6 z-20">
-          <span className="inline-block bg-blue-900/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-blue-800/90 transition-colors duration-200">
+          <span className="inline-block bg-teal-600/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-teal-500/90 transition-colors duration-200">
             Learn More
           </span>
         </div>
@@ -281,24 +232,24 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
   );
 };
 
-// Filter Categories
-const categories = ["All", "Retail", "CPG", "Online to Offline", "Travel", "FinTech", "Real Estate", "Telecom"];
+// Filter Categories (removed 'All')
+const categories = ["Retail", "CPG", "Online to Offline", "Travel", "FinTech", "Real Estate", "Telecom"];
 
 export const NewIndustriesPage: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [filteredResources, setFilteredResources] = useState(resourcesData);
+  const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const [filteredResources, setFilteredResources] = useState(
+    resourcesData.filter(resource => resource.category === categories[0])
+  );
   
   // Filter resources when category changes
   useEffect(() => {
-    if (activeCategory === "All") {
-      setFilteredResources(resourcesData);
-    } else {
-      setFilteredResources(resourcesData.filter(resource => resource.category === activeCategory));
-    }
+    setFilteredResources(
+      resourcesData.filter(resource => resource.category === activeCategory)
+    );
   }, [activeCategory]);
 
   return (
-    <div className="min-h-screen bg-[#0b0e14] text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="relative py-32 md:py-40 overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -311,7 +262,7 @@ export const NewIndustriesPage: React.FC = () => {
             </div>
             
             {/* Heading */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal italic mb-8 leading-tight">
               <div className="text-white">Real-world intelligence</div>
               <div className="flex items-center justify-center">
                 <span className="text-white">across</span>
@@ -320,37 +271,16 @@ export const NewIndustriesPage: React.FC = () => {
             </h1>
             
             {/* Subheading */}
-            <p className="text-[#a0a7b1] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            <p className="text-[#a0a7b1] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal italic">
               From Retail to Automotive, Propheus empowers data teams to effortlessly confront age-old and emerging business challenges through our end to end solutions.
             </p>
           </div>
         </div>
         
-        {/* Background Elements - Glowing Grid Pattern */}
-        <div className="absolute inset-0 bg-[#0a0a0a] z-0">
-          {/* Grid lines with glow */}
-          <div 
-            className="absolute inset-0 opacity-40"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(100, 200, 255, 0.3) 1px, transparent 1px)
-              `,
-              backgroundSize: '80px 80px',
-              filter: 'blur(0.5px)'
-            }}
-          />
-          
-          {/* Intersection dots */}
-          <div 
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
-              backgroundSize: '80px 80px',
-              filter: 'blur(1px)'
-            }}
-          />
-        </div>
+        {/* Background - Pure Black (base) */}
+        <div className="absolute inset-0 bg-black z-0" />
+        {/* Grid overlay updated to match home page reference */}
+        <div className="home-grid-overlay absolute inset-0 z-0" />
       </section>
       
       {/* Filter Tabs */}

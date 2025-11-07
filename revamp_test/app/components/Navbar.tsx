@@ -32,9 +32,9 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="fixed top-4 left-4 right-4 z-[100] bg-black backdrop-blur-md border border-white/10 rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-colors duration-300">
-      {/* Frosted glass subtle overlay */}
-      <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-white/10 via-white/5 to-transparent opacity-10" />
+    <nav className="fixed top-4 left-4 right-4 z-[100] rounded-3xl border border-white/10 bg-black/30 backdrop-blur-md shadow-lg transition-colors duration-300">
+      {/* Removed glass glow overlay - no more green patches */}
+      
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-end items-center h-16 gap-12">
           {/* Logo Section */}
@@ -52,9 +52,6 @@ const Navbar: React.FC = () => {
                   />
                 </div>
               </div>
-              {/* <div className="text-xs text-slate-400 font-light ml-1 transition-opacity duration-200 group-hover:opacity-80">
-                by Evam Labs
-              </div> */}
             </Link>
           </div>
 
@@ -63,7 +60,6 @@ const Navbar: React.FC = () => {
             {[
               { name: 'Industries', href: '/industries' },
               { name: 'Resources', href: '/resources' },
-              // { name: 'About', href: '/about' },
               { name: 'Contact', href: '/contact' },
             ].map((link) => (
               <Link
@@ -77,14 +73,6 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
           </div>
-
-          {/* Theme Toggle & CTA (Desktop)
-          <div className="hidden md:flex items-center gap-4">
-            <ThemeToggle />
-            <button className="bg-transparent border border-slate-400 dark:border-slate-500 hover:border-primary-400 hover:bg-slate-200 dark:hover:bg-slate-800/30 text-slate-700 dark:text-slate-300 hover:text-primary-500 dark:hover:text-white font-normal px-5 py-2 rounded-md transition-all duration-200 text-sm">
-              Try Propheus
-            </button>
-          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
@@ -118,8 +106,8 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu Panel */}
       <div
         className={`fixed top-[calc(4rem+1px)] right-4 w-64 md:hidden z-[100]
-          bg-black backdrop-blur-md
-          border border-white/10 rounded-lg shadow-lg
+          bg-black/30 backdrop-blur-md
+          border border-white/10 rounded-2xl shadow-lg
           transform transition-all duration-300 ease-in-out origin-top-right
           ${
             isMenuOpen
@@ -131,20 +119,19 @@ const Navbar: React.FC = () => {
           {[
             { name: 'Industries', href: '/industries' },
             { name: 'Resources', href: '/resources' },
-            // { name: 'About', href: '/about' },
             { name: 'Contact', href: '/contact' },
           ].map((link) => (
             <Link
               key={link.name}
               href={link.href}
               onClick={closeMenu}
-              className="block px-4 py-2 text-base text-slate-300 hover:text-primary-300 hover:bg-slate-700/50 rounded-lg transition-all duration-200"
+              className="block px-4 py-2 text-base text-slate-300 hover:text-primary-300 hover:bg-slate-700/40 rounded-lg transition-all duration-200"
             >
               {link.name}
             </Link>
           ))}
-          <div className="pt-2 border-t border-slate-700/30">
-            <button className="w-full px-4 py-2 text-base text-primary-400 hover:text-primary-300 bg-slate-700/30 hover:bg-slate-700/50 rounded-lg transition-all duration-200">
+          <div className="pt-2 border-t border-white/10">
+            <button className="w-full px-4 py-2 text-base text-primary-400 hover:text-primary-300 bg-slate-700/30 hover:bg-slate-700/40 rounded-lg transition-all duration-200 border border-white/10">
               Try Propheus
             </button>
           </div>
