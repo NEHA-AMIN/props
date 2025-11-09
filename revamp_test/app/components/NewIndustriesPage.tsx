@@ -19,7 +19,7 @@ const resourcesData: Resource[] = [
     id: "1",
     title: "Physical Observability",
     description:
-      "View every store and its competitive context on a live map. Drill into any location for a rich profile—store facts, neighbourhood signals (footfall, income, anchors), and social buzz—to surface gaps, threats, and opportunities.",
+      "View every store and its competitive context on a live map. Drill into any location for a rich profile—store facts, neighbourhood signals (footfall, income, anchors).",
     category: "Retail",
     image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -268,29 +268,29 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
         
         {/* Category Badge - Show for all cards */}
-        <div className="absolute top-4 left-4 z-20">
-          <span className="inline-block bg-teal-600/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm">
+        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-20">
+          <span className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm">
             {resource.category}
           </span>
         </div>
         
         {/* Learn More Button - Bottom Right Corner */}
-        <div className="absolute bottom-6 right-6 z-30">
-          <span className="inline-block bg-teal-600/80 text-white text-xs font-medium px-2.5 py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-teal-500/90 transition-colors duration-200">
+        <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 lg:bottom-6 lg:right-6 z-30">
+          <span className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-teal-500/90 transition-colors duration-200">
             Learn More
           </span>
         </div>
         
         {/* Content Container with Slide-Up Animation */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 pr-28 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-4 z-20">
+        <div className="absolute bottom-0 left-0 right-0 p-3 pr-14 sm:p-4 sm:pr-20 md:p-5 md:pr-24 lg:p-6 lg:pr-28 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-2 sm:group-hover:-translate-y-4 z-20">
           {/* Title - Slides up with description */}
-          <h3 className="text-2xl font-bold text-white mb-3 transition-all duration-500 ease-in-out">
+          <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3 transition-all duration-500 ease-in-out leading-tight">
             {resource.title}
           </h3>
           
           {/* Description - Slides up from bottom on hover */}
-          <div className="max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:max-h-48">
-            <p className="text-gray-200 text-sm leading-relaxed opacity-0 transform translate-y-4 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0">
+          <div className="max-h-0 overflow-hidden transition-all duration-500 ease-in-out group-hover:max-h-32 sm:group-hover:max-h-40 lg:group-hover:max-h-48">
+            <p className="text-gray-200 text-[10px] sm:text-xs md:text-xs lg:text-sm leading-relaxed opacity-0 transform translate-y-4 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0">
               {resource.description}
             </p>
           </div>
@@ -319,7 +319,7 @@ export default function NewIndustriesPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="relative py-32 md:py-40 overflow-hidden">
+      <section className="relative py-20 sm:py-32 md:py-40 overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             {/* Top Label */}
@@ -330,16 +330,16 @@ export default function NewIndustriesPage() {
             </div>
             
             {/* Heading */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal italic mb-8 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal italic mb-6 sm:mb-8 leading-tight">
               <div className="text-white">Real-world intelligence</div>
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center flex-wrap">
                 <span className="text-white">across</span>
-                <span className="text-[#00a39a] ml-4">Verticals</span>
+                <span className="text-[#00a39a] ml-2 sm:ml-4">Verticals</span>
               </div>
             </h1>
             
             {/* Subheading */}
-            <p className="text-[#a0a7b1] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal italic">
+            <p className="text-[#a0a7b1] text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal italic px-4">
               From Retail to Automotive, Propheus empowers data teams to effortlessly confront age-old and emerging business challenges through our end to end solutions.
             </p>
           </div>
@@ -380,10 +380,10 @@ export default function NewIndustriesPage() {
       </section>
       
       {/* Resources Grid */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 sm:py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
             key={activeCategory}
           >
             {filteredResources.map((resource) => (
