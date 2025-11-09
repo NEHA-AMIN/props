@@ -71,7 +71,7 @@ const DigitalAtlasAccessSection = () => {
       <div className="absolute inset-0 bg-black z-0">
         {/* Grid lines with glow */}
         <div
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-90"
           style={{
             backgroundImage:
               `linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
@@ -82,7 +82,7 @@ const DigitalAtlasAccessSection = () => {
         />
         {/* Intersection dots */}
         <div
-          className="absolute inset-0 opacity-60"
+          className="absolute inset-0 opacity-100"
           style={{
             backgroundImage:
               'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',

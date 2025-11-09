@@ -24,12 +24,13 @@ const DigitalAtlasSection = () => {
   const textY = useTransform(scrollYProgress, [0, 0.7], ['0vh', '-50vh']);
   
   // Left corner text appears after video is in place (after 50% scroll)
+  // Starts from middle (0), moves up (-300)
   const leftTextOpacity = useTransform(scrollYProgress, [0.5, 0.6, 0.7, 0.8], [0, 1, 1, 0]);
-  const leftTextY = useTransform(scrollYProgress, [0.5, 0.6, 0.7, 0.8], [100, 0, 0, -650]);
+  const leftTextY = useTransform(scrollYProgress, [0.5, 0.6, 0.7, 0.8], [0, 0, -50, -300]);
 
-  // Second text appears after first text disappears
-  const secondTextOpacity = useTransform(scrollYProgress, [0.88, 0.92, 0.96, 1], [0, 1, 1, 0]);
-  const secondTextY = useTransform(scrollYProgress, [0.88, 0.92, 0.96, 1], [100, 0, 0, -650]);
+  // Second text appears after first text disappears and stays in place
+  const secondTextOpacity = useTransform(scrollYProgress, [0.88, 0.92], [0, 1]);
+  const secondTextY = useTransform(scrollYProgress, [0.88, 0.92], [0, 0]);
 
   return (
     <section 
@@ -59,9 +60,9 @@ const DigitalAtlasSection = () => {
             y: videoY,
             opacity: videoOpacity
           }}
-          className="absolute inset-0 flex items-center justify-end pr-32 z-10"
+          className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-32 px-4 z-10"
         >
-          <div className="relative w-[60vw] h-[60vh] max-w-5xl">
+          <div className="relative w-[50vw] h-[15vh] sm:w-[55vw] sm:h-[25vh] md:w-[45vw] md:h-[30vh] lg:w-[55vw] lg:h-[50vh] xl:w-[60vw] xl:h-[60vh] max-w-5xl">
             <video
               className="w-full h-full object-cover rounded-lg shadow-2xl"
               autoPlay
@@ -81,13 +82,13 @@ const DigitalAtlasSection = () => {
             opacity: leftTextOpacity,
             y: leftTextY
           }}
-          className="absolute left-8 md:left-16 bottom-12 md:bottom-16 z-20 max-w-sm md:max-w-md"
+          className="absolute left-4 md:left-8 lg:left-16 bottom-16 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[80vw] sm:max-w-sm md:max-w-md"
         >
-          <div className="text-white space-y-4">
-            <h3 className="text-2xl md:text-3xl font-normal italic">
+          <div className="text-white space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal italic">
               Perceives the Physical World
             </h3>
-            <p className="text-lg md:text-xl text-gray-300 italic">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 italic">
               Context Aware AI Agents continuously curate real-world data
             </p>
           </div>
@@ -99,13 +100,13 @@ const DigitalAtlasSection = () => {
             opacity: secondTextOpacity,
             y: secondTextY
           }}
-          className="absolute left-8 md:left-16 bottom-12 md:bottom-16 z-20 max-w-md md:max-w-lg"
+          className="absolute left-4 md:left-8 lg:left-16 bottom-16 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[80vw] sm:max-w-md md:max-w-lg"
         >
-          <div className="text-white space-y-4">
-            <h3 className="text-2xl md:text-3xl font-normal italic">
+          <div className="text-white space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal italic">
               Fuses Real world Signals
             </h3>
-            <p className="text-lg md:text-xl text-gray-300 italic">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 italic">
               Like places, weather, people movement, demographics, and consumer sentiment - into comprehensive knowledge representation .
             </p>
           </div>

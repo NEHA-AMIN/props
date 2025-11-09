@@ -56,7 +56,7 @@ const MissionSection: React.FC = () => {
       {/* Subtle grid background overlay */}
       <div className="absolute inset-0 bg-black z-0">
         <div
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-90"
           style={{
             backgroundImage:
               `linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
@@ -66,7 +66,7 @@ const MissionSection: React.FC = () => {
           }}
         />
         <div
-          className="absolute inset-0 opacity-60"
+          className="absolute inset-0 opacity-100"
           style={{
             backgroundImage:
               'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
@@ -80,7 +80,7 @@ const MissionSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
           {/* Left column - Animated Heading */}
           <div className="md:col-span-3">
-            <h2 className="text-3xl md:text-4xl font-bold italic text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               {/* Animated letters */}
               {headingLetters.map((letter, index) => (
                 <motion.span

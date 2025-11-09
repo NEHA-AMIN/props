@@ -21,7 +21,7 @@ const caseStudies: CaseStudy[] = [
       'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace and prioritizing high-yield catchments.',
       'They were able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
     ],
-    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+    image: '/Case study 1.gif',
     metricValue: 23,
     metricLabel: 'more viable zones'
   },
@@ -32,7 +32,8 @@ const caseStudies: CaseStudy[] = [
       'A full-stack platform combining Digital Atlas + context-aware AI demand model enriched by store-specific embeddings.',
       'Thus we replaced old statistical methods to better learn SKU-level demand patterns, incorporating brand sentiments, neighborhood trends, and weather patterns.'
     ],
-    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+    // Use asset from public folder; Next.js expects root-relative path
+    image: '/Case study 2 .gif',
     metricValue: 15,
     metricLabel: 'revenue uplift'
   },
@@ -43,7 +44,7 @@ const caseStudies: CaseStudy[] = [
       'A Product Recommendation Module that fused first-party sales with Digital Atlas signals to estimate true SKU potential per outlet and guide real-time conversations.',
       'Equipped field reps with outlet-specific, real-world aware SKU recommendations and AI-generated pitches in Bahasa to support on-the-spot selling.'
     ],
-    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+    image: '/Case Study 3.gif',
     metricValue: 12,
     metricLabel: 'SKU sales lift'
   },
@@ -54,7 +55,8 @@ const caseStudies: CaseStudy[] = [
       'Leveraged Digital Atlas to optimize existing store network and identify underperforming locations for repositioning or closure.',
       'We built predictive models to forecast store performance based on catchment area characteristics and competitive landscape dynamics.'
     ],
-    image: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+    // Use local GIF from public folder for 4th case study
+    image: '/Case study 4.gif',
     metricValue: 8,
     metricLabel: ' optimization '
   }
@@ -109,7 +111,7 @@ const CaseStudySubPart = () => {
       <div className="absolute inset-0 bg-black z-0">
         {/* Grid lines with glow */}
         <div 
-          className="absolute inset-0 opacity-40"
+          className="absolute inset-0 opacity-90"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(100, 200, 255, 0.3) 1px, transparent 1px),
@@ -122,7 +124,7 @@ const CaseStudySubPart = () => {
         
         {/* Intersection dots */}
         <div 
-          className="absolute inset-0 opacity-60"
+          className="absolute inset-0 opacity-100"
           style={{
             backgroundImage: 'radial-gradient(circle at 0 0, rgba(120, 220, 255, 0.8) 2px, transparent 2px)',
             backgroundSize: '80px 80px',
