@@ -10,13 +10,16 @@ export type CaseStudy = {
   imageGradient: string;
   tagline?: string;
   href?: string;
+  type: 'Case Studies' | 'Use Cases' | 'Blogs';
 };
 
 export type CaseStudiesGridProps = {
   caseStudies?: CaseStudy[];
+  selectedType?: 'Case Studies' | 'Use Cases' | 'Blogs';
 };
 
 const defaultCaseStudies: CaseStudy[] = [
+  // Case Studies
   {
     id: "1",
     title: "From Routine Calls to Real Recovery: AI for Collections Teams",
@@ -26,6 +29,7 @@ const defaultCaseStudies: CaseStudy[] = [
     imageGradient: "from-blue-600 via-teal-600 to-blue-700",
     tagline: "Voice AI Agents\nFor Debt Collection",
     href: "https://www.example.com/case-studies/banking-debt-collection",
+    type: "Case Studies",
   },
   {
     id: "2",
@@ -36,6 +40,7 @@ const defaultCaseStudies: CaseStudy[] = [
     imageGradient: "from-green-500 via-lime-400 to-green-600",
     tagline: "Discover Products Faster\n& Shop Smarter with AI",
     href: "https://www.example.com/case-studies/retail-shopping-ai",
+    type: "Case Studies",
   },
   {
     id: "3",
@@ -46,36 +51,77 @@ const defaultCaseStudies: CaseStudy[] = [
     imageGradient: "from-blue-500 via-cyan-400 to-green-500",
     tagline: "Wellness Clients Qualified\nWhile Interest Is Hot",
     href: "https://www.example.com/case-studies/health-wellness-leads",
+    type: "Case Studies",
   },
+  
+  // Use Cases
   {
     id: "4",
-    title: "Nurix AI: Qualify Smarter, Enroll Faster",
-    category: "Education",
-    description: "Qualify Smarter Enroll Faster",
-    date: "August 4, 2025",
-    imageGradient: "from-blue-600 via-indigo-600 to-blue-700",
-    tagline: "Qualify Smarter\nEnroll Faster",
-    href: "https://www.example.com/case-studies/education-enrollment",
+    title: "AI-Powered Customer Service for E-Commerce",
+    category: "Retail",
+    description: "24/7 automated support handling 10,000+ queries daily",
+    date: "October 15, 2025",
+    imageGradient: "from-purple-600 via-pink-500 to-red-500",
+    tagline: "24/7 Customer Support\nAt Scale",
+    href: "https://www.example.com/use-cases/ecommerce-support",
+    type: "Use Cases",
   },
   {
     id: "5",
-    title: "How Nurix AI Streamlined Hiring for Airline Operations Staff",
-    category: "Recruitment",
-    description: "Hiring Ground Staff, Made Frictionless",
-    date: "August 5, 2025",
-    imageGradient: "from-teal-500 via-cyan-500 to-green-400",
-    tagline: "Hiring Ground Staff,\nMade Frictionless",
-    href: "https://www.example.com/case-studies/recruitment-airline",
+    title: "Predictive Maintenance for Manufacturing",
+    category: "CPG",
+    description: "Reducing downtime by 40% with AI predictions",
+    date: "October 10, 2025",
+    imageGradient: "from-orange-500 via-red-500 to-pink-600",
+    tagline: "Predict & Prevent\nEquipment Failures",
+    href: "https://www.example.com/use-cases/predictive-maintenance",
+    type: "Use Cases",
   },
   {
     id: "6",
-    title: "How Nurix AI Transformed FNOL Filing for Property & Casualty Insurance",
-    category: "Insurance",
-    description: "Filing a Claim, Made Effortless",
-    date: "July 30, 2025",
-    imageGradient: "from-blue-700 via-blue-600 to-indigo-700",
-    tagline: "Filing a Claim,\nMade Effortless",
-    href: "https://www.example.com/case-studies/insurance-fnol",
+    title: "Smart Inventory Management for Restaurants",
+    category: "O2O",
+    description: "Optimizing stock levels and reducing waste by 35%",
+    date: "October 5, 2025",
+    imageGradient: "from-yellow-500 via-orange-400 to-red-500",
+    tagline: "Zero Waste\nSmart Inventory",
+    href: "https://www.example.com/use-cases/restaurant-inventory",
+    type: "Use Cases",
+  },
+  
+  // Blogs
+  {
+    id: "7",
+    title: "The Future of AI in Retail: Trends for 2026",
+    category: "Retail",
+    description: "Exploring the latest AI innovations transforming retail experiences",
+    date: "November 1, 2025",
+    imageGradient: "from-cyan-500 via-blue-500 to-indigo-600",
+    tagline: "AI Trends\nShaping Retail",
+    href: "https://www.example.com/blog/ai-retail-trends-2026",
+    type: "Blogs",
+  },
+  {
+    id: "8",
+    title: "Building Conversational AI: Best Practices",
+    category: "Travel",
+    description: "A comprehensive guide to creating effective AI chatbots",
+    date: "October 28, 2025",
+    imageGradient: "from-teal-500 via-green-500 to-emerald-600",
+    tagline: "Master Conversational\nAI Design",
+    href: "https://www.example.com/blog/conversational-ai-guide",
+    type: "Blogs",
+  },
+  {
+    id: "9",
+    title: "How Physical AI is Revolutionizing Industries",
+    category: "CPG",
+    description: "Understanding the impact of AI on physical world interactions",
+    date: "October 20, 2025",
+    imageGradient: "from-indigo-600 via-purple-500 to-pink-500",
+    tagline: "Physical AI\nRevolution",
+    href: "https://www.example.com/blog/physical-ai-revolution",
+    type: "Blogs",
   },
 ];
 
@@ -115,18 +161,6 @@ const CaseStudyCard: React.FC<{
         isActive ? "z-50 scale-[1.01]" : "z-10"
       }`}
     >
-      {/* Spotlight overlay following cursor - dims and softly blurs edges */}
-      {isActive && (
-        <div
-          className="absolute inset-0 pointer-events-none z-30"
-          style={{
-            background: "rgba(0,0,0,0.25)",
-            backdropFilter: "blur(4px)",
-            WebkitBackdropFilter: "blur(4px)",
-            maskImage: `radial-gradient(280px circle at ${spotX}px ${spotY}px, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)`,
-          }}
-        />
-      )}
 
       <div className="h-full min-h-[420px] flex flex-col relative overflow-hidden">
         {/* Glass Background Section - transparent to let pure black show through */}
@@ -176,14 +210,33 @@ const CaseStudyCard: React.FC<{
 
 export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   caseStudies = defaultCaseStudies,
+  selectedType,
 }) => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
+  const [highlightScroll, setHighlightScroll] = useState(false);
 
+  // First filter by type (Case Studies, Use Cases, or Blogs)
+  const typeFilteredStudies = selectedType 
+    ? caseStudies.filter((study) => study.type === selectedType)
+    : [];
+
+  // Then filter by category (All, Retail, CPG, etc.)
   const filteredCaseStudies =
     activeFilter === "All"
-      ? caseStudies
-      : caseStudies.filter((study) => study.category === activeFilter);
+      ? typeFilteredStudies
+      : typeFilteredStudies.filter((study) => study.category === activeFilter);
+
+  // Handle category filter click
+  const handleCategoryClick = (category: string) => {
+    if (selectedType) {
+      setActiveFilter(category);
+    } else {
+      // Highlight the scroll up message
+      setHighlightScroll(true);
+      setTimeout(() => setHighlightScroll(false), 2000);
+    }
+  };
 
   return (
     <section className="relative bg-black py-16 sm:py-24 w-full">
@@ -196,17 +249,15 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16 px-6 sm:px-8"
         >
-          {/* Removed top divider line */}
-          
           {/* Filter Buttons */}
           <div className="overflow-x-auto pb-4 -mx-2">
             <div className="flex gap-5 justify-start md:justify-center min-w-max md:min-w-0 px-2">
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setActiveFilter(category)}
+                  onClick={() => handleCategoryClick(category)}
                   className={`min-w-[110px] px-4 py-3 rounded-full text-base font-normal italic transition-all duration-300 whitespace-nowrap ${
-                    activeFilter === category
+                    activeFilter === category && selectedType
                       ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30"
                       : "bg-gray-800/60 text-gray-300 hover:bg-gray-700/80 hover:text-white border border-gray-700/50"
                   }`}
@@ -216,57 +267,106 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
               ))}
             </div>
           </div>
-          
-          {/* Removed bottom divider line */}
         </motion.div>
 
         {/* Case Studies Grid with Gaps and Dividers */}
         <div className="px-6 sm:px-8 lg:px-12 relative">
-          {/* Backdrop blur overlay when hovering any card */}
-          <AnimatePresence>
-            {hoveredCardId && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="fixed inset-0 bg-black/40 backdrop-blur-md z-40 pointer-events-none"
-              />
-            )}
-          </AnimatePresence>
-          <AnimatePresence mode="wait">
+          {!selectedType ? (
+            /* Show message when no type is selected */
             <motion.div
-              key={activeFilter}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              transition={{ duration: 0.6 }}
+              className="text-center py-24"
             >
-            {filteredCaseStudies.map((study) => (
-              <CaseStudyCard
-                key={study.id}
-                study={study}
-                onHover={setHoveredCardId}
-                isActive={hoveredCardId === study.id}
-              />
-            ))}
-          </motion.div>
-        </AnimatePresence>
-        </div>
+              <div className="max-w-md mx-auto">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-teal-500/20 to-teal-600/20 border border-teal-500/30 flex items-center justify-center">
+                  <svg className="w-10 h-10 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  Select a Type to Get Started
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  Please choose one of the buttons above (Case Studies, Use Cases, or Blogs) to view relevant content.
+                </p>
+                <motion.div 
+                  className={`inline-flex items-center gap-3 text-teal-400 text-sm cursor-pointer group px-6 py-3 rounded-full transition-all duration-300 ${
+                    highlightScroll 
+                      ? 'border-2 border-teal-400 bg-teal-400/10 shadow-lg shadow-teal-500/30' 
+                      : 'border-2 border-transparent'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  animate={highlightScroll ? { 
+                    scale: [1, 1.1, 1],
+                  } : {}}
+                >
+                  <motion.svg 
+                    className="w-5 h-5 group-hover:text-teal-300" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                  </motion.svg>
+                  <span className="font-semibold group-hover:text-teal-300 transition-colors duration-200">Scroll up to select</span>
+                </motion.div>
+              </div>
+            </motion.div>
+          ) : (
+            <>
+              {/* Backdrop blur overlay when hovering any card */}
+              <AnimatePresence>
+                {hoveredCardId && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="fixed inset-0 bg-black/40 backdrop-blur-md z-40 pointer-events-none"
+                  />
+                )}
+              </AnimatePresence>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeFilter}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
+                  {filteredCaseStudies.map((study) => (
+                    <CaseStudyCard
+                      key={study.id}
+                      study={study}
+                      onHover={setHoveredCardId}
+                      isActive={hoveredCardId === study.id}
+                    />
+                  ))}
+                </motion.div>
+              </AnimatePresence>
 
-        {/* Empty State */}
-        {filteredCaseStudies.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16 border border-gray-700/30 rounded-lg mx-6 sm:mx-8"
-          >
-            <p className="text-gray-400 text-lg">
-              No case studies found for this category.
-            </p>
-          </motion.div>
-        )}
+              {/* Empty State */}
+              {filteredCaseStudies.length === 0 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center py-16 border border-gray-700/30 rounded-lg"
+                >
+                  <p className="text-gray-400 text-lg">
+                    No {selectedType.toLowerCase()} found for this category.
+                  </p>
+                </motion.div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </section>
   );

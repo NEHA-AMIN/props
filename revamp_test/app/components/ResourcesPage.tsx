@@ -26,18 +26,21 @@ export type ResourcesPageProps = {
 interface HeroButtonProps {
   label: string;
   onClick: () => void;
+  isActive: boolean;
 }
 
-const HeroButton: React.FC<HeroButtonProps> = ({ label, onClick }) => {
+const HeroButton: React.FC<HeroButtonProps> = ({ label, onClick, isActive }) => {
   return (
     <button
       onClick={onClick}
-      className="group px-8 py-6 text-lg font-normal italic backdrop-blur-md 
-        bg-transparent hover:bg-gray-900/30 border border-teal-500/30 hover:border-teal-400/50
-        text-white transition-all duration-300 rounded-full
-        hover:shadow-md hover:shadow-teal-500/20 min-w-[220px]"
+      className={`group px-8 py-6 text-lg font-normal italic backdrop-blur-md 
+        transition-all duration-300 rounded-full min-w-[220px]
+        ${isActive 
+          ? 'bg-teal-500 border-teal-400 text-white shadow-lg shadow-teal-500/30' 
+          : 'bg-transparent hover:bg-gray-900/30 border border-teal-500/30 hover:border-teal-400/50 text-white hover:shadow-md hover:shadow-teal-500/20'
+        }`}
     >
-      <span className="opacity-90 group-hover:opacity-100 transition-opacity capitalize">
+      <span className={`transition-opacity ${isActive ? 'opacity-100' : 'opacity-90 group-hover:opacity-100'} capitalize`}>
         {label}
       </span>
     </button>
@@ -71,6 +74,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   const { theme, resolvedTheme } = useTheme();
   const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [selectedType, setSelectedType] = useState<'Case Studies' | 'Use Cases' | 'Blogs' | undefined>(undefined);
 
   const buttonCategories = ['Case Studies', 'Use Cases', 'Blogs'];
 
@@ -91,8 +95,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   }, []);
 
   const handleButtonClick = (category: string) => {
-    console.log(`${category} clicked`);
-    // Add your navigation or filtering logic here
+    setSelectedType(category as 'Case Studies' | 'Use Cases' | 'Blogs');
   };
   
   return (
@@ -117,6 +120,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
                   key={category}
                   label={category}
                   onClick={() => handleButtonClick(category)}
+                  isActive={selectedType === category}
                 />
               ))}
             </div>
@@ -183,7 +187,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
         {/* </div> */}
 
         {/* Case Studies Grid Section */}
-        <CaseStudiesGrid />
+        <CaseStudiesGrid selectedType={selectedType} />
 
         {/* Footer slot */}
         {footerSlot && (

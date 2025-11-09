@@ -60,9 +60,9 @@ const DigitalAtlasSection = () => {
             y: videoY,
             opacity: videoOpacity
           }}
-          className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-32 px-4 z-10"
+          className="absolute inset-0 flex items-center justify-center md:justify-end md:pr-8 lg:pr-16 xl:pr-24 px-4 z-10"
         >
-          <div className="relative w-[50vw] h-[15vh] sm:w-[55vw] sm:h-[25vh] md:w-[45vw] md:h-[30vh] lg:w-[55vw] lg:h-[50vh] xl:w-[60vw] xl:h-[60vh] max-w-5xl">
+          <div className="relative w-[70vw] h-[20vh] sm:w-[65vw] sm:h-[28vh] md:w-[50vw] md:h-[35vh] lg:w-[48vw] lg:h-[45vh] xl:w-[50vw] xl:h-[55vh] max-w-4xl">
             <video
               className="w-full h-full object-cover rounded-lg shadow-2xl"
               autoPlay
@@ -82,13 +82,13 @@ const DigitalAtlasSection = () => {
             opacity: leftTextOpacity,
             y: leftTextY
           }}
-          className="absolute left-4 md:left-8 lg:left-16 bottom-16 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[80vw] sm:max-w-sm md:max-w-md"
+          className="absolute left-4 md:left-8 lg:left-12 xl:left-16 bottom-16 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[85vw] sm:max-w-[45vw] md:max-w-[38vw] lg:max-w-[35vw] xl:max-w-[32vw]"
         >
           <div className="text-white space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4">
-            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal italic">
+            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-normal italic leading-tight">
               Perceives the Physical World
             </h3>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 italic">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 italic leading-snug">
               Context Aware AI Agents continuously curate real-world data
             </p>
           </div>
@@ -100,14 +100,14 @@ const DigitalAtlasSection = () => {
             opacity: secondTextOpacity,
             y: secondTextY
           }}
-          className="absolute left-4 md:left-8 lg:left-16 bottom-16 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[80vw] sm:max-w-md md:max-w-lg"
+          className="absolute left-4 md:left-8 lg:left-12 xl:left-16 bottom-16 lg:top-1/2 lg:-translate-y-1/2 z-20 max-w-[85vw] sm:max-w-[45vw] md:max-w-[40vw] lg:max-w-[38vw] xl:max-w-[35vw]"
         >
           <div className="text-white space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4">
-            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal italic">
+            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-normal italic leading-tight">
               Fuses Real world Signals
             </h3>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 italic">
-              Like places, weather, people movement, demographics, and consumer sentiment - into comprehensive knowledge representation .
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 italic leading-snug">
+              Like places, weather, people movement, demographics, and consumer sentiment - into comprehensive knowledge representation.
             </p>
           </div>
         </motion.div>
