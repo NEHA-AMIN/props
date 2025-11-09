@@ -3,6 +3,7 @@
 import React, { useState } from 'react'; 
 import { motion } from 'framer-motion'; 
 import { Vortex } from "@/components/ui/shadcn-io/vortex";
+import { submitContactToHubspot } from '@/app/actions/hubspot';
  
 const CONTACT_INFO = [ 
   { 
@@ -39,6 +40,7 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' }); 
   const [isSubmitting, setIsSubmitting] = useState(false); 
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle'); 
+  const [errorMessage, setErrorMessage] = useState<string>('');
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => { 
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
@@ -46,13 +48,46 @@ export default function ContactPage() {
  
   const handleSubmit = async (e: React.FormEvent) => { 
     e.preventDefault(); 
-    setIsSubmitting(true); 
-    setTimeout(() => { 
-      setIsSubmitting(false); 
-      setSubmitStatus('success'); 
-      setFormData({ name: '', email: '', company: '', message: '' }); 
-      setTimeout(() => setSubmitStatus('idle'), 3000); 
-    }, 1500); 
+    setIsSubmitting(true);
+    setErrorMessage('');
+    
+    try {
+      // Create FormData object for HubSpot
+      const formDataObj = new FormData();
+      formDataObj.append('name', formData.name);
+      formDataObj.append('email', formData.email);
+      formDataObj.append('company', formData.company);
+      formDataObj.append('message', formData.message);
+      formDataObj.append('pageUri', window.location.href);
+      
+      // Get HubSpot tracking cookie if available
+      const hutk = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('hubspotutk='))
+        ?.split('=')[1];
+      
+      if (hutk) {
+        formDataObj.append('hutk', hutk);
+      }
+      
+      // Submit to HubSpot
+      const result = await submitContactToHubspot(formDataObj);
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', company: '', message: '' });
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      } else {
+        setSubmitStatus('error');
+        setErrorMessage(result.message || 'Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+      setErrorMessage('Failed to submit form. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }; 
  
   return (
@@ -252,6 +287,8 @@ export default function ContactPage() {
                     ? 'bg-slate-700 text-slate-400 cursor-not-allowed' 
                     : submitStatus === 'success' 
                     ? 'bg-green-500 text-white' 
+                    : submitStatus === 'error'
+                    ? 'bg-red-500 text-white'
                     : 'bg-gradient-to-r from-teal-400 to-teal-600 text-white shadow-lg hover:shadow-teal-500/50'
                 }`}
               > 
@@ -278,11 +315,29 @@ export default function ContactPage() {
                     </svg>
                     Message Sent!
                   </span>
+                ) : submitStatus === 'error' ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    Failed - Try Again
+                  </span>
                 ) : (
                   <span className="relative z-10">Send Message</span>
                 )}
               </motion.button>
             </div>
+            
+            {/* Error message display */}
+            {errorMessage && (
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm text-red-400 text-center mt-4"
+              >
+                {errorMessage}
+              </motion.p>
+            )}
             
             {/* Privacy note */}
             <p className="text-xs text-slate-500 text-center mt-6">
