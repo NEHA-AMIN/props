@@ -15,7 +15,7 @@ const CaseStudySection: React.FC = () => {
 
   const headingVariants = {
     hidden: { opacity: 0, y: 14 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.19, 1, 0.22, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.19, 1, 0.22, 1] as any } }
   };
 
   const wordVariants = {
@@ -23,7 +23,7 @@ const CaseStudySection: React.FC = () => {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: 0.25 + i * 0.04, duration: 0.45, ease: [0.19, 1, 0.22, 1] }
+      transition: { delay: 0.25 + i * 0.04, duration: 0.45, ease: [0.19, 1, 0.22, 1] as any }
     })
   };
 

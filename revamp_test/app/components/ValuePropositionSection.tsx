@@ -101,7 +101,7 @@ const ValuePropositionSection: React.FC = () => {
               transition={{ 
                 duration: 0.5, 
                 delay: index * 0.1,
-                ease: [0.23, 1, 0.32, 1] // Custom cubic bezier for snappy animation
+                ease: [0.23, 1, 0.32, 1] as any // Custom cubic bezier for snappy animation
               }}
             >
               <FlipCard

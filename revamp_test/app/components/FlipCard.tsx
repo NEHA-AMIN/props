@@ -34,7 +34,7 @@ export const FlipCard: React.FC<FlipCardProps> = ({
         }}
         transition={{ 
           duration: 0.4,
-          ease: [0.23, 1, 0.32, 1], // Cubic bezier for smooth yet snappy effect
+          ease: [0.23, 1, 0.32, 1] as any, // Cubic bezier for smooth yet snappy effect
           scale: {
             duration: 0.2,
             ease: "easeOut"

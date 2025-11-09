@@ -17,7 +17,7 @@ export default function TestimonialsSection() {
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white dark:text-white mb-4"
             initial={{ opacity: 0, y: -30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as any }}
           >
             What Our Clients Say
           </motion.h2>
@@ -25,7 +25,7 @@ export default function TestimonialsSection() {
             className="text-lg text-gray-200 dark:text-gray-200"
             initial={{ opacity: 0, y: -20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as any, delay: 0.2 }}
           >
             Discover how Propheus is transforming businesses across industries
           </motion.p>

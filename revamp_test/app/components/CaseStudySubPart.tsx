@@ -92,7 +92,7 @@ const CaseStudySubPart = () => {
     
     const controls = animate(0, currentStudy.metricValue, {
       duration: 2,
-      ease: [0.16, 1, 0.3, 1], // Smooth easeOutExpo curve
+      ease: [0.16, 1, 0.3, 1] as any, // Smooth easeOutExpo curve
       onUpdate: (v) => {
         setCounterValue(v); // Keep decimal precision
         // Trigger pop when reaching the end
