@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type CaseStudy = {
@@ -11,6 +11,100 @@ export type CaseStudy = {
   tagline?: string;
   href?: string;
   type: 'Case Studies' | 'Use Cases' | 'Blogs';
+};
+
+// Helper function to extract YouTube video ID
+const getYouTubeVideoId = (url: string): string | null => {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/,
+    /youtube\.com\/embed\/([^&\n?#]+)/,
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+};
+
+// Video Popup Modal Component
+const VideoModal: React.FC<{
+  videoUrl: string;
+  title: string;
+  onClose: () => void;
+}> = ({ videoUrl, title, onClose }) => {
+  const videoId = getYouTubeVideoId(videoUrl);
+  const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : null;
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="relative w-full max-w-5xl bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 bg-gray-800/50 border-b border-gray-700">
+          <h3 className="text-lg font-semibold text-white truncate pr-4">
+            {title}
+          </h3>
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full hover:bg-gray-700 transition-colors group"
+            aria-label="Close video"
+          >
+            <svg className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Video Container */}
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          {embedUrl ? (
+            <iframe
+              src={embedUrl}
+              title={title}
+              className="absolute inset-0 w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+              <p>Unable to load video</p>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 };
 
 export type CaseStudiesGridProps = {
@@ -57,24 +151,24 @@ const defaultCaseStudies: CaseStudy[] = [
   // Use Cases
   {
     id: "4",
-    title: "AI-Powered Customer Service for E-Commerce",
+    title: "Physical Observability for Retail & Restaurants",
     category: "Retail",
-    description: "24/7 automated support handling 10,000+ queries daily",
-    date: "October 15, 2025",
+    description: "Retail decisions that are rooted in the real-world",
+    date: "November 10, 2025",
     imageGradient: "from-purple-600 via-pink-500 to-red-500",
-    tagline: "24/7 Customer Support\nAt Scale",
-    href: "https://www.example.com/use-cases/ecommerce-support",
+    tagline: "Physical Observability\nFor Retail",
+    href: "https://youtu.be/hlE7HSJluDU",
     type: "Use Cases",
   },
   {
     id: "5",
-    title: "Predictive Maintenance for Manufacturing",
+    title: "AI Product Recommendation for CPG Brands",
     category: "CPG",
-    description: "Reducing downtime by 40% with AI predictions",
-    date: "October 10, 2025",
+    description: "Recommend product assortments that aligns with consumer behaviour and demand",
+    date: "November 10, 2025",
     imageGradient: "from-orange-500 via-red-500 to-pink-600",
-    tagline: "Predict & Prevent\nEquipment Failures",
-    href: "https://www.example.com/use-cases/predictive-maintenance",
+    tagline: "AI Product\nRecommendation",
+    href: "https://youtu.be/BnLJsd5J-8A",
     type: "Use Cases",
   },
   {
@@ -138,25 +232,33 @@ const CaseStudyCard: React.FC<{
   study: CaseStudy;
   onHover: (id: string | null) => void;
   isActive: boolean;
-}> = ({ study, onHover, isActive }) => {
+  onVideoClick?: (study: CaseStudy) => void;
+}> = ({ study, onHover, isActive, onVideoClick }) => {
   const [spotX, setSpotX] = useState(0);
   const [spotY, setSpotY] = useState(0);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const rect = (e.currentTarget as HTMLAnchorElement).getBoundingClientRect();
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
     setSpotX(e.clientX - rect.left);
     setSpotY(e.clientY - rect.top);
   };
 
-  return (
-    <a
-      key={study.id}
-      href={study.href || "#"}
-      target="_blank"
-      rel="noopener noreferrer"
+  // Check if this is a YouTube video
+  const isYouTubeVideo = study.href?.includes('youtube.com') || study.href?.includes('youtu.be');
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isYouTubeVideo && onVideoClick) {
+      e.preventDefault();
+      onVideoClick(study);
+    }
+  };
+
+  const cardContent = (
+    <div
       onMouseEnter={() => onHover(study.id)}
       onMouseLeave={() => onHover(null)}
       onMouseMove={handleMouseMove}
+      onClick={handleClick}
       className={`group cursor-pointer rounded-xl overflow-hidden backdrop-blur-md bg-black/30 border border-white/10 hover:border-teal-500/50 hover:bg-black/40 transition-all duration-300 min-h-[450px] flex flex-col hover:shadow-xl hover:shadow-teal-500/10 relative ${
         isActive ? "z-50 scale-[1.01]" : "z-10"
       }`}
@@ -204,8 +306,24 @@ const CaseStudyCard: React.FC<{
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
+
+  // If not a video, wrap in an anchor tag
+  if (!isYouTubeVideo) {
+    return (
+      <a
+        key={study.id}
+        href={study.href || "#"}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return cardContent;
 };
 
 export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
@@ -215,6 +333,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   const [activeFilter, setActiveFilter] = useState("All");
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const [highlightScroll, setHighlightScroll] = useState(false);
+  const [videoModalData, setVideoModalData] = useState<CaseStudy | null>(null);
 
   // First filter by type (Case Studies, Use Cases, or Blogs)
   const typeFilteredStudies = selectedType 
@@ -240,6 +359,17 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
 
   return (
     <section className="relative bg-black py-16 sm:py-24 w-full">
+      {/* Video Modal */}
+      <AnimatePresence>
+        {videoModalData && (
+          <VideoModal
+            videoUrl={videoModalData.href || ''}
+            title={videoModalData.title}
+            onClose={() => setVideoModalData(null)}
+          />
+        )}
+      </AnimatePresence>
+
       <div className="w-full">
         {/* Filter Bar with Divider Lines */}
         <motion.div
@@ -347,6 +477,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
                       study={study}
                       onHover={setHoveredCardId}
                       isActive={hoveredCardId === study.id}
+                      onVideoClick={setVideoModalData}
                     />
                   ))}
                 </motion.div>
