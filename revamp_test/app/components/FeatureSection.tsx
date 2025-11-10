@@ -96,7 +96,7 @@ const DigitalAtlasAccessSection = () => {
       <div className="relative z-10 container mx-auto px-6">
         {/* Section Title */}
         <div ref={headingRef} className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-normal italic mb-4">
+          <h2 className="text-4xl sm:text-5xl font-normal mb-4">
             {letters.map((ch, i) => (
               <motion.span
                 key={i}
@@ -137,7 +137,7 @@ const DigitalAtlasAccessSection = () => {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold italic text-white text-center leading-snug min-h-[3.5rem] flex items-center justify-center">
+              <h3 className="text-xl font-bold text-white text-center leading-snug min-h-[3.5rem] flex items-center justify-center">
                 {step.title}
               </h3>
 

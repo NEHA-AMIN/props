@@ -42,15 +42,14 @@ const caseStudies: CaseStudy[] = [
     metricLabel: 'booking conversions',
     metrics: [
       { value: -15, label: 'driver wait times' },
-      { value: 12, label: 'booking conversions' },
-      { value: 10, label: 'delivery efficiency' }
+      { value: 12, label: 'booking conversions' }
     ]
   },
   {
     id: 3,
     title: 'Demand forecasting & inventory planning for a leading CPG brand',
     description: [
-      'The CPG brand was able to pair Digital Atlas’ real-world signals with an AI model tuned to each store and SKU—seeing ',
+      'The CPG brand was able to pair Digital Atlas\' real-world signals with an AI model tuned to each store and SKU—seeing ',
       'With that clarity on what really moves demand (weather, local events, neighborhood shifts, competition) they forecasted and better allocated across 20,000+ outlets, and lowered logistics and inventory costs.'
     ],
     image: '/Case Study 3.gif',
@@ -58,8 +57,7 @@ const caseStudies: CaseStudy[] = [
     metricLabel: 'sales uplift',
     metrics: [
       { value: 12, label: 'sales uplift' },
-      { value: 10.5, label: 'effective calls' },
-      { value: 7.7, label: 'items/txn' }
+      { value: 10.5, label: 'effective calls' }
     ]
   },
   {
@@ -74,8 +72,7 @@ const caseStudies: CaseStudy[] = [
     metricLabel: 'sales uplift',
     metrics: [
       { value: 12, label: 'sales uplift' },
-      { value: 10.5, label: 'effective calls' },
-      { value: 7.7, label: 'items/txn' }
+      { value: 10.5, label: 'effective calls' }
     ]
   }
 ];
@@ -168,10 +165,10 @@ const CaseStudySubPart = () => {
                         transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1], delay: i * 0.08 }}
                       >
                         {m.prefix ? <span className="mr-1">{m.prefix}</span> : null}
-                        {Math.round(m.value)}
+                        {m.value > 0 ? '+' : ''}{Math.round(m.value)}
                         <span className="ml-1">{m.suffix ? m.suffix : '%'}</span>
                       </motion.span>
-                      <span className={`text-lg md:text-xl font-normal italic text-teal-400${currentStudy.id === 1 && i === 0 ? ' whitespace-nowrap' : ''}`}>{m.label}</span>
+                      <span className={`text-lg md:text-xl font-normal text-teal-400${currentStudy.id === 1 && i === 0 ? ' whitespace-nowrap' : ''}`}>{m.label}</span>
                     </div>
                   ))}
                 </div>
@@ -187,7 +184,7 @@ const CaseStudySubPart = () => {
                     {Math.round(currentStudy.metricValue)}
                     <span className="ml-1">%</span>
                   </motion.span>
-                  <span className="text-lg md:text-xl font-normal italic text-teal-400">{currentStudy.metricLabel}</span>
+                  <span className="text-lg md:text-xl font-normal text-teal-400">{currentStudy.metricLabel}</span>
                 </div>
               )}
             </div>

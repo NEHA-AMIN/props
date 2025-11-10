@@ -100,7 +100,7 @@ const MissionSection: React.FC = () => {
           
           {/* Right column - Paragraph with animated letters */}
           <div className="md:col-span-9">
-            <p className="text-xl md:text-2xl text-white leading-relaxed italic">
+            <p className="text-xl md:text-2xl text-white leading-relaxed">
               {paragraphLetters.map((letter, index) => (
                 <motion.span
                   key={index}

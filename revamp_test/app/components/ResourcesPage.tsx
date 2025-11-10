@@ -33,7 +33,7 @@ const HeroButton: React.FC<HeroButtonProps> = ({ label, onClick, isActive }) => 
   return (
     <button
       onClick={onClick}
-      className={`group px-8 py-6 text-lg font-normal italic backdrop-blur-md 
+      className={`group px-8 py-6 text-lg font-normal backdrop-blur-md 
         transition-all duration-300 rounded-full min-w-[220px]
         ${isActive 
           ? 'bg-teal-500 border-teal-400 text-white shadow-lg shadow-teal-500/30' 

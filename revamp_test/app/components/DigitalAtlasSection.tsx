@@ -49,7 +49,8 @@ const DigitalAtlasSection = () => {
           }}
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal italic text-white text-center px-6">
+          {/* Hero Title */}
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white text-center px-6">
             Digital Atlas powered by Physical AI
           </h2>
         </motion.div>
@@ -85,10 +86,10 @@ const DigitalAtlasSection = () => {
           className="absolute left-4 md:left-8 lg:left-12 xl:left-16 top-1/2 -translate-y-1/2 z-20 max-w-[85vw] sm:max-w-[45vw] md:max-w-[38vw] lg:max-w-[35vw] xl:max-w-[32vw]"
         >
           <div className="text-white space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4">
-            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-normal italic leading-tight">
+            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-normal leading-tight">
               Perceives the Physical World
             </h3>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 italic leading-snug">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 leading-snug">
               Context Aware AI Agents continuously curate real-world data
             </p>
           </div>
@@ -103,10 +104,10 @@ const DigitalAtlasSection = () => {
           className="absolute left-4 md:left-8 lg:left-12 xl:left-16 top-1/2 -translate-y-1/2 z-20 max-w-[85vw] sm:max-w-[45vw] md:max-w-[40vw] lg:max-w-[38vw] xl:max-w-[35vw]"
         >
           <div className="text-white space-y-1 sm:space-y-2 md:space-y-3 lg:space-y-4">
-            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-normal italic leading-tight">
+            <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-normal leading-tight">
               Fuses Real world Signals
             </h3>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 italic leading-snug">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 leading-snug">
               Like places, weather, people movement, demographics, and consumer sentiment - into comprehensive knowledge representation.
             </p>
           </div>

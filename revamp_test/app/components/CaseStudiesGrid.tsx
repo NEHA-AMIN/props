@@ -386,7 +386,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
                 <button
                   key={category}
                   onClick={() => handleCategoryClick(category)}
-                  className={`min-w-[110px] px-4 py-3 rounded-full text-base font-normal italic transition-all duration-300 whitespace-nowrap ${
+                  className={`min-w-[110px] px-4 py-3 rounded-full text-base font-normal transition-all duration-300 whitespace-nowrap ${
                     activeFilter === category && selectedType
                       ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30"
                       : "bg-gray-800/60 text-gray-300 hover:bg-gray-700/80 hover:text-white border border-gray-700/50"

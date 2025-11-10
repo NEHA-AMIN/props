@@ -77,18 +77,11 @@ export function BackgroundPaths({
       </div>
 
       <div className="relative z-10 container mx-auto px-4 md:px-6 text-center py-20">
-        <motion.h1
+                <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-normal italic mb-8 tracking-tight leading-tight"
-          style={{
-            background: 'linear-gradient(to right, #ffffff, #5eead4, #2dd4bf, #ffffff)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            color: 'transparent',
-          }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-normal mb-8 tracking-tight leading-tight"
         >
           {title}
         </motion.h1>
