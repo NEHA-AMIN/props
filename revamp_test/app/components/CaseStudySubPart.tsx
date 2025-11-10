@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { animate, useInView } from 'framer-motion';
+import { useInView, motion } from 'framer-motion';
 
 interface CaseStudy {
   id: number;
@@ -11,64 +11,80 @@ interface CaseStudy {
   image: string;
   metricValue: number;
   metricLabel: string;
+  metrics?: { value: number; label: string; prefix?: string; suffix?: string }[];
 }
 
 const caseStudies: CaseStudy[] = [
   {
     id: 1,
-    title: 'Store network planning for a leading coffee chain:',
+    title: 'Store network planning for a leading coffee chain',
     description: [
-      'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace and prioritizing high-yield catchments.',
-      'They were able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
+      'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace, reducing cannibalization, and prioritizing high-yield catchments.',
+      'The coffee chain was able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
     ],
     image: '/Case study 1.gif',
     metricValue: 23,
-    metricLabel: 'more viable zones'
+    metricLabel: 'more viable zones',
+    metrics: [
+      { value: 23, label: 'more viable zones' },
+      { value: 15, label: 'revenue uplift' }
+    ]
   },
   {
     id: 2,
-    title: 'Demand Forecasting for a Leading CPG Network',
+    title: 'Physical Observability for a leading multi-service super app',
     description: [
-      'A full-stack platform combining Digital Atlas + context-aware AI demand model enriched by store-specific embeddings.',
-      'Thus we replaced old statistical methods to better learn SKU-level demand patterns, incorporating brand sentiments, neighborhood trends, and weather patterns.'
+      'They turned static place data into live, context-rich intelligence with Digital Atlas—enriching every POI with pickup/drop points, rush hours, and weather/event effects.',
+      'The super app was able to use these signals to predict demand, optimize driver allocation and routing, and adjust pricing in near real time improving on-time deliveries.'
     ],
-    // Use asset from public folder; Next.js expects root-relative path
     image: '/Case study 2 .gif',
-    metricValue: 15,
-    metricLabel: 'revenue uplift'
+    metricValue: 12,
+    metricLabel: 'booking conversions',
+    metrics: [
+      { value: -15, label: 'driver wait times' },
+      { value: 12, label: 'booking conversions' },
+      { value: 10, label: 'delivery efficiency' }
+    ]
   },
   {
     id: 3,
-    title: 'Real-World Aware AI for Smarter CPG Sales Execution',
+    title: 'Demand forecasting & inventory planning for a leading CPG brand',
     description: [
-      'A Product Recommendation Module that fused first-party sales with Digital Atlas signals to estimate true SKU potential per outlet and guide real-time conversations.',
-      'Equipped field reps with outlet-specific, real-world aware SKU recommendations and AI-generated pitches in Bahasa to support on-the-spot selling.'
+      'The CPG brand was able to pair Digital Atlas’ real-world signals with an AI model tuned to each store and SKU—seeing ',
+      'With that clarity on what really moves demand (weather, local events, neighborhood shifts, competition) they forecasted and better allocated across 20,000+ outlets, and lowered logistics and inventory costs.'
     ],
     image: '/Case Study 3.gif',
     metricValue: 12,
-    metricLabel: 'SKU sales lift'
+    metricLabel: 'sales uplift',
+    metrics: [
+      { value: 12, label: 'sales uplift' },
+      { value: 10.5, label: 'effective calls' },
+      { value: 7.7, label: 'items/txn' }
+    ]
   },
   {
     id: 4,
-    title: 'Store Network Planning & Optimization',
+    title: 'Product recommendations & field-rep enablement',
     description: [
-      'Leveraged Digital Atlas to optimize existing store network and identify underperforming locations for repositioning or closure.',
-      'We built predictive models to forecast store performance based on catchment area characteristics and competitive landscape dynamics.'
+      'The brand was able to fuse its sales data with Digital Atlas real-world signals—(demographics, anchor POIs etc ) —to score SKU potential and deliver a ranked, outlet-specific list for reps.',
+      'They was able to pilot, refine, and scale what worked—growing basket size, easing over-reliance on top SKUs, and accelerating new SKU penetration across large retailers.'
     ],
-    // Use local GIF from public folder for 4th case study
     image: '/Case study 4.gif',
-    metricValue: 8,
-    metricLabel: ' optimization '
+    metricValue: 12,
+    metricLabel: 'sales uplift',
+    metrics: [
+      { value: 12, label: 'sales uplift' },
+      { value: 10.5, label: 'effective calls' },
+      { value: 7.7, label: 'items/txn' }
+    ]
   }
 ];
 
 const CaseStudySubPart = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [counterValue, setCounterValue] = useState(0);
-  const [hasPopped, setHasPopped] = useState(false);
   const counterRef = useRef<HTMLDivElement | null>(null);
-  const counterInView = useInView(counterRef, { once: true, amount: 0.8 });
+  const counterInView = useInView(counterRef, { once: false, amount: 0.8 });
 
   const currentStudy = caseStudies[currentIndex];
 
@@ -86,24 +102,7 @@ const CaseStudySubPart = () => {
     setTimeout(() => setIsTransitioning(false), 400);
   };
 
-  // Animate the percentage counter smoothly from 0 to case metric when entering viewport
-  useEffect(() => {
-    if (!counterInView) return;
-    
-    const controls = animate(0, currentStudy.metricValue, {
-      duration: 2,
-      ease: [0.16, 1, 0.3, 1] as any, // Smooth easeOutExpo curve
-      onUpdate: (v) => {
-        setCounterValue(v); // Keep decimal precision
-        // Trigger pop when reaching the end
-        if (v >= currentStudy.metricValue - 0.05 && !hasPopped) {
-          setHasPopped(true);
-        }
-      }
-    });
-    
-    return () => controls.stop();
-  }, [counterInView, hasPopped, currentStudy.metricValue]);
+  // Removed count-up animation; numbers fade in when entering viewport
 
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden bg-black">
@@ -155,36 +154,45 @@ const CaseStudySubPart = () => {
               ))}
             </div>
 
-            {/* Metric Counter */}
-            <div ref={counterRef} className="mt-6 flex items-baseline gap-4">
-              <span 
-                className={`text-5xl md:text-6xl font-bold text-teal-400 tracking-tight transition-transform duration-300 ease-out ${
-                  hasPopped ? 'animate-pop' : ''
-                }`}
-                aria-label="Ten percent increase"
-                style={{
-                  animation: hasPopped ? 'pop 0.4s ease-out' : 'none'
-                }}
-              >
-                {counterValue >= currentStudy.metricValue - 0.05 ? Math.round(currentStudy.metricValue) : counterValue.toFixed(1)}
-                <span className="ml-1">%</span>
-              </span>
-              <span className="text-lg md:text-xl font-normal italic text-teal-400">{currentStudy.metricLabel}</span>
+            {/* Metric Counter(s) */}
+            <div ref={counterRef} className="mt-6">
+              {currentStudy.metrics && currentStudy.metrics.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {currentStudy.metrics.map((m, i) => (
+                    <div key={i} className="flex items-baseline gap-4">
+                      <motion.span
+                        className={`${currentStudy.metrics && currentStudy.metrics.length > 0 ? 'text-2xl md:text-3xl' : 'text-5xl md:text-6xl'} font-bold text-teal-400 tracking-tight`}
+                        aria-label={`${m.value} percent ${m.label}`}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={counterInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+                        transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1], delay: i * 0.08 }}
+                      >
+                        {m.prefix ? <span className="mr-1">{m.prefix}</span> : null}
+                        {Math.round(m.value)}
+                        <span className="ml-1">{m.suffix ? m.suffix : '%'}</span>
+                      </motion.span>
+                      <span className={`text-lg md:text-xl font-normal italic text-teal-400${currentStudy.id === 1 && i === 0 ? ' whitespace-nowrap' : ''}`}>{m.label}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-baseline gap-4">
+                  <motion.span 
+                    className={`text-5xl md:text-6xl font-bold text-teal-400 tracking-tight`}
+                    aria-label="percentage metric"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={counterInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+                    transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
+                  >
+                    {Math.round(currentStudy.metricValue)}
+                    <span className="ml-1">%</span>
+                  </motion.span>
+                  <span className="text-lg md:text-xl font-normal italic text-teal-400">{currentStudy.metricLabel}</span>
+                </div>
+              )}
             </div>
 
-            <style jsx>{`
-              @keyframes pop {
-                0% {
-                  transform: scale(1);
-                }
-                50% {
-                  transform: scale(1.15);
-                }
-                100% {
-                  transform: scale(1);
-                }
-              }
-            `}</style>
+            {/* Removed pop keyframe animation since counters now fade in */}
 
             {/* Navigation Arrows: left aligned below description */}
             <div className="mt-8 flex gap-3">

@@ -330,7 +330,7 @@ export default function NewIndustriesPage() {
             </div>
             
             {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal italic mb-6 sm:mb-8 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-6 sm:mb-8 leading-tight">
               <div className="text-white">Real-world intelligence</div>
               <div className="flex items-center justify-center flex-wrap">
                 <span className="text-white">across</span>
@@ -339,7 +339,7 @@ export default function NewIndustriesPage() {
             </h1>
             
             {/* Subheading */}
-            <p className="text-[#a0a7b1] text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal italic px-4">
+            <p className="text-[#a0a7b1] text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal px-4">
               From Retail to Automotive, Propheus empowers data teams to effortlessly confront age-old and emerging business challenges through our end to end solutions.
             </p>
           </div>
