@@ -14,8 +14,11 @@ const DigitalAtlasSection = () => {
   // Video moves from 150vh (far below) to 0vh (centered)
   const videoY = useTransform(scrollYProgress, [0, 0.5], ['150vh', '0vh']);
   
-  // Video opacity: starts at 0, becomes 1
-  const videoOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [0, 1, 1]);
+  // First video opacity: starts at 0, becomes 1, then fades out smoothly when second text appears
+  const firstVideoOpacity = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.82, 0.95], [0, 1, 1, 1, 0]);
+  
+  // Second video opacity: fades in smoothly when second text appears
+  const secondVideoOpacity = useTransform(scrollYProgress, [0.82, 0.95], [0, 1]);
   
   // Text opacity: fades out as video comes up
   const textOpacity = useTransform(scrollYProgress, [0, 0.3, 0.45], [1, 1, 0]);
@@ -55,17 +58,18 @@ const DigitalAtlasSection = () => {
           </h2>
         </motion.div>
 
-        {/* Video Element that moves up from below */}
+        {/* Video Container that moves up from below */}
         <motion.div
           style={{
-            y: videoY,
-            opacity: videoOpacity
+            y: videoY
           }}
           className="absolute inset-0 flex items-center justify-center md:justify-end md:pr-8 lg:pr-16 xl:pr-24 px-4 z-10"
         >
           <div className="relative w-[70vw] h-[20vh] sm:w-[65vw] sm:h-[28vh] md:w-[50vw] md:h-[35vh] lg:w-[48vw] lg:h-[45vh] xl:w-[50vw] xl:h-[55vh] max-w-4xl">
-            <video
-              className="w-full h-full object-cover rounded-lg shadow-2xl"
+            {/* First Video - fades out when second text appears */}
+            <motion.video
+              style={{ opacity: firstVideoOpacity }}
+              className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-2xl"
               autoPlay
               muted
               loop
@@ -73,7 +77,20 @@ const DigitalAtlasSection = () => {
             >
               <source src="/scan.mp4" type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </motion.video>
+            
+            {/* Second Video - fades in when second text appears */}
+            <motion.video
+              style={{ opacity: secondVideoOpacity }}
+              className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-2xl"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="/digi2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </motion.video>
           </div>
         </motion.div>
 
