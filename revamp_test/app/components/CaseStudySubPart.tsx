@@ -45,21 +45,21 @@ const caseStudies: CaseStudy[] = [
       { value: 12, label: 'booking conversions' }
     ]
   },
-  {
-    id: 3,
-    title: 'Demand forecasting & inventory planning for a leading CPG brand',
-    description: [
-      'The CPG brand was able to pair Digital Atlas\' real-world signals with an AI model tuned to each store and SKU—seeing ',
-      'With that clarity on what really moves demand (weather, local events, neighborhood shifts, competition) they forecasted and better allocated across 20,000+ outlets, and lowered logistics and inventory costs.'
-    ],
-    image: '/Case Study 3.gif',
-    metricValue: 12,
-    metricLabel: 'sales uplift',
-    metrics: [
-      { value: 12, label: 'sales uplift' },
-      { value: 10.5, label: 'effective calls' }
-    ]
-  },
+  // {
+  //   id: 3,
+  //   title: 'Demand forecasting & inventory planning for a leading CPG brand',
+  //   description: [
+  //     'The CPG brand was able to pair Digital Atlas\' real-world signals with an AI model tuned to each store and SKU—seeing ',
+  //     'With that clarity on what really moves demand (weather, local events, neighborhood shifts, competition) they forecasted and better allocated across 20,000+ outlets, and lowered logistics and inventory costs.'
+  //   ],
+  //   image: '/Case Study 3.gif',
+  //   metricValue: 12,
+  //   metricLabel: 'sales uplift',
+  //   metrics: [
+  //     { value: 12, label: 'sales uplift' },
+  //     { value: 10.5, label: 'effective calls' }
+  //   ]
+  // },
   {
     id: 4,
     title: 'Product recommendations & field-rep enablement',

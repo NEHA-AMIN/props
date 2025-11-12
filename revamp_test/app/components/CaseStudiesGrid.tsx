@@ -113,42 +113,7 @@ export type CaseStudiesGridProps = {
 };
 
 const defaultCaseStudies: CaseStudy[] = [
-  // Case Studies
-  {
-    id: "1",
-    title: "From Routine Calls to Real Recovery: AI for Collections Teams",
-    category: "Banking and Financial Services",
-    description: "Voice AI Agents for Debt Collection",
-    date: "September 9, 2025",
-    imageGradient: "from-blue-600 via-teal-600 to-blue-700",
-    tagline: "Voice AI Agents\nFor Debt Collection",
-    href: "https://www.example.com/case-studies/banking-debt-collection",
-    type: "Case Studies",
-  },
-  {
-    id: "2",
-    title: "How Nurix AI Is Simplifying Shopping with Voice & Chat",
-    category: "Retail",
-    description: "Discover Products Faster & Shop Smarter with AI",
-    date: "September 22, 2025",
-    imageGradient: "from-green-500 via-lime-400 to-green-600",
-    tagline: "Discover Products Faster\n& Shop Smarter with AI",
-    href: "https://www.example.com/case-studies/retail-shopping-ai",
-    type: "Case Studies",
-  },
-  {
-    id: "3",
-    title: "Nurix AI: Automating Lead Qualification for Health & Wellness Brands",
-    category: "Health & Fitness",
-    description: "Wellness Clients Qualified While Interest Is Hot",
-    date: "August 6, 2025",
-    imageGradient: "from-blue-500 via-cyan-400 to-green-500",
-    tagline: "Wellness Clients Qualified\nWhile Interest Is Hot",
-    href: "https://www.example.com/case-studies/health-wellness-leads",
-    type: "Case Studies",
-  },
-  
-  // Use Cases
+  // Use Cases with YouTube links only
   {
     id: "4",
     title: "Physical Observability for Retail & Restaurants",
@@ -173,49 +138,14 @@ const defaultCaseStudies: CaseStudy[] = [
   },
   {
     id: "6",
-    title: "Smart Inventory Management for Restaurants",
+    title: "Physical Observability - Online to Offline",
     category: "O2O",
-    description: "Optimizing stock levels and reducing waste by 35%",
-    date: "October 5, 2025",
-    imageGradient: "from-yellow-500 via-orange-400 to-red-500",
-    tagline: "Zero Waste\nSmart Inventory",
-    href: "https://www.example.com/use-cases/restaurant-inventory",
+    description: "Real-world intelligence for online to offline businesses",
+    date: "November 12, 2025",
+    imageGradient: "from-teal-600 via-cyan-500 to-blue-600",
+    tagline: "Physical Observability\nOnline to Offline",
+    href: "https://youtu.be/7BfC4T_BfZ4",
     type: "Use Cases",
-  },
-  
-  // Blogs
-  {
-    id: "7",
-    title: "The Future of AI in Retail: Trends for 2026",
-    category: "Retail",
-    description: "Exploring the latest AI innovations transforming retail experiences",
-    date: "November 1, 2025",
-    imageGradient: "from-cyan-500 via-blue-500 to-indigo-600",
-    tagline: "AI Trends\nShaping Retail",
-    href: "https://www.example.com/blog/ai-retail-trends-2026",
-    type: "Blogs",
-  },
-  {
-    id: "8",
-    title: "Building Conversational AI: Best Practices",
-    category: "Travel",
-    description: "A comprehensive guide to creating effective AI chatbots",
-    date: "October 28, 2025",
-    imageGradient: "from-teal-500 via-green-500 to-emerald-600",
-    tagline: "Master Conversational\nAI Design",
-    href: "https://www.example.com/blog/conversational-ai-guide",
-    type: "Blogs",
-  },
-  {
-    id: "9",
-    title: "How Physical AI is Revolutionizing Industries",
-    category: "CPG",
-    description: "Understanding the impact of AI on physical world interactions",
-    date: "October 20, 2025",
-    imageGradient: "from-indigo-600 via-purple-500 to-pink-500",
-    tagline: "Physical AI\nRevolution",
-    href: "https://www.example.com/blog/physical-ai-revolution",
-    type: "Blogs",
   },
 ];
 
@@ -245,6 +175,10 @@ const CaseStudyCard: React.FC<{
 
   // Check if this is a YouTube video
   const isYouTubeVideo = study.href?.includes('youtube.com') || study.href?.includes('youtu.be');
+  
+  // Get YouTube thumbnail
+  const videoId = study.href ? getYouTubeVideoId(study.href) : null;
+  const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
 
   const handleClick = (e: React.MouseEvent) => {
     if (isYouTubeVideo && onVideoClick) {
@@ -265,15 +199,21 @@ const CaseStudyCard: React.FC<{
     >
 
       <div className="h-full min-h-[420px] flex flex-col relative overflow-hidden">
-        {/* Glass Background Section - transparent to let pure black show through */}
-        <div className="absolute inset-0 overflow-hidden">
-          {study.tagline && (
+        {/* YouTube Thumbnail Background - blurs on hover */}
+        <div className="absolute inset-0 overflow-hidden transition-all duration-700 ease-in-out group-hover:blur-md">
+          {thumbnailUrl ? (
+            <img 
+              src={thumbnailUrl} 
+              alt={study.title}
+              className="w-full h-full object-cover"
+            />
+          ) : study.tagline ? (
             <div className="absolute inset-0 flex items-center justify-center pb-[40%] px-6">
               <h3 className="text-white text-xl md:text-2xl font-bold text-center drop-shadow-2xl leading-snug whitespace-pre-line">
                 {study.tagline}
               </h3>
             </div>
-          )}
+          ) : null}
         </div>
 
         {/* Content Section - Expands from bottom to cover entire card on hover */}
@@ -450,18 +390,6 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
             </motion.div>
           ) : (
             <>
-              {/* Backdrop blur overlay when hovering any card */}
-              <AnimatePresence>
-                {hoveredCardId && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="fixed inset-0 bg-black/40 backdrop-blur-md z-40 pointer-events-none"
-                  />
-                )}
-              </AnimatePresence>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeFilter}
