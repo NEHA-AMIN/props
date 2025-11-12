@@ -22,7 +22,7 @@ const caseStudies: CaseStudy[] = [
       'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace, reducing cannibalization, and prioritizing high-yield catchments.',
       'The coffee chain was able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
     ],
-    image: '/Case study 1.gif',
+    image: '/Case study 1.mp4',
     metricValue: 23,
     metricLabel: 'more viable zones',
     metrics: [
@@ -37,7 +37,7 @@ const caseStudies: CaseStudy[] = [
       'They turned static place data into live, context-rich intelligence with Digital Atlas—enriching every POI with pickup/drop points, rush hours, and weather/event effects.',
       'The super app was able to use these signals to predict demand, optimize driver allocation and routing, and adjust pricing in near real time improving on-time deliveries.'
     ],
-    image: '/Case study 2 .gif',
+    image: '/Case study 2.mp4',
     metricValue: 12,
     metricLabel: 'booking conversions',
     metrics: [
@@ -67,7 +67,7 @@ const caseStudies: CaseStudy[] = [
       'The brand was able to fuse its sales data with Digital Atlas real-world signals—(demographics, anchor POIs etc ) —to score SKU potential and deliver a ranked, outlet-specific list for reps.',
       'They was able to pilot, refine, and scale what worked—growing basket size, easing over-reliance on top SKUs, and accelerating new SKU penetration across large retailers.'
     ],
-    image: '/Case study 4.gif',
+    image: '/Case study 4.mp4',
     metricValue: 12,
     metricLabel: 'sales uplift',
     metrics: [
@@ -135,11 +135,11 @@ const CaseStudySubPart = () => {
         <div className="flex flex-col lg:flex-row items-start justify-between gap-16">
           
           {/* Left: Text */}
-          <div className="flex-1 space-y-6 self-start">
-            <div className="inline-flex items-center px-3 py-1 rounded-md bg-teal-900/40 border border-teal-700/30 text-teal-400 text-sm font-medium">
+          <div className="flex-1">
+            <div className="inline-flex items-center px-3 py-1 rounded-md bg-teal-900/40 border border-teal-700/30 text-teal-400 text-sm font-medium mb-6">
               <span className="mr-1"></span> Case Study
             </div>
-            <h2 className="text-4xl lg:text-4xl font-normal text-white leading-tight mt-6">
+            <h2 className="text-4xl lg:text-4xl font-normal text-white leading-tight">
               {currentStudy.title}
             </h2>
             
@@ -213,10 +213,22 @@ const CaseStudySubPart = () => {
           </div>
 
           {/* Right: Image */}
-          <div className="flex-1 relative">
-            <div className="sticky top-24">
-              <div className="rounded-xl overflow-hidden shadow-lg">
-                {/* Case Study GIF implementation */}
+          <div className="flex-1 relative mt-20">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              {/* Case Study Video/GIF implementation */}
+              {currentStudy.image.endsWith('.mp4') ? (
+                <video
+                  key={currentStudy.id}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                >
+                  <source src={currentStudy.image} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
                 <Image
                   src={currentStudy.image}
                   alt="Case Study metrics visualization"
@@ -226,7 +238,7 @@ const CaseStudySubPart = () => {
                   priority
                   unoptimized
                 />
-              </div>
+              )}
             </div>
           </div>
         </div>
