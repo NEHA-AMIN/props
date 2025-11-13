@@ -39,7 +39,10 @@ const VideoModal: React.FC<{
   // Close on Escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+      }
     };
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
@@ -53,6 +56,18 @@ const VideoModal: React.FC<{
     };
   }, []);
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // console.log('Close button clicked');
+    onClose();
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -60,7 +75,7 @@ const VideoModal: React.FC<{
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-      onClick={onClose}
+      onClick={handleBackdropClick}
     >
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
@@ -71,16 +86,19 @@ const VideoModal: React.FC<{
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 bg-gray-800/50 border-b border-gray-700">
+        <div className="flex items-center justify-between p-4 bg-gray-800/50 border-b border-gray-700 relative">
           <h3 className="text-lg font-semibold text-white truncate pr-4">
             {title}
           </h3>
           <button
-            onClick={onClose}
-            className="p-2 rounded-full hover:bg-gray-700 transition-colors group"
+            type="button"
+            onClick={handleCloseClick}
+            onMouseDown={handleCloseClick}
+            className="p-2 rounded-full hover:bg-gray-700 transition-colors group cursor-pointer flex-shrink-0"
             aria-label="Close video"
+            style={{ position: 'relative', zIndex: 99999 }}
           >
-            <svg className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -145,6 +163,17 @@ const defaultCaseStudies: CaseStudy[] = [
     imageGradient: "from-teal-600 via-cyan-500 to-blue-600",
     tagline: "Physical Observability\nOnline to Offline",
     href: "https://youtu.be/7BfC4T_BfZ4",
+    type: "Use Cases",
+  },
+  {
+    id: "7",
+    title: "Market Potential for Retail",
+    category: "Retail",
+    description: "Identify high-potential markets and opportunities for retail expansion",
+    date: "November 13, 2025",
+    imageGradient: "from-blue-600 via-indigo-500 to-purple-600",
+    tagline: "Market Potential\nFor Retail",
+    href: "https://youtu.be/4VoVeaXUneY",
     type: "Use Cases",
   },
 ];
