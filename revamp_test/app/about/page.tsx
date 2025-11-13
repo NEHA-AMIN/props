@@ -1,7 +1,9 @@
+
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import SignalSection from '../components/SignalSection';
 
 const TEAM_MEMBERS = [
   {
@@ -55,7 +57,8 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <main className="bg-slate-950 text-slate-100 min-h-screen">
+    <>
+      <main className="bg-slate-950 text-slate-100 min-h-screen">
       <section className="relative py-24 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-teal-900/20 to-transparent" />
         
@@ -192,5 +195,7 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
+      <SignalSection />
+    </>
   );
 }

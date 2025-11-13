@@ -1,5 +1,6 @@
 'use client';
 import React, { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 // Define the case study type
@@ -8,7 +9,7 @@ interface CaseStudy {
   title: string;
   description: string;
   imageUrl: string;
-  link: string;
+  link: string | { pathname: string; query: Record<string, string> };
 }
 
 // Props for the component
@@ -248,13 +249,14 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                   <div className="p-4 sm:p-5 md:p-6">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">{study.title}</h3>
                     <p className="text-sm sm:text-base text-slate-300 mb-3 md:mb-4 line-clamp-2 sm:line-clamp-3">{study.description}</p>
-                    <a 
-                      href={study.link} 
+                    <Link 
+                      href={study.link}
+                      prefetch={false}
                       className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-teal-500 text-white rounded-md hover:bg-teal-600 transition-colors"
                       tabIndex={isActive ? 0 : -1}
                     >
                       Learn more
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -289,28 +291,28 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: "Retail",
     description: "Turn each store's living context - people movement, weather, neighborhood, and place dynamics - into action. Power demand planning, site selection, promo recommendations, assortment, staffing, and more with Physical AI that understands the world outside your doors.",
     imageUrl: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1200&auto=format&fit=crop",
-    link: "#retail-industry-section"
+    link: { pathname: "/industries", query: { category: "Retail" } }
   },
   {
     id: "cpg",
     title: "CPG",
     description: "Put each SKU in its real context - people movement, weather, sentiment, and place dynamics—to size market potential, fuel product recommendations, pick the right retailers, and optimize promo strategy and spend.",
     imageUrl: "https://images.squarespace-cdn.com/content/v1/62c81216243f7563e0f792a7/045ea285-1972-4f56-a438-fba5dea4c9db/CPG+Packaging+Design.jpg",
-    link: "#cpg-industry-section"
+    link: { pathname: "/industries", query: { category: "CPG" } }
   },
   {
     id: "o2o",
     title: "O2O",
     description: "Harness live context - people movement, events, weather, traffic, and supply - to power physical observability, tune dynamic pricing, sharpen demand planning, and localize product assortment across your O2O pickup, delivery, and ride zones.",
     imageUrl: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=1200&auto=format&fit=crop",
-    link: "#o2o-industry-section"
+    link: { pathname: "/industries", query: { category: "Online to Offline" } }
   },
   {
     id: "travel",
     title: "Travel",
     description: "Use live context—crowds, events, weather, transit and venue status, and local price movements—to power physical observability, personalize discovery and recommendations, and drive dynamic pricing and smart bundling across flights, stays, and experiences.",
     imageUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1200&auto=format&fit=crop",
-    link: "#travel-industry-section"
+    link: { pathname: "/industries", query: { category: "Travel" } }
   }
 ];
 

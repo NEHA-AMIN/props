@@ -128,9 +128,10 @@ const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 export type CaseStudiesGridProps = {
   caseStudies?: CaseStudy[];
   selectedType?: 'Case Studies' | 'Use Cases' | 'Blogs';
+  initialCategory?: string;
 };
 
-const defaultCaseStudies: CaseStudy[] = [
+export const defaultCaseStudies: CaseStudy[] = [
   // Use Cases with YouTube links only
   {
     id: "4",
@@ -298,8 +299,9 @@ const CaseStudyCard: React.FC<{
 export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   caseStudies = defaultCaseStudies,
   selectedType,
+  initialCategory,
 }) => {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState(initialCategory || "All");
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const [highlightScroll, setHighlightScroll] = useState(false);
   const [videoModalData, setVideoModalData] = useState<CaseStudy | null>(null);
@@ -314,6 +316,11 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
     activeFilter === "All"
       ? typeFilteredStudies
       : typeFilteredStudies.filter((study) => study.category === activeFilter);
+
+  // Sync when initial category changes (e.g., via query params)
+  useEffect(() => {
+    if (initialCategory) setActiveFilter(initialCategory);
+  }, [initialCategory]);
 
   // Handle category filter click
   const handleCategoryClick = (category: string) => {

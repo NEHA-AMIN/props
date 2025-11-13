@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { BackgroundPaths } from "@/components/ui/shadcn-io/background-paths";
 import { useTheme } from "../providers/ThemeProvider";
 import CaseStudiesGrid from "./CaseStudiesGrid";
+import { useSearchParams } from "next/navigation";
 
 export type Resource = {
   id: string;
@@ -75,6 +76,8 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [selectedType, setSelectedType] = useState<'Case Studies' | 'Use Cases' | 'Blogs' | undefined>(undefined);
+  const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
+  const searchParams = useSearchParams();
 
   const buttonCategories = ['Case Studies', 'Use Cases', 'Blogs'];
 
@@ -82,6 +85,19 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Initialize from query params (e.g., /resources?type=Use%20Cases&category=Retail)
+  useEffect(() => {
+    const type = searchParams.get('type');
+    const category = searchParams.get('category');
+    if (type === 'Use Cases' || type === 'Case Studies' || type === 'Blogs') {
+      setSelectedType(type as 'Case Studies' | 'Use Cases' | 'Blogs');
+    }
+    if (category) {
+      setInitialCategory(category);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   // Listen for theme changes and handle transitions
   useEffect(() => {
@@ -187,7 +203,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
         {/* </div> */}
 
         {/* Case Studies Grid Section */}
-        <CaseStudiesGrid selectedType={selectedType} />
+        <CaseStudiesGrid selectedType={selectedType} initialCategory={initialCategory} />
 
         {/* Footer slot */}
         {footerSlot && (

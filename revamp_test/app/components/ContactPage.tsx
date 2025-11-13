@@ -1,46 +1,57 @@
 'use client'; 
  
-import React, { useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import { motion } from 'framer-motion'; 
 import { Vortex } from "@/components/ui/shadcn-io/vortex";
 import { submitContactToHubspot } from '@/app/actions/hubspot';
+import SignalSection from './SignalSection';
  
-const CONTACT_INFO = [ 
-  { 
-    icon: '📧', 
-    title: 'Email Us', 
-    details: 'hello@propheus.com', 
-    link: 'mailto:hello@propheus.com', 
-    description: 'Get in touch via email' 
-  }, 
-  { 
-    icon: '📞', 
-    title: 'Call Us', 
-    details: '+1 (555) 123-4567', 
-    link: 'tel:+15551234567', 
-    description: 'Speak with our team' 
-  }, 
-  { 
-    icon: '📍', 
-    title: 'Visit Us', 
-    details: '123 Innovation Drive, San Francisco, CA 94105', 
-    link: 'https://maps.google.com', 
-    description: 'Come see us in person' 
-  }, 
-  { 
-    icon: '💬', 
-    title: 'Live Chat', 
-    details: 'Available Mon-Fri, 9AM-6PM PST', 
-    link: '#', 
-    description: 'Instant support' 
-  } 
-]; 
+const LOCATIONS = [
+  {
+    flag: '🇺🇸',
+    country: 'United States',
+    isHQ: true,
+    lines: [
+      '303 Twin Dolphin Drive Suite 600,',
+      'Redwood City, CA - 94065',
+    ],
+  },
+  {
+    flag: '🇸🇬',
+    country: 'Singapore',
+    isHQ: false,
+    lines: [
+      '6 Battery Road,',
+      'Singapore - 049909',
+    ],
+  },
+  {
+    flag: '🇮🇳',
+    country: 'India',
+    isHQ: false,
+    lines: [
+      'NR Trident Tech Park, Sector 6,',
+      'HSR Layout, Bangalore - 560068',
+    ],
+  },
+];
  
 export default function ContactPage() { 
-  const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' }); 
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '', wantsDemo: 'Yes' }); 
   const [isSubmitting, setIsSubmitting] = useState(false); 
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle'); 
   const [errorMessage, setErrorMessage] = useState<string>('');
+ 
+  // Auto-scroll to the contact form on page load
+  useEffect(() => {
+    const el = document.getElementById('contact-form');
+    if (el) {
+      // Delay slightly to ensure layout is ready
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, []);
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => { 
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
@@ -58,6 +69,7 @@ export default function ContactPage() {
       formDataObj.append('email', formData.email);
       formDataObj.append('company', formData.company);
       formDataObj.append('message', formData.message);
+      formDataObj.append('wantsDemo', formData.wantsDemo || 'No');
       formDataObj.append('pageUri', window.location.href);
       
       // Get HubSpot tracking cookie if available
@@ -145,8 +157,14 @@ export default function ContactPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                <button className="px-8 py-4 bg-gradient-to-r from-teal-400 to-teal-600 rounded-full text-white font-medium text-lg hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300">
-                  Get Started
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('contact-form');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="px-8 py-4 bg-gradient-to-r from-teal-400 to-teal-600 rounded-full text-white font-medium text-lg hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300"
+                >
+                  Book a Demo
                 </button>
               </motion.div>
               
@@ -204,6 +222,7 @@ export default function ContactPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 via-blue-500/5 to-purple-500/10 rounded-3xl blur-xl" />
 
               <form
+                id="contact-form"
                 onSubmit={handleSubmit}
                 className="relative bg-[#050A14]/80 backdrop-blur-xl border border-slate-800/40 rounded-3xl p-8 md:p-10 shadow-2xl h-full"
               >
@@ -256,6 +275,35 @@ export default function ContactPage() {
                 /> 
               </div> 
             </div> 
+
+            {/* Book a Demo? (Yes/No) */}
+            <div className="space-y-2 mb-6">
+              <span className="block text-sm font-semibold text-slate-300">Would you like to book a demo?</span>
+              <div className="flex items-center gap-6">
+                <label className="flex items-center gap-2 text-slate-300">
+                  <input
+                    type="radio"
+                    name="wantsDemo"
+                    value="Yes"
+                    checked={formData.wantsDemo === 'Yes'}
+                    onChange={handleChange}
+                    className="h-4 w-4 accent-teal-500"
+                  />
+                  Yes
+                </label>
+                <label className="flex items-center gap-2 text-slate-300">
+                  <input
+                    type="radio"
+                    name="wantsDemo"
+                    value="No"
+                    checked={formData.wantsDemo === 'No'}
+                    onChange={handleChange}
+                    className="h-4 w-4 accent-teal-500"
+                  />
+                  No
+                </label>
+              </div>
+            </div>
 
             <div className="space-y-2 mb-10"> 
       <label htmlFor="message" className="block text-sm font-semibold text-slate-300">Message <span className="text-teal-500">*</span></label>
@@ -346,125 +394,49 @@ export default function ContactPage() {
           </form>
         </motion.div>
 
-        {/* Right Column: Contact Info Cards */}
+        {/* Right Column: Single Locations Card */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-rows-4 gap-4 h-full"
+          className="h-full"
         >
-          {CONTACT_INFO.map((info, index) => (
-            <motion.a
-              key={info.title}
-              href={info.link}
-              target={info.link?.startsWith('http') ? '_blank' : undefined}
-              rel={info.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02, y: -2 }}
-              className="group relative overflow-hidden h-full"
-            >
-              {/* Using the same abyss tone as the form */}
-              <div className="relative bg-[#050A14]/80 backdrop-blur-xl border border-slate-800/40 rounded-3xl p-6 h-full shadow-2xl transition-all duration-300 flex flex-col justify-center">
-                <div className="flex items-center">
-                  {/* Icon */}
-                  <div className="relative mr-4 w-10 h-10 flex items-center justify-center">
-                    <div className="text-2xl">{info.icon}</div>
+          <div className="relative bg-[#050A14]/80 backdrop-blur-xl border border-slate-800/40 rounded-3xl p-8 h-full shadow-2xl">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-white">Corporate Addresses</h3>
+            </div>
+
+            <div className="space-y-8">
+              {LOCATIONS.map((loc) => (
+                <div key={loc.country} className="flex items-start gap-5">
+                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-teal-500/15 flex items-center justify-center text-lg md:text-xl">
+                    <span className="leading-none">{loc.flag}</span>
                   </div>
-                  
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white mb-1">{info.title}</h3>
-                    <p className="text-sm text-slate-300">{info.details}</p>
-                    <p className="text-xs text-slate-400">{info.description}</p>
+                    <div className="flex items-center gap-3">
+                      <p className="text-lg font-semibold text-white">{loc.country}</p>
+                      {loc.isHQ && (
+                        <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                          Headquarters
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-slate-300 text-sm leading-relaxed">
+                      {loc.lines[0]}<br />{loc.lines[1]}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </motion.a>
-          ))}
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </div>
   </section>
 
-      {/* Location Section */}
-      <section className="relative z-10 min-h-screen py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Location</h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">Visit our headquarters in the heart of innovation</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative bg-[#050A14]/80 backdrop-blur-xl border border-slate-800/40 rounded-3xl overflow-hidden shadow-2xl"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="p-8 md:p-12">
-                <h3 className="text-2xl font-bold mb-4">Propheus Headquarters</h3>
-                <p className="text-slate-400 mb-6">123 Innovation Drive<br />San Francisco, CA 94105<br />United States</p>
-                
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center mr-4">
-                      <span className="text-teal-400">📞</span>
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-400">Phone</p>
-                      <p className="text-slate-200">+1 (555) 123-4567</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center mr-4">
-                      <span className="text-teal-400">📧</span>
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-400">Email</p>
-                      <p className="text-slate-200">hello@propheus.com</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-teal-500/20 flex items-center justify-center mr-4">
-                      <span className="text-teal-400">🕒</span>
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-400">Hours</p>
-                      <p className="text-slate-200">Monday - Friday: 9AM - 6PM PST</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <button className="px-6 py-3 bg-gradient-to-r from-teal-400 to-teal-600 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300">
-                  Get Directions
-                </button>
-              </div>
-              
-              <div className="h-[400px] lg:h-auto bg-[#070C18]/90 relative overflow-hidden">
-                {/* Map placeholder - in a real implementation, you would integrate Google Maps or similar */}
-                <div className="absolute inset-0 bg-[#070C18]/90 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="text-6xl mb-4">🗺️</div>
-                    <p className="text-slate-400">Interactive map would be displayed here</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Newsletter (replaces location section) */}
+      <SignalSection />
     </main>
   );
 }

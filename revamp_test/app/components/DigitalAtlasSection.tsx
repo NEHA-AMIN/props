@@ -125,7 +125,7 @@ const DigitalAtlasSection = () => {
               Fuses Real world Signals
             </h3>
             <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 leading-snug">
-              Like places, weather, people movement, demographics, and consumer sentiment - into comprehensive knowledge representation.
+              Like places, weather, people movement, demographics, and consumer sentiment -into the most comprehensive representaion of the world
             </p>
           </div>
         </motion.div>
