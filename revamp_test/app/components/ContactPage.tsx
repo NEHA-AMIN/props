@@ -87,7 +87,7 @@ export default function ContactPage() {
       
       if (result.success) {
         setSubmitStatus('success');
-        setFormData({ name: '', email: '', company: '', message: '' });
+        setFormData({ name: '', email: '', company: '', message: '', wantsDemo: 'Yes' });
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
         setSubmitStatus('error');
