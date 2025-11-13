@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { defaultCaseStudies } from "./CaseStudiesGrid";
 
 // Resource type definition
 type Resource = {
@@ -247,6 +250,14 @@ const resourcesData: Resource[] = [
 
 // Resource Card Component
 const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
+  // Determine if a matching resource exists in Resources (Use Cases) for this category and title
+  const hasMatchingResource = defaultCaseStudies.some(
+    (study) =>
+      study.type === 'Use Cases' &&
+      study.category === resource.category &&
+      study.title.toLowerCase().includes(resource.title.toLowerCase())
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -277,12 +288,18 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
           </span>
         </div>
         
-        {/* Learn More Button - Bottom Right Corner - moves up on hover */}
-        <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 lg:bottom-6 lg:right-6 z-30 transition-all duration-500 ease-in-out group-hover:bottom-6 group-hover:right-6 sm:group-hover:bottom-8 sm:group-hover:right-8">
-          <span className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm cursor-pointer hover:bg-teal-500/90 transition-colors duration-200">
-            Learn More
-          </span>
-        </div>
+        {/* Learn More Button - Bottom Right Corner - appears only if matching resource exists */}
+        {hasMatchingResource && (
+          <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 lg:bottom-6 lg:right-6 z-30 transition-all duration-500 ease-in-out group-hover:bottom-6 group-hover:right-6 sm:group-hover:bottom-8 sm:group-hover:right-8">
+            <Link
+              href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(resource.category)}`}
+              prefetch={false}
+              className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm hover:bg-teal-500/90 transition-colors duration-200"
+            >
+              Learn More
+            </Link>
+          </div>
+        )}
         
         {/* Content Container with Slide-Up Animation - Max height just below category badge */}
         <div className="absolute bottom-0 left-0 right-0 max-h-[85%] p-3 sm:p-4 md:p-5 lg:p-6 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-2 sm:group-hover:-translate-y-4 z-20 flex flex-col">
@@ -310,10 +327,20 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
 const categories = ["Retail", "CPG", "Online to Offline", "Travel", "FinTech", "Real Estate", "Telecom"];
 
 export default function NewIndustriesPage() {
+  const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [filteredResources, setFilteredResources] = useState(
     resourcesData.filter(resource => resource.category === categories[0])
   );
+  
+  // Initialize active category from query string if provided
+  useEffect(() => {
+    const initial = searchParams.get('category');
+    if (initial && categories.includes(initial)) {
+      setActiveCategory(initial);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
   
   // Filter resources when category changes
   useEffect(() => {

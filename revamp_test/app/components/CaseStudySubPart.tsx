@@ -72,7 +72,7 @@ const caseStudies: CaseStudy[] = [
     metricLabel: 'sales uplift',
     metrics: [
       { value: 12, label: 'sales uplift' },
-      { value: 10.5, label: 'effective calls' }
+      { value: 10.5, label: 'effective recommendations' }
     ]
   }
 ];
