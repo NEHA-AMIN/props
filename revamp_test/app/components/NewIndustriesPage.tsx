@@ -346,7 +346,7 @@ export default function NewIndustriesPage() {
             
             {/* Subheading */}
             <p className="text-[#a0a7b1] text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal px-4">
-              From Retail to Automotive, Propheus empowers data teams to effortlessly confront age-old and emerging business challenges through our end to end solutions.
+              From Retail to Travel, Propheus empowers enterprise teams to effortlessly confront age-old and emerging business challenges through the most comprehensive knowledge of the real world!
             </p>
           </div>
         </div>
