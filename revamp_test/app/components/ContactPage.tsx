@@ -1,6 +1,6 @@
 'use client'; 
  
-import React, { useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import { motion } from 'framer-motion'; 
 import { Vortex } from "@/components/ui/shadcn-io/vortex";
 import { submitContactToHubspot } from '@/app/actions/hubspot';
@@ -41,6 +41,17 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false); 
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle'); 
   const [errorMessage, setErrorMessage] = useState<string>('');
+ 
+  // Auto-scroll to the contact form on page load
+  useEffect(() => {
+    const el = document.getElementById('contact-form');
+    if (el) {
+      // Delay slightly to ensure layout is ready
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, []);
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => { 
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
@@ -204,6 +215,7 @@ export default function ContactPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 via-blue-500/5 to-purple-500/10 rounded-3xl blur-xl" />
 
               <form
+                id="contact-form"
                 onSubmit={handleSubmit}
                 className="relative bg-[#050A14]/80 backdrop-blur-xl border border-slate-800/40 rounded-3xl p-8 md:p-10 shadow-2xl h-full"
               >

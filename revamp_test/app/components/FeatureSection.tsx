@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Link from 'next/link';
 import { motion, useInView, cubicBezier } from 'framer-motion';
 
 const DigitalAtlasAccessSection = () => {
@@ -151,6 +152,18 @@ const DigitalAtlasAccessSection = () => {
               )}
             </motion.div>
           ))}
+        </div>
+
+        {/* CTA: Book Demo */}
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/contact#contact-form"
+            prefetch={false}
+            className="px-8 py-3 rounded-full bg-gradient-to-r from-teal-400 to-teal-600 text-white font-semibold shadow-lg hover:shadow-teal-500/40 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-teal-500/40"
+            aria-label="Book a demo"
+          >
+            Book Demo
+          </Link>
         </div>
       </div>
     </section>

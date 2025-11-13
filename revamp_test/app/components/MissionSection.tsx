@@ -7,11 +7,11 @@ const MissionSection: React.FC = () => {
   const isInView = useInView(sectionRef, { amount: 0.3 });
   
   const headingText = "Physical AI";
-  const paragraphText = "Enables Humans and autonomous systems like Software Agents , Robots , AVs to analyze and percieve the real world by gathering from signals like location,    events , weather, news etc ";
+  const paragraphText = "Physical AI - Delivering the most comprehensive understanding of the real world - enabling humans and autonomous systems (robots, AVs, and software agents) to perceive, act, and deliver outcomes with confidence.";
   
-  // Split text into individual letters
+  // Split heading into letters (kept), paragraph into words to avoid mid-word breaks
   const headingLetters = headingText.split('');
-  const paragraphLetters = paragraphText.split('');
+  const paragraphWords = paragraphText.split(' ');
 
   // Letter animation - each letter slides in with squeeze effect
   const letterVariants = {
@@ -32,21 +32,21 @@ const MissionSection: React.FC = () => {
     })
   };
 
-  // Paragraph letter animation with base delay to start after heading
-  const paragraphLetterVariants = {
+  // Paragraph word animation with base delay to start after heading
+  const paragraphWordVariants = {
     hidden: {
       opacity: 0,
-      x: 40,
-      scaleX: 0.3,
+      x: 20,
+      scaleX: 0.98,
     },
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
       scaleX: 1,
       transition: {
-        duration: 0.8,
-        delay: 0.3 + (i * 0.015), // Base delay + stagger (faster than heading)
-        ease: cubicBezier(0.19, 1, 0.22, 1), // easeOutExpo
+        duration: 0.5,
+        delay: 0.3 + (i * 0.03), // Stagger by word
+        ease: cubicBezier(0.19, 1, 0.22, 1),
       }
     })
   };
@@ -98,21 +98,22 @@ const MissionSection: React.FC = () => {
             </h2>
           </div>
           
-          {/* Right column - Paragraph with animated letters */}
+          {/* Right column - Paragraph animated per-word to prevent mid-word wrapping */}
           <div className="md:col-span-9">
             <p className="text-xl md:text-2xl text-white leading-relaxed">
-              {paragraphLetters.map((letter, index) => (
-                <motion.span
-                  key={index}
-                  custom={index}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  variants={paragraphLetterVariants}
-                  className="inline-block"
-                  style={{ display: 'inline-block' }}
-                >
-                  {letter === ' ' ? '\u00A0' : letter}
-                </motion.span>
+              {paragraphWords.map((word, index) => (
+                <React.Fragment key={`${word}-${index}`}>
+                  <motion.span
+                    custom={index}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                    variants={paragraphWordVariants}
+                    className="inline-block"
+                    style={{ display: 'inline-block' }}
+                  >
+                    {word}
+                  </motion.span>{' '}
+                </React.Fragment>
               ))}
             </p>
           </div>
