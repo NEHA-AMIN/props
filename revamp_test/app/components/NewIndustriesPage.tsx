@@ -22,7 +22,7 @@ const resourcesData: Resource[] = [
     id: "1",
     title: "Physical Observability",
     description:
-      "View every store and its competitive context on a live map. Drill into any location for a rich profile—store facts, neighbourhood signals (footfall, income, anchors).",
+      "View every store and its competitive context on a live map. Drill into any location for a rich profile store facts, neighbourhood signals (footfall, income, anchors).",
     category: "Retail",
     image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -46,7 +46,7 @@ const resourcesData: Resource[] = [
     id: "4",
     title: "Product Recommendation",
     description:
-      "Recommend the right products for each store, shelf, and shopper by leveraging the Digital Atlas, to boost conversion, basket size, and sell-through across channels.",
+      "Recommend the right products for each store, shelf, and shopper by leveraging the Digital Atlas.",
     category: "Retail",
     image: "https://images.pexels.com/photos/1005638/pexels-photo-1005638.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -54,7 +54,7 @@ const resourcesData: Resource[] = [
     id: "5",
     title: "Promotion Recommendation",
     description:
-      "Recommend the right offers, timing, and channels for each store and audience by leveraging the Digital Atlas—to maximize uplift, ROI, and sell-through while minimizing cannibalization.",
+      "Recommend the right offers, timing, and channels for each store and audience by leveraging the Digital Atlas",
     category: "Retail",
     image: "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -88,7 +88,7 @@ const resourcesData: Resource[] = [
     id: "9",
     title: "Product Recommendation",
     description:
-      "Recommend the right SKUs, pack sizes, and flavors for each retailer, store, and channel by leveraging the Digital Atlas—to optimize assortments, drive cross-sell/upsell, and lift velocity and contribution margin.",
+      "Recommend the right SKUs, pack sizes, and flavors for each retailer, store, and channel by leveraging the Digital Atlas.",
     category: "CPG",
     image: "https://images.pexels.com/photos/1797428/pexels-photo-1797428.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -96,7 +96,7 @@ const resourcesData: Resource[] = [
     id: "10",
     title: "Promotion Recommendation",
     description:
-      "Recommend the right offers, timing, mechanics, and channels for each retailer and store by leveraging the Digital Atlas—to maximize incremental lift and ROI while minimizing cannibalization and trade spend waste.",
+      "Recommend the right offers, timing, mechanics, and channels for each retailer and store by leveraging the Digital Atlas.",
     category: "CPG",
     image: "https://images.pexels.com/photos/3962285/pexels-photo-3962285.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -130,7 +130,7 @@ const resourcesData: Resource[] = [
     id: "14",
     title: "Product Assortment",
     description:
-      "Localize menus/SKUs and bundles per micro-market, setting core + local items, facings/portion sizes, and cross-sell packs to boost conversion, sell-through, and contribution.",
+      "Localize menus/SKUs and bundles per micro-market, setting core + local items, facings/portion sizes.",
     category: "Online to Offline",
     image: "https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -140,7 +140,7 @@ const resourcesData: Resource[] = [
     id: "15",
     title: "Physical Observability",
     description:
-      "View properties and nearby competitors on a live map. Drill into any location for a neighborhood vibe profile, so travelers can pick the right area, timing, and plan with confidence.",
+      "View properties and nearby competitors on a live map. Drill into any location for a neighborhood vibe profile.",
     category: "Travel",
     image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -148,7 +148,7 @@ const resourcesData: Resource[] = [
     id: "16",
     title: "Personalized Discovery & Recommendations",
     description:
-      "Surface contextual signals like neighborhood vibe, proximity to experiences, and real-time demand to match travelers with the right destinations and stays earlier in their journey.",
+      "Surface contextual signals like neighborhood vibe, proximity to experiences, and real-time demand to match travelers.",
     category: "Travel",
     image: "https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -156,7 +156,7 @@ const resourcesData: Resource[] = [
     id: "17",
     title: "Dynamic Pricing & Bundling",
     description:
-      "AI-driven trip planning: connecting accommodations with nearby experiences, mobility options, and relevant content, turning passive browsing into a structured, bookable itinerary—all within the platform.",
+      "AI-driven trip planning: connecting accommodations with nearby experiences, mobility options.",
     category: "Travel",
     image: "https://images.pexels.com/photos/1007657/pexels-photo-1007657.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -250,12 +250,18 @@ const resourcesData: Resource[] = [
 
 // Resource Card Component
 const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
-  // Determine if a matching resource exists in Resources (Use Cases) for this category and title
+  // Map category names to match resources page categories
+  const getCategoryForResources = (category: string): string => {
+    if (category === "Online to Offline") return "O2O";
+    return category;
+  };
+
+  // Determine if a matching resource exists in Resources (Use Cases) for this category
   const hasMatchingResource = defaultCaseStudies.some(
-    (study) =>
-      study.type === 'Use Cases' &&
-      study.category === resource.category &&
-      study.title.toLowerCase().includes(resource.title.toLowerCase())
+    (study) => {
+      const resourceCategory = getCategoryForResources(resource.category);
+      return study.type === 'Use Cases' && study.category === resourceCategory;
+    }
   );
 
   return (
@@ -288,11 +294,11 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
           </span>
         </div>
         
-        {/* Learn More Button - Bottom Right Corner - appears only if matching resource exists */}
+        {/* Learn More Button - Bottom Right Corner - Show for all cards with matching resources */}
         {hasMatchingResource && (
           <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 lg:bottom-6 lg:right-6 z-30 transition-all duration-500 ease-in-out group-hover:bottom-6 group-hover:right-6 sm:group-hover:bottom-8 sm:group-hover:right-8">
             <Link
-              href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(resource.category)}`}
+              href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(getCategoryForResources(resource.category))}#resources-grid`}
               prefetch={false}
               className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm hover:bg-teal-500/90 transition-colors duration-200"
             >
@@ -302,18 +308,15 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
         )}
         
         {/* Content Container with Slide-Up Animation - Max height just below category badge */}
-        <div className="absolute bottom-0 left-0 right-0 max-h-[85%] p-3 sm:p-4 md:p-5 lg:p-6 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-2 sm:group-hover:-translate-y-4 z-20 flex flex-col">
+        <div className="absolute bottom-0 left-0 right-0 max-h-[85%] p-3 sm:p-4 md:p-5 lg:p-6 pb-10 sm:pb-11 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-2 sm:group-hover:-translate-y-4 z-20 flex flex-col">
           {/* Title - Slides up with description */}
-          <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3 transition-all duration-500 ease-in-out leading-tight flex-shrink-0 pr-20 sm:pr-24">
+          <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 sm:mb-2 md:mb-3 transition-all duration-500 ease-in-out leading-tight flex-shrink-0 pr-20 sm:pr-24">
             {resource.title}
           </h3>
           
-          {/* Description - Slides up from bottom on hover with smooth scroll */}
-          <div className="max-h-0 overflow-y-auto transition-all duration-500 ease-in-out group-hover:max-h-[60vh] scroll-smooth overflow-x-hidden pr-2" style={{
-            scrollbarWidth: 'thin',
-            scrollbarColor: 'rgba(45, 212, 191, 0.5) transparent'
-          }}>
-            <p className="text-gray-200 text-[10px] sm:text-xs md:text-xs lg:text-sm leading-relaxed opacity-0 transform translate-y-4 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 pr-16 sm:pr-20">
+          {/* Description - Slides up from bottom on hover - no scroll, just fade in */}
+          <div className="overflow-hidden transition-all duration-500 ease-in-out">
+            <p className="text-gray-200 text-[10px] sm:text-xs leading-relaxed opacity-0 transform translate-y-4 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 pr-20 sm:pr-24">
               {resource.description}
             </p>
           </div>
@@ -339,7 +342,6 @@ export default function NewIndustriesPage() {
     if (initial && categories.includes(initial)) {
       setActiveCategory(initial);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
   
   // Filter resources when category changes
@@ -384,7 +386,7 @@ export default function NewIndustriesPage() {
       </section>
       
       {/* Filter Tabs */}
-      <section className="py-8 border-y border-gray-800/30">
+      <section id="industries-grid" className="py-8 border-y border-gray-800/30">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center space-x-1 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (

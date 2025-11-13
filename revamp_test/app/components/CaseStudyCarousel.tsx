@@ -291,28 +291,28 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: "Retail",
     description: "Turn each store's living context - people movement, weather, neighborhood, and place dynamics - into action. Power demand planning, site selection, promo recommendations, assortment, staffing, and more with Physical AI that understands the world outside your doors.",
     imageUrl: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1200&auto=format&fit=crop",
-    link: { pathname: "/industries", query: { category: "Retail" } }
+    link: "/industries?category=Retail#industries-grid"
   },
   {
     id: "cpg",
     title: "CPG",
     description: "Put each SKU in its real context - people movement, weather, sentiment, and place dynamics—to size market potential, fuel product recommendations, pick the right retailers, and optimize promo strategy and spend.",
     imageUrl: "https://images.squarespace-cdn.com/content/v1/62c81216243f7563e0f792a7/045ea285-1972-4f56-a438-fba5dea4c9db/CPG+Packaging+Design.jpg",
-    link: { pathname: "/industries", query: { category: "CPG" } }
+    link: "/industries?category=CPG#industries-grid"
   },
   {
     id: "o2o",
     title: "O2O",
     description: "Harness live context - people movement, events, weather, traffic, and supply - to power physical observability, tune dynamic pricing, sharpen demand planning, and localize product assortment across your O2O pickup, delivery, and ride zones.",
     imageUrl: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=1200&auto=format&fit=crop",
-    link: { pathname: "/industries", query: { category: "Online to Offline" } }
+    link: "/industries?category=Online%20to%20Offline#industries-grid"
   },
   {
     id: "travel",
     title: "Travel",
     description: "Use live context—crowds, events, weather, transit and venue status, and local price movements—to power physical observability, personalize discovery and recommendations, and drive dynamic pricing and smart bundling across flights, stays, and experiences.",
     imageUrl: "https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1200&auto=format&fit=crop",
-    link: { pathname: "/industries", query: { category: "Travel" } }
+    link: "/industries?category=Travel#industries-grid"
   }
 ];
 
