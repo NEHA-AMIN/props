@@ -403,16 +403,15 @@ export default function ContactPage() {
           className="h-full"
         >
           <div className="relative bg-[#050A14]/80 backdrop-blur-xl border border-slate-800/40 rounded-3xl p-8 h-full shadow-2xl">
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-8">
               <h3 className="text-2xl font-bold text-white">Corporate Addresses</h3>
-              <span className="text-xs text-slate-400">US is our Headquarters</span>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {LOCATIONS.map((loc) => (
-                <div key={loc.country} className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-teal-500/15 flex items-center justify-center text-xl">
-                    <span>{loc.flag}</span>
+                <div key={loc.country} className="flex items-start gap-5">
+                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-teal-500/15 flex items-center justify-center text-lg md:text-xl">
+                    <span className="leading-none">{loc.flag}</span>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
@@ -423,7 +422,7 @@ export default function ContactPage() {
                         </span>
                       )}
                     </div>
-                    <p className="text-slate-300 text-sm leading-relaxed">
+                    <p className="mt-1 text-slate-300 text-sm leading-relaxed">
                       {loc.lines[0]}<br />{loc.lines[1]}
                     </p>
                   </div>
