@@ -53,7 +53,7 @@ const DigitalAtlasSection = () => {
           className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
         >
           {/* Hero Title */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white text-center px-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white text-center px-6 gradient-sweep-text">
             Digital Atlas powered by Physical AI
           </h2>
         </motion.div>

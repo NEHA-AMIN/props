@@ -292,7 +292,7 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
         
         {/* Category Badge - Top Left - Single instance */}
         <div className="absolute top-4 left-4 z-20">
-          <span className="inline-block bg-teal-600/90 text-white text-xs font-medium px-3 py-1 rounded-md backdrop-blur-sm">
+          <span className="inline-block bg-teal-600/90 case-study-badge-gradient text-white text-xs font-medium px-3 py-1 rounded-md backdrop-blur-sm">
             {resource.category}
           </span>
         </div>
@@ -366,7 +366,7 @@ export default function NewIndustriesPage() {
           <div className="max-w-3xl mx-auto text-center">
             {/* Top Label */}
             <div className="inline-block mb-8">
-              <span className="bg-[#0a1b2f] text-[#8bd3f9] text-xs font-medium px-4 py-1.5 rounded-full">
+              <span className="bg-[#0a1b2f] case-study-badge-gradient text-[#8bd3f9] text-xs font-medium px-4 py-1.5 rounded-full">
                 ✦ Discover your use cases
               </span>
             </div>

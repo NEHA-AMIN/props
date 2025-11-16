@@ -136,7 +136,7 @@ const CaseStudySubPart = () => {
           
           {/* Left: Text */}
           <div className="flex-1 pr-0 lg:pr-8 xl:pr-12">
-            <div className="inline-flex items-center px-3 py-1 rounded-md bg-teal-900/40 border border-teal-700/30 text-teal-400 text-sm font-medium mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-md bg-teal-900/40 case-study-badge-gradient border border-teal-700/30 text-teal-400 text-sm font-medium mb-6">
               <span className="mr-1"></span> Case Study
             </div>
             <h2 className="text-4xl lg:text-4xl font-normal text-white leading-tight">
