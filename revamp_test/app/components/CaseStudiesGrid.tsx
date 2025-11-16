@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type CaseStudy = {
@@ -251,8 +251,8 @@ const CaseStudyCard: React.FC<{
           ) : null}
         </div>
 
-        {/* Content Section - Expands from bottom to cover entire card on hover */}
-        <div className="absolute bottom-0 left-0 right-0 backdrop-blur-sm bg-black/70 transition-[height] duration-[20000ms] ease-out h-[40%] group-hover:h-full p-6 flex flex-col z-20 border-t border-white/10">
+        {/* Content Section - Expands from bottom on hover */}
+        <div className="absolute bottom-0 left-0 right-0 backdrop-blur-sm bg-black/70 transition-[height] duration-[1000ms] ease-out h-auto min-h-[35%] group-hover:h-[65%] p-6 flex flex-col z-20 border-t border-white/10">
           {/* Category Label */}
           <p className="text-xs font-semibold text-teal-400 uppercase tracking-wide mb-2">
             {study.category}
@@ -306,36 +306,66 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   selectedType,
   initialCategory,
 }) => {
-  const [activeFilter, setActiveFilter] = useState(initialCategory || "All");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const [highlightScroll, setHighlightScroll] = useState(false);
   const [videoModalData, setVideoModalData] = useState<CaseStudy | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // First filter by type (Case Studies, Use Cases, or Blogs)
   const typeFilteredStudies = selectedType 
     ? caseStudies.filter((study) => study.type === selectedType)
     : [];
 
-  // Then filter by category (All, Retail, CPG, etc.)
+  // Then filter by selected categories (multiple selection)
   const filteredCaseStudies =
-    activeFilter === "All"
+    selectedCategories.length === 0
       ? typeFilteredStudies
-      : typeFilteredStudies.filter((study) => study.category === activeFilter);
+      : typeFilteredStudies.filter((study) => selectedCategories.includes(study.category));
 
   // Sync when initial category changes (e.g., via query params)
   useEffect(() => {
-    if (initialCategory) setActiveFilter(initialCategory);
+    if (initialCategory && initialCategory !== "All") {
+      setSelectedCategories([initialCategory]);
+    }
   }, [initialCategory]);
 
-  // Handle category filter click
-  const handleCategoryClick = (category: string) => {
-    if (selectedType) {
-      setActiveFilter(category);
-    } else {
-      // Highlight the scroll up message
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Handle category selection toggle
+  const handleCategoryToggle = (category: string) => {
+    if (!selectedType) {
       setHighlightScroll(true);
       setTimeout(() => setHighlightScroll(false), 2000);
+      return;
     }
+
+    setSelectedCategories((prev) => {
+      if (prev.includes(category)) {
+        return prev.filter((c) => c !== category);
+      } else {
+        return [...prev, category];
+      }
+    });
+    
+    // Close dropdown after selection
+    setIsDropdownOpen(false);
+  };
+
+  // Clear all filters
+  const handleClearAll = () => {
+    setSelectedCategories([]);
   };
 
   return (
@@ -352,7 +382,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
       </AnimatePresence>
 
       <div className="w-full">
-        {/* Filter Bar with Divider Lines */}
+        {/* Filter Dropdown */}
         <motion.div
           id="resources-grid"
           initial={{ opacity: 0, y: 20 }}
@@ -361,23 +391,90 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16 px-6 sm:px-8"
         >
-          {/* Filter Buttons */}
-          <div className="overflow-x-auto pb-4 -mx-2">
-            <div className="flex gap-5 justify-start md:justify-center min-w-max md:min-w-0 px-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryClick(category)}
-                  className={`min-w-[110px] px-4 py-3 rounded-full text-base font-normal transition-all duration-300 whitespace-nowrap ${
-                    activeFilter === category && selectedType
-                      ? "bg-teal-500 text-white shadow-lg shadow-teal-500/30"
-                      : "bg-gray-800/60 text-gray-300 hover:bg-gray-700/80 hover:text-white border border-gray-700/50"
-                  }`}
+          <div className="flex items-center justify-center gap-4">
+            <span className="text-gray-300 font-medium">Refine by:</span>
+            
+            <div className="relative" ref={dropdownRef}>
+              {/* Dropdown Button */}
+              <button
+                onClick={() => selectedType && setIsDropdownOpen(!isDropdownOpen)}
+                disabled={!selectedType}
+                className={`min-w-[280px] px-6 py-3 rounded-full text-base font-normal transition-all duration-300 flex items-center justify-between ${
+                  selectedType
+                    ? "bg-gray-800/60 text-gray-300 hover:bg-gray-700/80 hover:text-white border border-gray-700/50 cursor-pointer"
+                    : "bg-gray-800/30 text-gray-500 border border-gray-700/30 cursor-not-allowed"
+                }`}
+              >
+                <span>
+                  {selectedCategories.length === 0
+                    ? "Select categories"
+                    : `${selectedCategories.length} selected`}
+                </span>
+                <svg
+                  className={`w-5 h-5 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  {category}
-                </button>
-              ))}
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && selectedType && (
+                <div className="absolute top-full mt-2 w-full bg-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl shadow-2xl shadow-black/50 z-50 overflow-hidden">
+                  {/* Clear All Button */}
+                  {selectedCategories.length > 0 && (
+                    <button
+                      onClick={handleClearAll}
+                      className="w-full px-4 py-2 text-sm text-teal-400 hover:bg-gray-800/50 transition-colors text-left border-b border-gray-700/50"
+                    >
+                      Clear all
+                    </button>
+                  )}
+                  
+                  {/* Category Options */}
+                  <div className="max-h-64 overflow-y-auto">
+                    {categories.filter(c => c !== "All").map((category) => (
+                      <label
+                        key={category}
+                        className="flex items-center px-4 py-3 hover:bg-gray-800/50 transition-colors cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category)}
+                          onChange={() => handleCategoryToggle(category)}
+                          className="w-4 h-4 rounded border-gray-600 bg-gray-800 cursor-pointer accent-teal-500"
+                        />
+                        <span className="ml-3 text-gray-300">{category}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
+
+            {/* Selected Pills */}
+            {selectedCategories.length > 0 && (
+              <div className="flex flex-wrap gap-2 ml-4">
+                {selectedCategories.map((category) => (
+                  <span
+                    key={category}
+                    className="inline-flex items-center gap-2 px-3 py-1 bg-teal-500/20 border border-teal-500/30 rounded-full text-sm text-teal-300"
+                  >
+                    {category}
+                    <button
+                      onClick={() => handleCategoryToggle(category)}
+                      className="hover:text-teal-100 transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </motion.div>
 
@@ -434,7 +531,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
             <>
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={activeFilter}
+                  key={selectedCategories.join(",")}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
