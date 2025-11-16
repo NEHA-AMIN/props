@@ -135,7 +135,7 @@ const CaseStudySubPart = () => {
         <div className="flex flex-col lg:flex-row items-start justify-between gap-16">
           
           {/* Left: Text */}
-          <div className="flex-1">
+          <div className="flex-1 pr-0 lg:pr-8 xl:pr-12">
             <div className="inline-flex items-center px-3 py-1 rounded-md bg-teal-900/40 border border-teal-700/30 text-teal-400 text-sm font-medium mb-6">
               <span className="mr-1"></span> Case Study
             </div>
@@ -154,11 +154,11 @@ const CaseStudySubPart = () => {
             {/* Metric Counter(s) */}
             <div ref={counterRef} className="mt-6">
               {currentStudy.metrics && currentStudy.metrics.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="flex flex-nowrap items-baseline gap-x-10 w-full overflow-x-auto">
                   {currentStudy.metrics.map((m, i) => (
-                    <div key={i} className="flex items-baseline gap-4">
+                    <div key={i} className="flex items-baseline gap-3 whitespace-nowrap">
                       <motion.span
-                        className={`${currentStudy.metrics && currentStudy.metrics.length > 0 ? 'text-2xl md:text-3xl' : 'text-5xl md:text-6xl'} font-bold text-teal-400 tracking-tight`}
+                        className={`${currentStudy.metrics && currentStudy.metrics.length > 0 ? 'text-lg sm:text-xl md:text-2xl' : 'text-5xl md:text-6xl'} font-bold text-teal-400 tracking-tight`}
                         aria-label={`${m.value} percent ${m.label}`}
                         initial={{ opacity: 0, y: 4 }}
                         animate={counterInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
@@ -168,14 +168,14 @@ const CaseStudySubPart = () => {
                         {m.value > 0 ? '+' : ''}{Math.round(m.value)}
                         <span className="ml-1">{m.suffix ? m.suffix : '%'}</span>
                       </motion.span>
-                      <span className={`text-lg md:text-xl font-normal text-teal-400${currentStudy.id === 1 && i === 0 ? ' whitespace-nowrap' : ''}`}>{m.label}</span>
+                      <span className="text-base sm:text-lg md:text-xl font-normal text-teal-400 whitespace-nowrap">{m.label}</span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="flex items-baseline gap-4">
+                <div className="flex items-baseline gap-4 whitespace-nowrap">
                   <motion.span 
-                    className={`text-5xl md:text-6xl font-bold text-teal-400 tracking-tight`}
+                    className={`text-4xl md:text-5xl font-bold text-teal-400 tracking-tight`}
                     aria-label="percentage metric"
                     initial={{ opacity: 0, y: 4 }}
                     animate={counterInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
@@ -184,7 +184,7 @@ const CaseStudySubPart = () => {
                     {Math.round(currentStudy.metricValue)}
                     <span className="ml-1">%</span>
                   </motion.span>
-                  <span className="text-lg md:text-xl font-normal text-teal-400">{currentStudy.metricLabel}</span>
+                  <span className="text-lg md:text-xl font-normal text-teal-400 whitespace-nowrap">{currentStudy.metricLabel}</span>
                 </div>
               )}
             </div>

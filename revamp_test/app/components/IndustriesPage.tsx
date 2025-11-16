@@ -309,11 +309,22 @@ const GlowingSemiCircle: React.FC = () => {
   });
   
   // Transform scroll progress to scale and dimensions
-  const scale = useTransform(scrollYProgress, [0, 0.25, 0.5], [0.4, 1, 1.8]);
-  const width = useTransform(scrollYProgress, [0, 0.25, 0.5], [300, 800, 1400]);
-  const height = useTransform(scrollYProgress, [0, 0.25, 0.5], [250, 650, 1100]);
-  const glowIntensity = useTransform(scrollYProgress, [0, 0.15, 0.35, 0.5], [0.3, 0.7, 0.9, 1]);
-  const textOpacity = useTransform(scrollYProgress, [0.4, 0.6, 0.8, 1], [0.4, 0.7, 1, 1]);
+  const animationsDisabled = typeof window !== 'undefined' && window.localStorage.getItem('animationsPlayed') === 'true';
+  const scale = animationsDisabled
+    ? (1.8 as any)
+    : useTransform(scrollYProgress, [0, 0.25, 0.5], [0.4, 1, 1.8]);
+  const width = animationsDisabled
+    ? (1400 as any)
+    : useTransform(scrollYProgress, [0, 0.25, 0.5], [300, 800, 1400]);
+  const height = animationsDisabled
+    ? (1100 as any)
+    : useTransform(scrollYProgress, [0, 0.25, 0.5], [250, 650, 1100]);
+  const glowIntensity = animationsDisabled
+    ? (1 as any)
+    : useTransform(scrollYProgress, [0, 0.15, 0.35, 0.5], [0.3, 0.7, 0.9, 1]);
+  const textOpacity = animationsDisabled
+    ? (1 as any)
+    : useTransform(scrollYProgress, [0.4, 0.6, 0.8, 1], [0.4, 0.7, 1, 1]);
   
   return (
     <div ref={containerRef} className="relative w-full h-[200vh] overflow-hidden my-24">
@@ -345,14 +356,14 @@ const GlowingSemiCircle: React.FC = () => {
       <motion.div 
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10"
         initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+        animate={animationsDisabled ? { opacity: 1 } : isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         style={{ opacity: textOpacity }}
       >
         <motion.h2 
           className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white tracking-wide mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={animationsDisabled ? { opacity: 1, y: 0 } : isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ 
             duration: 1.5, 
             ease: "easeOut",
@@ -364,7 +375,7 @@ const GlowingSemiCircle: React.FC = () => {
             <motion.span 
               key={index}
               initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+              animate={animationsDisabled ? { opacity: 1, y: 0 } : isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               transition={{ 
                 duration: 0.8, 
                 delay: 0.3 + (index * 0.05),
@@ -390,6 +401,11 @@ const AnimatedText: React.FC = () => {
   const words = fullText.split(' ');
 
   useEffect(() => {
+    const animationsDisabled = typeof window !== 'undefined' && window.localStorage.getItem('animationsPlayed') === 'true';
+    if (animationsDisabled) {
+      setIsVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

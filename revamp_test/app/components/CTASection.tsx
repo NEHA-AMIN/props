@@ -17,8 +17,13 @@ const CTASection: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
+  const animationsDisabled = typeof window !== 'undefined' && window.localStorage.getItem('animationsPlayed') === 'true';
+  const y = animationsDisabled
+    ? (0 as any)
+    : useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const opacity = animationsDisabled
+    ? (1 as any)
+    : useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {

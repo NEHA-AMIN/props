@@ -11,7 +11,7 @@ const CaseStudySection: React.FC = () => {
   const subtitleWords = subtitleText.split(' ');
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(sectionRef, { amount: 0.4 });
+  const isInView = useInView(sectionRef, { amount: 0.4, once: true });
 
   const headingVariants = {
     hidden: { opacity: 0, y: 14 },

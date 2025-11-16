@@ -55,6 +55,11 @@ const SplitText: React.FC<SplitTextProps> = ({
   useGSAP(
     () => {
       if (!ref.current || !text || !fontsLoaded) return;
+      const animationsDisabled =
+        typeof window !== 'undefined' && window.localStorage.getItem('animationsPlayed') === 'true';
+      if (animationsDisabled) {
+        return;
+      }
       const el = ref.current;
 
       if ((el as any)._rbsplitInstance) {

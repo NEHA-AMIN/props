@@ -4,7 +4,7 @@ import { motion, useInView, cubicBezier } from 'framer-motion';
 
 const MissionSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(sectionRef, { amount: 0.3 });
+  const isInView = useInView(sectionRef, { amount: 0.3, once: true });
   
   const headingText = "Physical AI";
   const paragraphText = "Physical AI - Delivering the most comprehensive understanding of the real world - enabling humans and autonomous systems (robots, AVs, and software agents) to perceive, act, and deliver outcomes with confidence.";

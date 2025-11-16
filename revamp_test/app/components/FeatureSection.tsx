@@ -8,7 +8,7 @@ import { GradientButton } from '@/components/ui/gradient-button';
 const DigitalAtlasAccessSection = () => {
   // Split-text heading animation setup
   const headingRef = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(headingRef, { amount: 0.3 });
+  const inView = useInView(headingRef, { amount: 0.3, once: true });
 
   const titleText = 'How can you access the Digital Atlas?';
   const letters = titleText.split('');
