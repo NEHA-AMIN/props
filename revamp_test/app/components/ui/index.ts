@@ -9,3 +9,4 @@ export type { LinkProps, LinkVariant } from './Link';
 
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
 export { Avatar } from './Avatar';
+export { default as GradientButton } from './gradient-button';

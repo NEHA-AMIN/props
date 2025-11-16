@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { defaultCaseStudies } from "./CaseStudiesGrid";
 
 // Resource type definition
@@ -284,7 +285,7 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
           boxShadow: 'none'
         }}
       >
-        {/* Dark overlay for better text readability with blur on hover */}
+        {/* Dark overlay with blur on hover (original behavior) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-all duration-500 ease-in-out group-hover:backdrop-blur-sm" />
         
         {/* Category Badge - Show for all cards */}
@@ -297,13 +298,15 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
         {/* Learn More Button - Bottom Right Corner - Show for all cards with matching resources */}
         {hasMatchingResource && (
           <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 lg:bottom-6 lg:right-6 z-30 transition-all duration-500 ease-in-out group-hover:bottom-6 group-hover:right-6 sm:group-hover:bottom-8 sm:group-hover:right-8">
-            <Link
-              href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(getCategoryForResources(resource.category))}#resources-grid`}
-              prefetch={false}
-              className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm hover:bg-teal-500/90 transition-colors duration-200"
-            >
-              Learn More
-            </Link>
+            <GradientButton asChild variant="variant" size="sm" className="no-outline">
+              <Link
+                href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(getCategoryForResources(resource.category))}#resources-grid`}
+                prefetch={false}
+                aria-label={`Learn more ${resource.category}`}
+              >
+                Learn More
+              </Link>
+            </GradientButton>
           </div>
         )}
         

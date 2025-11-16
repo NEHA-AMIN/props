@@ -163,6 +163,7 @@ export default function ContactPage() {
                     const el = document.getElementById('contact-form');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
+                  variant="variant"
                 >
                   Book a Demo
                 </GradientButton>
@@ -337,6 +338,7 @@ export default function ContactPage() {
                     ? 'bg-red-500'
                     : ''
                 }`}
+                variant="variant"
               > 
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">

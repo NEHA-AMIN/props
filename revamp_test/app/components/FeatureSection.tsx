@@ -158,7 +158,7 @@ const DigitalAtlasAccessSection = () => {
         {/* CTA: Book Demo */}
         <div className="mt-12 flex justify-center">
           <Link href="/contact#contact-form" prefetch={false}>
-            <GradientButton aria-label="Book a demo">
+            <GradientButton aria-label="Book a demo" variant="variant">
               Book Demo
             </GradientButton>
           </Link>

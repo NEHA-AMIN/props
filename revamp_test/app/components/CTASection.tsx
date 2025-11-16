@@ -420,6 +420,7 @@ const CTASection: React.FC = () => {
               <GradientButton
                 onClick={handleDemoClick}
                 aria-label="Book a demo with Propheus"
+                variant="variant"
               >
                 Book a Demo!
               </GradientButton>
@@ -486,6 +487,7 @@ const CTASection: React.FC = () => {
                     type="submit"
                     disabled={submitting}
                     className={submitting ? 'opacity-50 cursor-not-allowed' : submitted ? 'bg-green-500' : ''}
+                    variant="variant"
                   >
                     {submitting ? (
                       <span className="flex items-center gap-2">

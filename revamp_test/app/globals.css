@@ -155,6 +155,10 @@
     pointer-events: none;
   }
 
+  .gradient-button.no-outline::before {
+    content: none;
+  }
+
   .gradient-button:hover {
     --pos-x: 0%;
     --pos-y: 91.51%;

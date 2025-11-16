@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SplitText from './SplitText';
-import { Button } from './ui';
+import { GradientButton } from '@/components/ui/gradient-button';
 
 const SignalSection: React.FC = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -61,11 +61,11 @@ const SignalSection: React.FC = () => {
           {/* Animated Headline with SplitText */}
           {hasAnimated ? (
             <h4 className="text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight">
-              Subscribe to The Signal
+              Subscribe to The Newsletter
             </h4>
           ) : (
             <SplitText
-              text="Subscribe to The Signal"
+              text="Join the Newsletter"
               className="text-4xl md:text-5xl font-normal text-white dark:text-white tracking-tight"
               delay={20}
               duration={0.4}
@@ -92,7 +92,7 @@ const SignalSection: React.FC = () => {
             }}
             viewport={{ once: true }}
           >
-            Our exclusive <span className="font-bold">Newsletter</span>. We dissect emerging geospatial trends, deconstruct successful enterprise strategies, and deliver the critical insights that will define the next decade of Physical AI.
+            We dissect emerging geospatial trends, deconstruct successful enterprise strategies, and deliver the critical insights that will define the next decade of Physical AI.
           </motion.p>
 
           {/* Form: single elegant line with integrated button */}
@@ -107,23 +107,22 @@ const SignalSection: React.FC = () => {
             }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center mx-auto max-w-2xl rounded-full bg-slate-200 dark:bg-slate-900/50 backdrop-blur-sm shadow-lg shadow-primary-400/10">
+            <div className="flex items-center mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[#0b1324]/60 backdrop-blur-md shadow-lg ring-1 ring-white/5 overflow-hidden">
               <input
                 type="email"
                 aria-label="Email address"
                 placeholder="Enter your email"
-                className="flex-1 bg-transparent text-slate-900 dark:text-slate-200 placeholder-slate-500 dark:placeholder-slate-500 px-6 py-4 outline-none"
+                className="flex-1 bg-transparent text-white placeholder-slate-400 px-5 h-12 outline-none tracking-wide"
                 required
               />
-              <Button
+              <GradientButton
                 type="submit"
-                variant="glow"
-                size="md"
-                className="m-1"
+                variant="variant"
+                className="h-12 px-6 rounded-none rounded-r-2xl text-sm font-semibold no-outline"
                 aria-label="Get The Signal"
               >
                 Get The Signal
-              </Button>
+              </GradientButton>
             </div>
             <p className="mt-3 text-sm text-gray-300 dark:text-gray-300">No spam. Only the signal.</p>
           </motion.form>
