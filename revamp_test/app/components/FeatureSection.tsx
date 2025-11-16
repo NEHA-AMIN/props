@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useInView, cubicBezier } from 'framer-motion';
+import { GradientButton } from '@/components/ui/gradient-button';
 
 const DigitalAtlasAccessSection = () => {
   // Split-text heading animation setup
@@ -119,16 +120,16 @@ const DigitalAtlasAccessSection = () => {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className="relative bg-black border border-slate-800 rounded-lg p-8 hover:border-teal-500/50 transition-all duration-300 group"
+              className="relative bg-black border border-slate-800 rounded-lg p-8 transition-all duration-300 group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 * index }}
             >
-              {/* Step Number */}
+              {/* Step Number
               <div className="absolute top-4 right-4 text-5xl font-bold text-slate-800 group-hover:text-slate-700 transition-colors duration-300">
                 {step.number}
-              </div>
+              </div> */}
 
               {/* Icon */}
               <div className="flex justify-center mb-6 mt-4">
@@ -156,13 +157,10 @@ const DigitalAtlasAccessSection = () => {
 
         {/* CTA: Book Demo */}
         <div className="mt-12 flex justify-center">
-          <Link
-            href="/contact#contact-form"
-            prefetch={false}
-            className="px-8 py-3 rounded-full bg-gradient-to-r from-teal-400 to-teal-600 text-white font-semibold shadow-lg hover:shadow-teal-500/40 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-teal-500/40"
-            aria-label="Book a demo"
-          >
-            Book Demo
+          <Link href="/contact#contact-form" prefetch={false}>
+            <GradientButton aria-label="Book a demo">
+              Book Demo
+            </GradientButton>
           </Link>
         </div>
       </div>

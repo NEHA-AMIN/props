@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Vortex } from "@/components/ui/shadcn-io/vortex";
 import { submitContactToHubspot } from '@/app/actions/hubspot';
 import SignalSection from './SignalSection';
+import { GradientButton } from '@/components/ui/gradient-button';
  
 const LOCATIONS = [
   {
@@ -157,15 +158,14 @@ export default function ContactPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                <button
+                <GradientButton
                   onClick={() => {
                     const el = document.getElementById('contact-form');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className="px-8 py-4 bg-gradient-to-r from-teal-400 to-teal-600 rounded-full text-white font-medium text-lg hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300"
                 >
                   Book a Demo
-                </button>
+                </GradientButton>
               </motion.div>
               
               {/* Scroll indicator */}
@@ -321,33 +321,23 @@ export default function ContactPage() {
               </div> 
             </div> 
 
-            <div className="relative"> 
-              {/* Button glow effect */} 
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-teal-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition-all duration-300" /> 
-
-              <motion.button 
+            <motion.div
+              whileHover={{ scale: isSubmitting ? 1 : 1.03 }} 
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+            > 
+              <GradientButton 
                 type="submit" 
-                disabled={isSubmitting} 
-                whileHover={{ scale: isSubmitting ? 1 : 1.03 }} 
-                whileTap={{ scale: isSubmitting ? 1 : 0.98 }} 
-                className={`relative w-full py-4 rounded-full font-bold text-lg transition-all duration-300 overflow-hidden ${
+                disabled={isSubmitting}
+                className={`w-full ${
                   isSubmitting 
-                    ? 'bg-slate-700 text-slate-400 cursor-not-allowed' 
+                    ? 'opacity-50 cursor-not-allowed' 
                     : submitStatus === 'success' 
-                    ? 'bg-green-500 text-white' 
+                    ? 'bg-green-500' 
                     : submitStatus === 'error'
-                    ? 'bg-red-500 text-white'
-                    : 'bg-gradient-to-r from-teal-400 to-teal-600 text-white shadow-lg hover:shadow-teal-500/50'
+                    ? 'bg-red-500'
+                    : ''
                 }`}
               > 
-                {/* Animated background for button */} 
-                {!isSubmitting && submitStatus !== 'success' && (
-                  <div className="absolute inset-0 w-full h-full">
-                    <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_30%_107%,rgba(255,255,255,0.4)_0%,rgba(255,255,255,0.1)_15%,transparent_30%)]"></div>
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 blur-xl rounded-full transform translate-x-10 -translate-y-5"></div>
-                  </div>
-                )}
-                
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
                     <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
@@ -373,8 +363,8 @@ export default function ContactPage() {
                 ) : (
                   <span className="relative z-10">Send Message</span>
                 )}
-              </motion.button>
-            </div>
+              </GradientButton>
+            </motion.div>
             
             {/* Error message display */}
             {errorMessage && (
