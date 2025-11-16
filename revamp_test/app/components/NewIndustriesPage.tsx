@@ -115,7 +115,7 @@ const resourcesData: Resource[] = [
     id: "12",
     title: "Demand Planning",
     description:
-      "Turn real-world signals into actionable plans: staffing rosters by daypart, kitchen prep lists, inventory allocations, rider/supply positioning, order caps, and buffer policies to hit SLAs while minimizing waste and stockouts.",
+      "Turn real-world signals into actionable plans: staffing rosters by daypart, kitchen prep lists, inventory allocations.",
     category: "Online to Offline",
     image: "https://images.pexels.com/photos/3184192/pexels-photo-3184192.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -276,28 +276,47 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
       <div
         className="relative aspect-square rounded-2xl overflow-hidden transition-all duration-500 ease-in-out
         hover:scale-[1.02] shadow-2xl shadow-black/50 hover:shadow-teal-500/20"
-        style={{
-          backgroundImage: `url(${resource.image})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          border: 'none',
-          outline: 'none',
-          boxShadow: 'none'
-        }}
       >
-        {/* Dark overlay with blur on hover (original behavior) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-all duration-500 ease-in-out group-hover:backdrop-blur-sm" />
+        {/* Background Image - Separate layer */}
+        <div 
+          className="absolute inset-0 transition-all duration-700 ease-in-out group-hover:blur-md group-hover:scale-105"
+          style={{
+            backgroundImage: `url(${resource.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
         
-        {/* Category Badge - Show for all cards */}
-        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-20">
-          <span className="inline-block bg-teal-600/80 text-white text-[10px] sm:text-xs font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm">
+        {/* Dark overlay without blur */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-all duration-700 ease-in-out" />
+        
+        {/* Category Badge - Top Left - Single instance */}
+        <div className="absolute top-4 left-4 z-20">
+          <span className="inline-block bg-teal-600/90 text-white text-xs font-medium px-3 py-1 rounded-md backdrop-blur-sm">
             {resource.category}
           </span>
         </div>
         
-        {/* Learn More Button - Bottom Right Corner - Show for all cards with matching resources */}
+        {/* Content Container - Bottom section */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 md:p-6 z-20 transition-all duration-700 ease-in-out group-hover:-translate-y-8 md:group-hover:-translate-y-4 lg:group-hover:-translate-y-3">
+          <div className="space-y-3 pb-12 sm:pb-14">
+            {/* Title - Always visible, uses full width up to button area */}
+            <h3 className="text-base sm:text-lg md:text-xl font-bold text-white leading-tight transition-all duration-700 ease-in-out">
+              {resource.title}
+            </h3>
+            
+            {/* Description - Fades in on hover, uses full width */}
+            <div className="overflow-hidden max-h-0 opacity-0 transition-all duration-700 ease-in-out group-hover:max-h-40 group-hover:opacity-100">
+              <p className="text-gray-200 text-xs sm:text-sm leading-relaxed">
+                {resource.description}
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        {/* Learn More Button - Bottom Right Corner - Separate positioning */}
         {hasMatchingResource && (
-          <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-5 md:right-5 lg:bottom-6 lg:right-6 z-30 transition-all duration-500 ease-in-out group-hover:bottom-6 group-hover:right-6 sm:group-hover:bottom-8 sm:group-hover:right-8">
+          <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 md:bottom-6 md:right-6 z-30 opacity-0 translate-y-2 transition-all duration-700 ease-in-out group-hover:opacity-100 group-hover:translate-y-0">
             <GradientButton asChild variant="variant" size="sm" className="no-outline">
               <Link
                 href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(getCategoryForResources(resource.category))}#resources-grid`}
@@ -309,21 +328,6 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
             </GradientButton>
           </div>
         )}
-        
-        {/* Content Container with Slide-Up Animation - Max height just below category badge */}
-        <div className="absolute bottom-0 left-0 right-0 max-h-[85%] p-3 sm:p-4 md:p-5 lg:p-6 pb-10 sm:pb-11 transition-all duration-500 ease-in-out transform translate-y-0 group-hover:-translate-y-2 sm:group-hover:-translate-y-4 z-20 flex flex-col">
-          {/* Title - Slides up with description */}
-          <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 sm:mb-2 md:mb-3 transition-all duration-500 ease-in-out leading-tight flex-shrink-0 pr-20 sm:pr-24">
-            {resource.title}
-          </h3>
-          
-          {/* Description - Slides up from bottom on hover - no scroll, just fade in */}
-          <div className="overflow-hidden transition-all duration-500 ease-in-out">
-            <p className="text-gray-200 text-[10px] sm:text-xs leading-relaxed opacity-0 transform translate-y-4 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:translate-y-0 pr-20 sm:pr-24">
-              {resource.description}
-            </p>
-          </div>
-        </div>
       </div>
     </motion.div>
   );

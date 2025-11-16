@@ -10,6 +10,7 @@ export type CaseStudy = {
   imageGradient: string;
   tagline?: string;
   href?: string;
+  videoUrl?: string;
   type: 'Case Studies' | 'Use Cases' | 'Blogs';
 };
 
@@ -132,7 +133,7 @@ export type CaseStudiesGridProps = {
 };
 
 export const defaultCaseStudies: CaseStudy[] = [
-  // Use Cases with YouTube links only
+  // Use Cases with image URLs and video URLs
   {
     id: "4",
     title: "Physical Observability for Retail & Restaurants",
@@ -141,7 +142,8 @@ export const defaultCaseStudies: CaseStudy[] = [
     date: "November 10, 2025",
     imageGradient: "from-purple-600 via-pink-500 to-red-500",
     tagline: "Physical Observability\nFor Retail",
-    href: "https://youtu.be/hlE7HSJluDU",
+    href: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200&auto=format&fit=crop",
+    videoUrl: "https://youtu.be/hlE7HSJluDU",
     type: "Use Cases",
   },
   {
@@ -152,7 +154,8 @@ export const defaultCaseStudies: CaseStudy[] = [
     date: "November 10, 2025",
     imageGradient: "from-orange-500 via-red-500 to-pink-600",
     tagline: "AI Product\nRecommendation",
-    href: "https://youtu.be/BnLJsd5J-8A",
+    href: "https://images.unsplash.com/photo-1523294587484-bae6cc870010?q=80&w=1200&auto=format&fit=crop",
+    videoUrl: "https://youtu.be/BnLJsd5J-8A",
     type: "Use Cases",
   },
   {
@@ -163,7 +166,8 @@ export const defaultCaseStudies: CaseStudy[] = [
     date: "November 12, 2025",
     imageGradient: "from-teal-600 via-cyan-500 to-blue-600",
     tagline: "Physical Observability\nOnline to Offline",
-    href: "https://youtu.be/7BfC4T_BfZ4",
+    href: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
+    videoUrl: "https://youtu.be/7BfC4T_BfZ4",
     type: "Use Cases",
   },
   {
@@ -174,7 +178,8 @@ export const defaultCaseStudies: CaseStudy[] = [
     date: "November 13, 2025",
     imageGradient: "from-blue-600 via-indigo-500 to-purple-600",
     tagline: "Market Potential\nFor Retail",
-    href: "https://youtu.be/4VoVeaXUneY",
+    href: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    videoUrl: "https://youtu.be/4VoVeaXUneY",
     type: "Use Cases",
   },
 ];
@@ -203,17 +208,17 @@ const CaseStudyCard: React.FC<{
     setSpotY(e.clientY - rect.top);
   };
 
-  // Check if this is a YouTube video
-  const isYouTubeVideo = study.href?.includes('youtube.com') || study.href?.includes('youtu.be');
+  // Check if this has a YouTube video
+  const hasVideo = study.videoUrl && (study.videoUrl.includes('youtube.com') || study.videoUrl.includes('youtu.be'));
   
-  // Get YouTube thumbnail
-  const videoId = study.href ? getYouTubeVideoId(study.href) : null;
-  const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
+  // Get background image from href
+  const backgroundImageUrl = study.href;
 
   const handleClick = (e: React.MouseEvent) => {
-    if (isYouTubeVideo && onVideoClick) {
+    if (hasVideo && onVideoClick) {
       e.preventDefault();
-      onVideoClick(study);
+      // Create a temporary study object with href as videoUrl for the modal
+      onVideoClick({ ...study, href: study.videoUrl });
     }
   };
 
@@ -228,14 +233,14 @@ const CaseStudyCard: React.FC<{
       }`}
     >
 
-      <div className="h-full min-h-[420px] flex flex-col relative overflow-hidden">
-        {/* YouTube Thumbnail Background - blurs on hover */}
-        <div className="absolute inset-0 overflow-hidden transition-all duration-700 ease-in-out group-hover:blur-md">
-          {thumbnailUrl ? (
+      <div className="absolute inset-0 flex flex-col overflow-hidden">
+        {/* Background Image - blurs on hover */}
+        <div className="absolute inset-0 overflow-hidden transition-all duration-[2000ms] ease-out group-hover:blur-md">
+          {backgroundImageUrl ? (
             <img 
-              src={thumbnailUrl} 
+              src={backgroundImageUrl} 
               alt={study.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
           ) : study.tagline ? (
             <div className="absolute inset-0 flex items-center justify-center pb-[40%] px-6">
@@ -247,7 +252,7 @@ const CaseStudyCard: React.FC<{
         </div>
 
         {/* Content Section - Expands from bottom to cover entire card on hover */}
-        <div className="relative mt-auto backdrop-blur-sm bg-black/70 transition-all duration-700 ease-in-out h-auto min-h-[50%] max-h-[50%] group-hover:max-h-full group-hover:h-full p-6 flex flex-col z-20 border-t border-white/10">
+        <div className="absolute bottom-0 left-0 right-0 backdrop-blur-sm bg-black/70 transition-[height] duration-[20000ms] ease-out h-[40%] group-hover:h-full p-6 flex flex-col z-20 border-t border-white/10">
           {/* Category Label */}
           <p className="text-xs font-semibold text-teal-400 uppercase tracking-wide mb-2">
             {study.category}
@@ -279,8 +284,8 @@ const CaseStudyCard: React.FC<{
     </div>
   );
 
-  // If not a video, wrap in an anchor tag
-  if (!isYouTubeVideo) {
+  // If not a video, wrap in an anchor tag for external links
+  if (!hasVideo) {
     return (
       <a
         key={study.id}

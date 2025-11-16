@@ -68,8 +68,11 @@ const DigitalAtlasSection = () => {
           <div className="relative w-[70vw] h-[20vh] sm:w-[65vw] sm:h-[28vh] md:w-[50vw] md:h-[35vh] lg:w-[48vw] lg:h-[45vh] xl:w-[50vw] xl:h-[55vh] max-w-4xl">
             {/* First Video - fades out when second text appears */}
             <motion.video
-              style={{ opacity: firstVideoOpacity }}
-              className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-2xl"
+              style={{ 
+                opacity: firstVideoOpacity,
+                borderRadius: '150px'
+              }}
+              className="absolute inset-0 w-full h-full object-cover"
               autoPlay
               muted
               loop
@@ -81,8 +84,11 @@ const DigitalAtlasSection = () => {
             
             {/* Second Video - fades in when second text appears */}
             <motion.video
-              style={{ opacity: secondVideoOpacity }}
-              className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-2xl"
+              style={{ 
+                opacity: secondVideoOpacity,
+                borderRadius: '150px'
+              }}
+              className="absolute inset-0 w-full h-full object-cover"
               autoPlay
               muted
               loop

@@ -121,10 +121,14 @@ const DigitalAtlasAccessSection = () => {
             <motion.div
               key={index}
               className="relative bg-black border border-slate-800 rounded-lg p-8 transition-all duration-300 group"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 * index }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ 
+                duration: 0.7, 
+                delay: 0.15 * index,
+                ease: [0.19, 1, 0.22, 1]
+              }}
             >
               {/* Step Number
               <div className="absolute top-4 right-4 text-5xl font-bold text-slate-800 group-hover:text-slate-700 transition-colors duration-300">
