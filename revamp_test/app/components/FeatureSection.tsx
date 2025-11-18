@@ -11,9 +11,8 @@ const DigitalAtlasAccessSection = () => {
   const inView = useInView(headingRef, { amount: 0.3, once: true });
 
   const titleText = 'How can you access the Digital Atlas?';
-  const letters = titleText.split('');
-  const tealStart = titleText.indexOf('Digital Atlas');
-  const tealEnd = tealStart + 'Digital Atlas'.length;
+  // Split into words so we can prevent breaking inside words on small screens
+  const words = titleText.split(' ');
 
   const letterVariants = {
     hidden: { opacity: 0, x: 40, scaleX: 0.3 },
@@ -90,19 +89,29 @@ const DigitalAtlasAccessSection = () => {
         {/* Section Title */}
         <div ref={headingRef} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-normal mb-4">
-            {letters.map((ch, i) => (
-              <motion.span
-                key={i}
-                custom={i}
-                initial="hidden"
-                animate={inView ? 'visible' : 'hidden'}
-                variants={letterVariants}
-                className={`${i >= tealStart && i < tealEnd ? 'text-teal-500' : 'text-white'} inline-block`}
-                style={{ display: 'inline-block' }}
-              >
-                {ch === ' ' ? '\u00A0' : ch}
-              </motion.span>
-            ))}
+            {words.map((word, wi) => {
+              // Determine if this word should be highlighted (Digital or Atlas)
+              const plain = word.replace(/[^a-zA-Z]/g, '');
+              const isTeal = plain === 'Digital' || plain === 'Atlas';
+
+              return (
+                <span key={wi} className="inline-block whitespace-nowrap mr-2">
+                  {word.split('').map((ch, i) => (
+                    <motion.span
+                      key={`${wi}-${i}`}
+                      custom={wi * 10 + i}
+                      initial="hidden"
+                      animate={inView ? 'visible' : 'hidden'}
+                      variants={letterVariants}
+                      className={`${isTeal ? 'text-teal-500' : 'text-white'} inline-block`}
+                      style={{ display: 'inline-block' }}
+                    >
+                      {ch}
+                    </motion.span>
+                  ))}
+                </span>
+              );
+            })}
           </h2>
         </div>
 

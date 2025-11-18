@@ -453,9 +453,9 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
               )}
             </div>
 
-            {/* Selected Pills */}
+            {/* Selected Pills - hidden on small screens, visible on md+ */}
             {selectedCategories.length > 0 && (
-              <div className="flex flex-wrap gap-2 ml-4">
+              <div className="hidden md:flex flex-wrap gap-2 md:ml-4">
                 {selectedCategories.map((category) => (
                   <span
                     key={category}

@@ -6,15 +6,14 @@ import VideoBackground from "./VideoBackground";
 const HeroSection: React.FC = () => {
   return (
     <section
-      className="relative overflow-hidden w-full"
-      style={{ height: "60vh", maxHeight: "720px" }}
+      className="relative overflow-hidden w-full h-[60vh] md:h-screen"
     >
       {/* Background: plain black */}
       <div className="absolute inset-0 z-0 bg-black" />
       
       {/* Centered video container with padding only on top/bottom */}
-      <div className="relative z-10 flex items-center justify-center h-full w-full py-8">
-        <div className="w-full h-[calc(100%-4rem)] bg-black/60 rounded-xl overflow-hidden shadow-2xl">
+      <div className="relative z-10 flex items-center justify-center h-full w-full py-8 md:py-0">
+        <div className="w-full h-[calc(100%-4rem)] md:h-full bg-black/60 md:bg-transparent rounded-xl md:rounded-none overflow-hidden shadow-2xl md:shadow-none">
           <VideoBackground
             key={`hero-video-${Date.now()}`}
             src="/hero-background.mp4"

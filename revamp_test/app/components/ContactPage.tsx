@@ -43,14 +43,18 @@ export default function ContactPage() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle'); 
   const [errorMessage, setErrorMessage] = useState<string>('');
  
-  // Auto-scroll to the contact form on page load
+  // Auto-scroll to the contact form only if the URL contains the #contact-form hash
   useEffect(() => {
-    const el = document.getElementById('contact-form');
-    if (el) {
-      // Delay slightly to ensure layout is ready
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+    if (typeof window === 'undefined') return;
+
+    if (window.location.hash === '#contact-form') {
+      const el = document.getElementById('contact-form');
+      if (el) {
+        // Delay slightly to ensure layout is ready
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
     }
   }, []);
  
@@ -144,7 +148,7 @@ export default function ContactPage() {
               </motion.h1>
               
               <motion.p 
-                className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light mb-10" 
+                className="hidden md:block text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light mb-10" 
                 initial={{ opacity: 0, y: 30 }} 
                 animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.8, delay: 0.4 }} 

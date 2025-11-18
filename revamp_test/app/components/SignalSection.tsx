@@ -59,14 +59,14 @@ const SignalSection: React.FC = () => {
       <div className="relative z-10 container mx-auto px-6">
         <div className="mx-auto text-center max-w-3xl py-2 overflow-visible">
           {/* Animated Headline with SplitText */}
-          {hasAnimated ? (
-            <h4 className="text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight leading-relaxed">
+            {hasAnimated ? (
+            <h4 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight leading-relaxed">
               Subscribe to The Newsletter
             </h4>
           ) : (
             <SplitText
               text="Join the Signal"
-              className="text-4xl md:text-5xl font-normal text-white dark:text-white tracking-tight leading-relaxed"
+              className="text-3xl sm:text-4xl md:text-5xl font-normal text-white dark:text-white tracking-tight leading-relaxed"
               delay={20}
               duration={0.4}
               ease="power2.out"
@@ -83,7 +83,7 @@ const SignalSection: React.FC = () => {
 
           {/* Description */}
           <motion.p
-            className="mt-6 text-lg md:text-xl font-normal text-gray-200 dark:text-gray-200 leading-relaxed"
+            className="mt-4 text-base sm:text-lg md:text-xl font-normal text-gray-200 dark:text-gray-200 leading-relaxed"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ 
               opacity: 1, 
@@ -98,7 +98,7 @@ const SignalSection: React.FC = () => {
           {/* Form: single elegant line with integrated button */}
           <motion.form
             onSubmit={handleSubmit}
-            className="mt-10"
+            className="mt-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ 
               opacity: 1, 
@@ -107,18 +107,18 @@ const SignalSection: React.FC = () => {
             }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[#0b1324]/60 backdrop-blur-md shadow-lg ring-1 ring-white/5 overflow-hidden">
+            <div className="flex flex-col sm:flex-row items-stretch mx-auto max-w-xl sm:max-w-2xl rounded-2xl border border-white/10 bg-[#0b1324]/60 backdrop-blur-md shadow-lg ring-1 ring-white/5 overflow-hidden">
               <input
                 type="email"
                 aria-label="Email address"
                 placeholder="Enter your email"
-                className="flex-1 bg-transparent text-white placeholder-slate-400 px-5 h-12 outline-none tracking-wide"
+                className="flex-1 w-full bg-transparent text-white placeholder-slate-400 px-5 py-4 sm:py-0 sm:h-12 outline-none tracking-wide rounded-t-2xl sm:rounded-t-none sm:rounded-l-2xl"
                 required
               />
               <GradientButton
                 type="submit"
                 variant="variant"
-                className="h-12 px-6 rounded-none rounded-r-2xl text-sm font-semibold no-outline"
+                className="w-full sm:w-auto h-12 px-6 rounded-none sm:rounded-r-2xl sm:rounded-l-none rounded-b-2xl sm:rounded-b-none text-sm font-semibold no-outline"
                 aria-label="Get The Signal"
               >
                 Get The Signal

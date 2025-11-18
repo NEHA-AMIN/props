@@ -11,6 +11,8 @@ const MissionSection: React.FC = () => {
   
   // Split heading into letters (kept), paragraph into words to avoid mid-word breaks
   const headingLetters = headingText.split('');
+  // Also create words so we can prevent breaking inside words
+  const headingWords = headingText.split(' ');
   const paragraphWords = paragraphText.split(' ');
 
   // Letter animation - each letter slides in with squeeze effect
@@ -52,7 +54,7 @@ const MissionSection: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative py-24 sm:py-32 bg-black">
+    <section ref={sectionRef} className="relative py-12 sm:py-16 bg-black">
       {/* Subtle grid background overlay */}
       <div className="absolute inset-0 bg-black z-0">
         <div
@@ -77,30 +79,34 @@ const MissionSection: React.FC = () => {
       </div>
       
       <div className="relative z-10 container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-start">
           {/* Left column - Animated Heading */}
           <div className="md:col-span-3">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              {/* Animated letters */}
-              {headingLetters.map((letter, index) => (
-                <motion.span
-                  key={index}
-                  custom={index}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  variants={letterVariants}
-                  className="inline-block"
-                  style={{ display: 'inline-block' }}
-                >
-                  {letter === ' ' ? '\u00A0' : letter}
-                </motion.span>
-              ))}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+                {/* Animated letters grouped per-word to prevent mid-word breaks */}
+                {headingWords.map((word, wi) => (
+                  <span key={wi} className="inline-block whitespace-nowrap mr-2">
+                    {word.split('').map((letter, i) => (
+                      <motion.span
+                        key={`${wi}-${i}`}
+                        custom={wi * 20 + i}
+                        initial="hidden"
+                        animate={isInView ? "visible" : "hidden"}
+                        variants={letterVariants}
+                        className="inline-block"
+                        style={{ display: 'inline-block' }}
+                      >
+                        {letter === ' ' ? '\u00A0' : letter}
+                      </motion.span>
+                    ))}
+                  </span>
+                ))}
             </h2>
           </div>
           
           {/* Right column - Paragraph animated per-word to prevent mid-word wrapping */}
           <div className="md:col-span-9">
-            <p className="text-xl md:text-2xl text-white leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl text-white leading-normal md:leading-relaxed">
               {paragraphWords.map((word, index) => (
                 <React.Fragment key={`${word}-${index}`}>
                   <motion.span
