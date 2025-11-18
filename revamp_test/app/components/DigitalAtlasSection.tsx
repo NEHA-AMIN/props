@@ -35,14 +35,84 @@ const DigitalAtlasSection = () => {
   const secondTextOpacity = useTransform(scrollYProgress, [0.88, 0.92], [0, 1]);
   const secondTextY = useTransform(scrollYProgress, [0.88, 0.92], [0, 0]);
 
+  // Mobile transforms
+  const mobileTitleOpacity = useTransform(scrollYProgress, [0, 0.10], [1, 0]);
+  
+  // First card slides up and stays fixed
+  const mobileCard1Y = useTransform(scrollYProgress, [0.06, 0.36], ['100vh', '0vh']);
+  // First card fades out as second card comes up
+  const mobileCard1Opacity = useTransform(scrollYProgress, [0.36, 0.5, 0.72], [1, 1, 0]);
+  
+  // Second card slides up on top
+  const mobileCard2Y = useTransform(scrollYProgress, [0.5, 0.72], ['100vh', '0vh']);
+
   return (
     <section 
       ref={sectionRef}
-      className="relative bg-black h-[300vh]"
+      className="relative bg-black h-auto sm:h-[300vh]"
     >
       
-      {/* Sticky container that holds both text and video */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* Mobile: stacked card layout (visible up to md breakpoint) */}
+      <div className="block md:hidden">
+        {/* Sticky Title (full-screen look) */}
+        <div className="min-h-screen">
+          <motion.div 
+            style={{ opacity: mobileTitleOpacity }} 
+            className="sticky top-0 h-screen flex items-center justify-center z-0 bg-black pointer-events-none"
+          >
+            <div className="text-center px-6">
+                <h2 className="text-3xl font-normal text-white gradient-sweep-text">Digital Atlas powered by Physical AI</h2>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Container for both cards with sticky positioning */}
+        <div className="min-h-[200vh]">
+          <div className="sticky top-0 h-screen flex items-center justify-center">
+            {/* First Card - slides up and stays fixed, then fades */}
+            <motion.div 
+              className="absolute w-full max-w-xl px-6 z-10" 
+              style={{ 
+                y: mobileCard1Y,
+                opacity: mobileCard1Opacity 
+              }}
+            >
+              <div className="rounded-2xl overflow-hidden bg-black shadow-lg">
+                <div className="w-full h-[48vh] sm:h-[40vh] relative">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
+                    <source src="/scan.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div className="py-6 px-4 text-center">
+                  <h3 className="text-2xl text-white">Perceives the Physical World</h3>
+                  <p className="mt-3 text-gray-300">Context Aware AI Agents continuously curate real-world data</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Second Card - slides up on top of first card */}
+            <motion.div 
+              className="absolute w-full max-w-xl px-6 z-20" 
+              style={{ y: mobileCard2Y }}
+            >
+              <div className="rounded-2xl overflow-hidden bg-black shadow-lg">
+                <div className="w-full h-[48vh] sm:h-[40vh] relative">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
+                    <source src="/digi2.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div className="py-6 px-4 text-center">
+                  <h3 className="text-2xl text-white">Fuses Real world Signals</h3>
+                  <p className="mt-3 text-gray-300">Like places, weather, people movement, demographics, and consumer sentiment</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop: Sticky container that holds both text and video (unchanged) */}
+      <div className="hidden md:block sticky top-0 h-screen w-full overflow-hidden">
         
         {/* Fixed Text in Center - Moves up and fades out */}
         <motion.div 

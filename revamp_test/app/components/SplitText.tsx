@@ -163,11 +163,12 @@ const SplitText: React.FC<SplitTextProps> = ({
   const renderTag = () => {
     const style: React.CSSProperties = {
       textAlign: textAlign as 'left' | 'center' | 'right' | 'justify',
-      overflow: 'hidden',
+      overflow: 'visible',
       display: 'inline-block',
       whiteSpace: 'normal',
       wordWrap: 'break-word',
-      willChange: 'transform, opacity'
+      willChange: 'transform, opacity',
+      paddingBottom: '0.2em'
     };
     const classes = `split-parent ${className}`;
 

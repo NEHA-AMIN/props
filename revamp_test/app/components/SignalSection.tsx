@@ -28,13 +28,13 @@ const SignalSection: React.FC = () => {
   return (
     <section
       id="signal"
-      className="relative overflow-hidden bg-black py-28 sm:py-32"
+      className="relative bg-black py-12 sm:py-16 overflow-hidden"
       aria-label="Subscribe to The Signal monthly intelligence briefing"
     >
       {/* Atmospheric visual: subtle teal signal waves behind headline */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] opacity-25"
+          className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] opacity-25"
           style={{
             backgroundImage:
               'repeating-radial-gradient(circle at center, rgba(34,211,238,0.16) 0px, rgba(34,211,238,0.12) 2px, transparent 3px, transparent 42px)',
@@ -44,7 +44,7 @@ const SignalSection: React.FC = () => {
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
-          className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] opacity-20"
+          className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] opacity-20"
           style={{
             background:
               'radial-gradient(closest-side, rgba(20,184,166,0.18), transparent 70%)',
@@ -57,16 +57,16 @@ const SignalSection: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6">
-        <div className="mx-auto text-center max-w-3xl">
+        <div className="mx-auto text-center max-w-3xl py-2 overflow-visible">
           {/* Animated Headline with SplitText */}
           {hasAnimated ? (
-            <h4 className="text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight">
+            <h4 className="text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight leading-relaxed">
               Subscribe to The Newsletter
             </h4>
           ) : (
             <SplitText
-              text="Join the Newsletter"
-              className="text-4xl md:text-5xl font-normal text-white dark:text-white tracking-tight"
+              text="Join the Signal"
+              className="text-4xl md:text-5xl font-normal text-white dark:text-white tracking-tight leading-relaxed"
               delay={20}
               duration={0.4}
               ease="power2.out"

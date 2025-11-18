@@ -115,8 +115,31 @@ const DigitalAtlasAccessSection = () => {
           </h2>
         </div>
 
-        {/* Four Column Steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Mobile: stacked, compact cards */}
+        <div className="md:hidden space-y-4 snap-y snap-proximity overflow-y-auto max-h-[85vh] touch-pan-y px-4">
+          {steps.map((step, index) => (
+            <motion.div
+              key={`mobile-${index}`}
+              className="bg-black border border-slate-800 rounded-xl px-5 py-4 w-full shadow-sm snap-start"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.5, delay: 0.06 * index, ease: [0.19, 1, 0.22, 1] }}
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full border-2 border-teal-500 flex items-center justify-center flex-shrink-0">
+                  {step.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white leading-tight">{step.title}</h3>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Desktop / larger screens: grid layout preserved */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
             <motion.div
               key={index}
@@ -130,31 +153,15 @@ const DigitalAtlasAccessSection = () => {
                 ease: [0.19, 1, 0.22, 1]
               }}
             >
-              {/* Step Number
-              <div className="absolute top-4 right-4 text-5xl font-bold text-slate-800 group-hover:text-slate-700 transition-colors duration-300">
-                {step.number}
-              </div> */}
-
-              {/* Icon */}
               <div className="flex justify-center mb-6 mt-4">
                 <div className="w-16 h-16 rounded-full border-2 border-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   {step.icon}
                 </div>
               </div>
 
-              {/* Title */}
               <h3 className="text-xl font-bold text-white text-center leading-snug min-h-[3.5rem] flex items-center justify-center">
                 {step.title}
               </h3>
-
-              {/* Connector Arrow (hidden on last item and on mobile) */}
-              {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-20">
-                  {/* <svg className="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg> */}
-                </div>
-              )}
             </motion.div>
           ))}
         </div>
