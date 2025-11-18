@@ -249,7 +249,7 @@ const resourcesData: Resource[] = [
   }
 ];
 
-// Resource Card Component
+// Resource Card Component - Mobile Optimized
 const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
   // Map category names to match resources page categories
   const getCategoryForResources = (category: string): string => {
@@ -274,8 +274,9 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
       className="group"
     >
       <div
-        className="relative aspect-square rounded-2xl overflow-hidden transition-all duration-500 ease-in-out
-        hover:scale-[1.02] shadow-2xl shadow-black/50 hover:shadow-teal-500/20"
+        className="relative rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-500 ease-in-out
+        hover:scale-[1.02] shadow-2xl shadow-black/50 hover:shadow-teal-500/20 
+        min-h-[400px] sm:min-h-[450px] md:min-h-0 md:aspect-square flex flex-col"
       >
         {/* Background Image - Separate layer */}
         <div 
@@ -287,37 +288,39 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
           }}
         />
         
-        {/* Dark overlay without blur */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent transition-all duration-700 ease-in-out" />
+        {/* Dark overlay - lighter on desktop, darker on mobile */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30 md:from-black/95 md:via-black/60 md:to-transparent transition-all duration-700 ease-in-out" />
         
-        {/* Category Badge - Top Left - Single instance */}
-        <div className="absolute top-4 left-4 z-20">
-          <span className="inline-block bg-teal-600/90 case-study-badge-gradient text-white text-xs font-medium px-3 py-1 rounded-md backdrop-blur-sm">
+        {/* Category Badge - Top Left */}
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20">
+          <span className="inline-block bg-teal-600/90 case-study-badge-gradient text-white text-[10px] sm:text-xs font-medium px-2.5 py-1 sm:px-3 rounded backdrop-blur-sm">
             {resource.category}
           </span>
         </div>
         
         {/* Content Container - Bottom section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 md:p-6 z-20 transition-all duration-700 ease-in-out group-hover:-translate-y-8 md:group-hover:-translate-y-4 lg:group-hover:-translate-y-3">
-          <div className="space-y-3 pb-12 sm:pb-14">
-            {/* Title - Always visible, uses full width up to button area */}
-            <h3 className="text-base sm:text-lg md:text-xl font-bold text-white leading-tight transition-all duration-700 ease-in-out">
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 md:p-6 z-20 transition-all duration-700 ease-in-out md:group-hover:-translate-y-8 lg:group-hover:-translate-y-4">
+          <div className="space-y-2.5 sm:space-y-3 pb-14 sm:pb-16 md:pb-12 lg:pb-14">
+            {/* Title - Always visible */}
+            <h3 className="text-lg sm:text-base md:text-lg lg:text-xl font-bold text-white leading-tight transition-all duration-700 ease-in-out">
               {resource.title}
             </h3>
             
-            {/* Description - Fades in on hover, uses full width */}
-            <div className="overflow-hidden max-h-0 opacity-0 transition-all duration-700 ease-in-out group-hover:max-h-40 group-hover:opacity-100">
-              <p className="text-gray-200 text-xs sm:text-sm leading-relaxed">
+            {/* Description - Always visible on mobile, hover on desktop */}
+            <div className="overflow-hidden max-h-32 opacity-100 md:max-h-0 md:opacity-0 transition-all duration-700 ease-in-out md:group-hover:max-h-40 md:group-hover:opacity-100">
+              <p className="text-gray-200 text-sm sm:text-xs md:text-sm leading-relaxed">
                 {resource.description}
               </p>
             </div>
           </div>
         </div>
         
-        {/* Learn More Button - Bottom Right Corner - Separate positioning */}
+        {/* Learn More Button - Always visible on mobile, hover on desktop */}
         {hasMatchingResource && (
-          <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 md:bottom-6 md:right-6 z-30 opacity-0 translate-y-2 transition-all duration-700 ease-in-out group-hover:opacity-100 group-hover:translate-y-0">
-            <GradientButton asChild variant="variant" size="sm" className="no-outline">
+          <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 md:bottom-6 md:right-6 z-30 
+            opacity-100 translate-y-0 md:opacity-0 md:translate-y-2 
+            transition-all duration-700 ease-in-out md:group-hover:opacity-100 md:group-hover:translate-y-0">
+            <GradientButton asChild variant="variant" size="sm" className="no-outline text-xs px-4 py-2">
               <Link
                 href={`/resources?type=${encodeURIComponent('Use Cases')}&category=${encodeURIComponent(getCategoryForResources(resource.category))}#resources-grid`}
                 prefetch={false}
@@ -360,28 +363,28 @@ export default function NewIndustriesPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative py-20 sm:py-32 md:py-40 overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative py-16 sm:py-20 md:py-32 lg:py-40 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            {/* Top Label */}
-            <div className="inline-block mb-8">
-              <span className="bg-[#0a1b2f] case-study-badge-gradient text-[#8bd3f9] text-xs font-medium px-4 py-1.5 rounded-full">
+            {/* Top Label - Mobile optimized */}
+            <div className="inline-block mb-6 sm:mb-8">
+              <span className="bg-[#0a1b2f] case-study-badge-gradient text-[#8bd3f9] text-[10px] sm:text-xs font-medium px-3 sm:px-4 py-1 sm:py-1.5 rounded-full">
                 ✦ Discover your use cases
               </span>
             </div>
             
-            {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal mb-6 sm:mb-8 leading-tight">
+            {/* Heading - Mobile optimized */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal mb-4 sm:mb-6 md:mb-8 leading-tight px-2">
               <div className="text-white">Real-world intelligence</div>
-              <div className="flex items-center justify-center flex-wrap">
+              <div className="flex items-center justify-center flex-wrap gap-2">
                 <span className="text-white">across</span>
-                <span className="text-[#00a39a] ml-2 sm:ml-4">Verticals</span>
+                <span className="text-[#00a39a]">Verticals</span>
               </div>
             </h1>
             
-            {/* Subheading */}
-            <p className="text-[#a0a7b1] text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-normal px-4">
+            {/* Subheading - Mobile optimized */}
+            <p className="text-[#a0a7b1] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed font-normal px-2 sm:px-4">
               From Retail to Travel, Propheus empowers enterprise teams to effortlessly confront age-old and emerging business challenges through the most comprehensive knowledge of the real world!
             </p>
           </div>
@@ -392,25 +395,25 @@ export default function NewIndustriesPage() {
         <div className="home-grid-overlay absolute inset-0 z-0" />
       </section>
       
-      {/* Filter Tabs */}
-      <section id="industries-grid" className="py-8 border-y border-gray-800/30">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-center space-x-1 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide">
+      {/* Filter Tabs - Mobile Optimized with Horizontal Scroll */}
+      <section id="industries-grid" className="py-4 sm:py-6 md:py-8 border-y border-gray-800/30">
+        <div className="container mx-auto px-2 sm:px-4 md:px-6">
+          <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2 sm:mx-0 sm:px-0">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 text-sm md:text-base whitespace-nowrap transition-all duration-300 relative ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-300 relative rounded-full flex-shrink-0 ${
                   activeCategory === category
-                    ? "text-[#00a39a] font-semibold"
-                    : "text-gray-400 hover:text-white"
+                    ? "text-[#00a39a] font-semibold bg-teal-500/10"
+                    : "text-gray-400 hover:text-white hover:bg-gray-800/30"
                 }`}
               >
                 {category}
                 {activeCategory === category && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00a39a]"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00a39a] rounded-full"
                     initial={false}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
@@ -421,11 +424,11 @@ export default function NewIndustriesPage() {
         </div>
       </section>
       
-      {/* Resources Grid */}
-      <section className="py-12 sm:py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
+      {/* Resources Grid - Mobile Optimized */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-24">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6">
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8"
             key={activeCategory}
           >
             {filteredResources.map((resource) => (
@@ -435,9 +438,9 @@ export default function NewIndustriesPage() {
           
           {/* Empty State */}
           {filteredResources.length === 0 && (
-            <div className="text-center py-20">
-              <h3 className="text-2xl font-semibold text-gray-300 mb-2">No resources found</h3>
-              <p className="text-gray-500">Try selecting a different category</p>
+            <div className="text-center py-16 sm:py-20">
+              <h3 className="text-xl sm:text-2xl font-semibold text-gray-300 mb-2">No resources found</h3>
+              <p className="text-sm sm:text-base text-gray-500">Try selecting a different category</p>
             </div>
           )}
         </div>
