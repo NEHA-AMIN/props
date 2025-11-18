@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import ThemeToggle from './ThemeToggle';
 import { usePathname } from 'next/navigation';
 
 const Navbar: React.FC = () => {
@@ -32,9 +31,7 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <nav className="fixed top-4 left-4 right-4 z-[100] rounded-3xl border border-white/10 bg-black/30 backdrop-blur-md shadow-lg transition-colors duration-300">
-      {/* Removed glass glow overlay - no more green patches */}
-      
+    <nav className="fixed top-4 left-4 right-4 z-[100] rounded-3xl border border-white/10 bg-black/70 backdrop-blur-md shadow-lg transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-end items-center h-16 gap-12">
           {/* Logo Section */}
@@ -106,8 +103,8 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu Panel */}
       <div
         className={`fixed top-[calc(4rem+1px)] right-4 w-64 md:hidden z-[100]
-          bg-black/30 backdrop-blur-md
-          border border-white/10 rounded-2xl shadow-lg
+          bg-black/95 backdrop-blur-xl
+          border border-white/20 rounded-2xl shadow-2xl
           transform transition-all duration-300 ease-in-out origin-top-right
           ${
             isMenuOpen
@@ -125,16 +122,16 @@ const Navbar: React.FC = () => {
               key={link.name}
               href={link.href}
               onClick={closeMenu}
-              className="block px-4 py-2 text-base text-slate-300 hover:text-primary-300 hover:bg-slate-700/40 rounded-lg transition-all duration-200"
+              className="block px-4 py-3 text-base font-medium text-white hover:text-primary-300 hover:bg-white/10 rounded-lg transition-all duration-200"
             >
               {link.name}
             </Link>
           ))}
-          <div className="pt-2 border-t border-white/10">
-            <button className="w-full px-4 py-2 text-base text-primary-400 hover:text-primary-300 bg-slate-700/30 hover:bg-slate-700/40 rounded-lg transition-all duration-200 border border-white/10">
+          {/* <div className="pt-2 border-t border-white/20">
+            <button className="w-full px-4 py-3 text-base font-medium text-primary-300 hover:text-primary-200 bg-white/5 hover:bg-white/10 rounded-lg transition-all duration-200 border border-primary-400/30">
               Try Propheus
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
