@@ -249,7 +249,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                   />
                   <div className="p-4 sm:p-5 md:p-6">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">{study.title}</h3>
-                    <p className="text-sm sm:text-base text-slate-300 mb-3 md:mb-4 line-clamp-2 sm:line-clamp-3">{study.description}</p>
+                    <p className="text-sm sm:text-base text-slate-300 mb-3 md:mb-4 whitespace-normal break-words leading-relaxed">{study.description}</p>
                     <GradientButton asChild variant="variant" className="no-outline">
                       <Link 
                         href={study.link}

@@ -366,7 +366,7 @@ export default function NewIndustriesPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section - Mobile Optimized */}
-      <section className="relative py-16 sm:py-20 md:py-32 lg:py-40 overflow-hidden">
+      <section className="relative pt-24 sm:pt-20 md:pt-32 lg:pt-40 pb-16 sm:pb-20 md:pb-32 lg:pb-40 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             {/* Top Label - Mobile optimized */}

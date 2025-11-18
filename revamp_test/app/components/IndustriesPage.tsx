@@ -510,7 +510,7 @@ const IndustryCard: React.FC<{ industry: IndustryContent; industryKey: IndustryK
               {industry.name}
             </h3>
             
-            <p className="text-white text-opacity-90 text-sm leading-relaxed mb-6 line-clamp-3">
+            <p className="text-white text-opacity-90 text-sm leading-relaxed mb-6 whitespace-normal break-words">
               {industry.description}
             </p>
             

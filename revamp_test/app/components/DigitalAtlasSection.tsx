@@ -85,7 +85,7 @@ const DigitalAtlasSection = () => {
                 </div>
                 <div className="py-6 px-4 text-center">
                   <h3 className="text-2xl text-white">Perceives the Physical World</h3>
-                  <p className="mt-3 text-gray-300">Context Aware AI Agents continuously curate real-world data</p>
+                  <p className="mt-3 text-gray-300">Context Aware AI Agents continuously curate real-world data.</p>
                 </div>
               </div>
             </motion.div>
@@ -103,7 +103,7 @@ const DigitalAtlasSection = () => {
                 </div>
                 <div className="py-6 px-4 text-center">
                   <h3 className="text-2xl text-white">Fuses Real world Signals</h3>
-                  <p className="mt-3 text-gray-300">Like places, weather, people movement, demographics, and consumer sentiment</p>
+                  <p className="mt-3 text-gray-300">Like places, weather, people movement, demographics, and consumer sentiment.</p>
                 </div>
               </div>
             </motion.div>

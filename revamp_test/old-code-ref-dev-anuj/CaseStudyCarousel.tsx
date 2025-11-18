@@ -246,7 +246,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                   />
                   <div className="p-4 sm:p-5 md:p-6">
                     <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">{study.title}</h3>
-                    <p className="text-sm sm:text-base text-slate-300 mb-3 md:mb-4 line-clamp-2 sm:line-clamp-3">{study.description}</p>
+                    <p className="text-sm sm:text-base text-slate-300 mb-3 md:mb-4 whitespace-normal break-words leading-relaxed">{study.description}</p>
                     <a 
                       href={study.link} 
                       className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-teal-500 text-white rounded-md hover:bg-teal-600 transition-colors"
