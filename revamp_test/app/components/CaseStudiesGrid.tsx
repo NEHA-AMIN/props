@@ -65,7 +65,6 @@ const VideoModal: React.FC<{
 const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    // console.log('Close button clicked');
     onClose();
   };
 
@@ -228,7 +227,7 @@ const CaseStudyCard: React.FC<{
       onMouseLeave={() => onHover(null)}
       onMouseMove={handleMouseMove}
       onClick={handleClick}
-      className={`group cursor-pointer rounded-xl overflow-hidden backdrop-blur-md bg-black/30 border border-white/10 hover:border-teal-500/50 hover:bg-black/40 transition-all duration-300 min-h-[450px] flex flex-col hover:shadow-xl hover:shadow-teal-500/10 relative ${
+      className={`group cursor-pointer rounded-xl overflow-hidden backdrop-blur-md bg-black/30 border border-white/10 hover:border-teal-500/50 hover:bg-black/40 transition-all duration-300 min-h-[380px] sm:min-h-[420px] md:min-h-[450px] flex flex-col hover:shadow-xl hover:shadow-teal-500/10 relative ${
         isActive ? "z-50 scale-[1.01]" : "z-10"
       }`}
     >
@@ -252,26 +251,26 @@ const CaseStudyCard: React.FC<{
         </div>
 
         {/* Content Section - Expands from bottom on hover */}
-        <div className="absolute bottom-0 left-0 right-0 backdrop-blur-sm bg-black/70 transition-[height] duration-[1000ms] ease-out h-auto min-h-[35%] group-hover:h-[65%] p-6 flex flex-col z-20 border-t border-white/10">
+        <div className="absolute bottom-0 left-0 right-0 backdrop-blur-sm bg-black/70 transition-[height] duration-[1000ms] ease-out min-h-[40%] group-hover:h-[70%] p-5 sm:p-6 flex flex-col z-20 border-t border-white/10">
           {/* Category Label */}
           <p className="text-xs font-semibold text-teal-400 uppercase tracking-wide mb-2">
             {study.category}
           </p>
 
           {/* Title */}
-          <h3 className="text-lg font-bold text-gray-100 leading-snug group-hover:text-teal-300 transition-colors duration-700 mb-2">
+          <h3 className="text-base sm:text-lg font-bold text-gray-100 leading-snug group-hover:text-teal-300 transition-colors duration-700 mb-2">
             {study.title}
           </h3>
 
           {/* Description - Hidden by default, shown on hover */}
-          <div className="overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 mb-3">
+          <div className="overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0 group-hover:max-h-48 group-hover:opacity-100 mb-3">
             <p className="text-sm text-gray-300 leading-relaxed mt-2">
               {study.description}
             </p>
           </div>
 
           {/* Date */}
-          <p className="text-sm text-gray-400 mb-2">{study.date}</p>
+          <p className="text-xs sm:text-sm text-gray-400 mb-2">{study.date}</p>
 
           {/* Read More Button - Shown on hover */}
           <div className="overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0 group-hover:max-h-16 group-hover:opacity-100">

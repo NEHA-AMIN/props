@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -34,8 +33,8 @@ const HeroButton: React.FC<HeroButtonProps> = ({ label, onClick, isActive }) => 
   return (
     <button
       onClick={onClick}
-      className={`group px-8 py-6 text-lg font-normal backdrop-blur-md 
-        transition-all duration-300 rounded-full min-w-[220px]
+      className={`group px-6 sm:px-8 py-3 sm:py-6 text-md sm:text-lg font-normal backdrop-blur-md 
+        transition-all duration-300 rounded-full min-w-[160px] sm:min-w-[220px]
         ${isActive 
           ? 'bg-teal-500 border-teal-400 text-white shadow-lg shadow-teal-500/30' 
           : 'bg-transparent hover:bg-gray-900/30 border border-teal-500/30 hover:border-teal-400/50 text-white hover:shadow-md hover:shadow-teal-500/20'
@@ -122,15 +121,16 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
     >
       {/* Global grid overlay background (same as Industries hero) */}
       <div className="home-grid-overlay absolute inset-0 z-0" />
+      
       {/* Hero Section with Overlay Dropdowns */}
       <div className="relative">
         <BackgroundPaths title="Resources Hub" />
         
-        {/* Button Overlay on Hero */}
-        <div className="absolute inset-0 flex items-center justify-center z-20">
+        {/* Button Overlay on Hero - positioned below title */}
+        <div className="absolute inset-0 flex items-start justify-center z-20 pt-[60vh] sm:pt-0 sm:items-center">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            {/* Buttons positioned below the title with more vertical spacing */}
-            <div className="mt-48 sm:mt-56 md:mt-64 lg:mt-72 flex flex-col sm:flex-row gap-6 justify-center items-center">
+            {/* Buttons positioned below the title with responsive vertical padding */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center sm:mt-32 md:mt-40 lg:mt-48 xl:mt-56">
               {buttonCategories.map((category) => (
                 <HeroButton
                   key={category}
@@ -146,62 +146,6 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
       
       {/* Main Content Section */}
       <section className="relative bg-black transition-colors duration-500 z-10">
-        {/* <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 sm:py-24"> */}
-          {/* Page Header - THIS IS WHAT YOU'RE LOOKING FOR */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-teal-400 via-teal-500 to-teal-300 bg-clip-text text-transparent tracking-tight">
-              Resources page
-            </h2>
-            <p className="mt-4 text-base md:text-lg bg-gradient-to-r from-teal-200 via-teal-400 to-teal-200 bg-clip-text text-transparent">
-              Find out more about Propheus in action
-            </p>
-            <p className="mt-1 text-base md:text-lg bg-gradient-to-r from-teal-200 via-teal-400 to-teal-200 bg-clip-text text-transparent">
-              from our archive of blogs, videos and more
-            </p>
-          </motion.div> */}
-
-          {/* Rest of your content... */}
-
-          {/* Featured Content */}
-          {/* <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 md:gap-8 mb-12"> */}
-            {/* Left visual */}
-            {/* <div className="rounded-2xl bg-gradient-to-br from-teal-900 via-teal-800 to-teal-700 p-6 md:p-8 shadow-sm transition-all duration-500 hover:shadow-lg">
-              <div className="aspect-[16/9] rounded-xl bg-black/40 backdrop-blur-sm ring-1 ring-teal-500/30 flex items-center justify-center text-gray-200 transition-colors duration-300">
-                <span className="text-sm">Featured visual placeholder</span>
-              </div>
-            </div> */}
-
-            {/* Right content */}
-            {/* <div className="rounded-2xl border border-gray-700 bg-gray-900/60 backdrop-blur-sm p-6 md:p-8 transition-all duration-500 hover:shadow-lg hover:bg-gray-900/80">
-              <p className="text-xs font-semibold text-teal-300 mb-2">
-                {resources[0]?.category}
-              </p>
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-100 mb-3">
-                {resources[0]?.title}
-              </h3>
-              <p className="text-sm md:text-base text-gray-300 mb-4">
-                {resources[0]?.excerpt}
-              </p>
-              <p className="text-xs text-gray-400 mb-5">
-                {resources[0]?.date}
-              </p>
-              <a
-                href={resources[0]?.href ?? "#"}
-                className="inline-flex items-center rounded-full bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 text-sm font-medium shadow-sm transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
-              >
-                {resources[0]?.ctaLabel ?? "Read"} →
-              </a>
-            </div> */}
-          {/* </div> */}
-
-          {/* Category filter buttons removed per request */}
-        {/* </div> */}
-
         {/* Case Studies Grid Section */}
         <CaseStudiesGrid selectedType={selectedType} initialCategory={initialCategory} />
 
