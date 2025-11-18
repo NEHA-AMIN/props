@@ -275,7 +275,7 @@ const CaseStudyCard: React.FC<{
           {/* Read More Button - Shown on hover */}
           <div className="overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0 group-hover:max-h-16 group-hover:opacity-100">
             <button className="mt-2 text-sm font-bold text-gray-100 hover:text-teal-300 transition-colors duration-200 flex items-center gap-1">
-              READ MORE ↓
+              Watch Now ↓
             </button>
           </div>
         </div>

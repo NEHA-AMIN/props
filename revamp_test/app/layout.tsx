@@ -29,6 +29,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         <ThemeScript />
+        {/* Favicon: use propheus_logo in public folder */}
+        <link rel="icon" href="/propheus_logo.jpeg" />
+        <link rel="apple-touch-icon" href="/propheus_logo.jpeg" />
       </head>
       <body className={`${inter.className} antialiased bg-blue-950 dark:bg-slate-950 min-h-screen transition-colors duration-300`}>
         <ClientLayout>{children}</ClientLayout>

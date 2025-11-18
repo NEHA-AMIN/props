@@ -7,7 +7,7 @@ const MissionSection: React.FC = () => {
   const isInView = useInView(sectionRef, { amount: 0.3, once: true });
   
   const headingText = "Physical AI";
-  const paragraphText = "Physical AI - Delivering the most comprehensive understanding of the real world - enabling humans and autonomous systems (robots, AVs, and software agents) to perceive, act, and deliver outcomes with confidence.";
+  const paragraphText = "Delivering the most comprehensive understanding of the real world - enabling humans and autonomous systems (robots, AVs, and software agents) to perceive, act, and deliver outcomes with confidence.";
   
   // Split heading into letters (kept), paragraph into words to avoid mid-word breaks
   const headingLetters = headingText.split('');

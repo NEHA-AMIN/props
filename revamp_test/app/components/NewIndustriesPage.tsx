@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -345,6 +345,8 @@ export default function NewIndustriesPage() {
   const [filteredResources, setFilteredResources] = useState(
     resourcesData.filter(resource => resource.category === categories[0])
   );
+  // Ref for the horizontal tabs scroll container
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   
   // Initialize active category from query string if provided
   useEffect(() => {
@@ -395,31 +397,70 @@ export default function NewIndustriesPage() {
         <div className="home-grid-overlay absolute inset-0 z-0" />
       </section>
       
-      {/* Filter Tabs - Mobile Optimized with Horizontal Scroll */}
+      {/* Filter Tabs - Mobile Optimized with Horizontal Scroll + Arrows */}
       <section id="industries-grid" className="py-4 sm:py-6 md:py-8 border-y border-gray-800/30">
         <div className="container mx-auto px-2 sm:px-4 md:px-6">
-          <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide -mx-2 px-2 sm:mx-0 sm:px-0">
-            {categories.map((category) => (
+          <div className="relative">
+            <div className="flex items-center justify-center">
+              {/* Left Arrow */}
               <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-300 relative rounded-full flex-shrink-0 ${
-                  activeCategory === category
-                    ? "text-[#00a39a] font-semibold bg-teal-500/10"
-                    : "text-gray-400 hover:text-white hover:bg-gray-800/30"
-                }`}
+                type="button"
+                aria-label="Scroll left"
+                onClick={() => {
+                  const el = scrollRef.current;
+                  if (el) el.scrollBy({ left: -Math.round(el.clientWidth * 0.6), behavior: 'smooth' });
+                }}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/40 hover:bg-black/60 text-gray-300 focus:outline-none"
               >
-                {category}
-                {activeCategory === category && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00a39a] rounded-full"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  />
-                )}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M15 5l-7 7 7 7" />
+                </svg>
               </button>
-            ))}
+
+              {/* Scrollable tabs - centered */}
+              <div
+                ref={scrollRef}
+                className="flex items-center justify-center space-x-1 sm:space-x-2 md:space-x-4 overflow-x-auto pb-2 scrollbar-hide w-full px-6"
+                style={{ WebkitOverflowScrolling: 'touch' }}
+              >
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-300 relative rounded-full flex-shrink-0 mx-2 ${
+                      activeCategory === category
+                        ? "text-[#00a39a] font-semibold bg-teal-500/10"
+                        : "text-gray-400 hover:text-white hover:bg-gray-800/30"
+                    }`}
+                  >
+                    {category}
+                    {activeCategory === category && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#00a39a] rounded-full"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Arrow */}
+              <button
+                type="button"
+                aria-label="Scroll right"
+                onClick={() => {
+                  const el = scrollRef.current;
+                  if (el) el.scrollBy({ left: Math.round(el.clientWidth * 0.6), behavior: 'smooth' });
+                }}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/40 hover:bg-black/60 text-gray-300 focus:outline-none"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+                  <path strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" d="M5 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </section>

@@ -1,34 +1,32 @@
-'use client';
-import React from 'react';
-import { motion } from 'framer-motion';
-import VideoBackground from './VideoBackground';
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
+import VideoBackground from "./VideoBackground";
 
 const HeroSection: React.FC = () => {
-  
   return (
     <section
-      className="h-screen w-full relative overflow-hidden"
-      style={{
-        height: '100vh',
-        width: '100vw',
-        position: 'relative',
-        overflow: 'hidden'
-      }}
+      className="relative overflow-hidden w-full"
+      style={{ height: "60vh", maxHeight: "720px" }}
     >
-      {/* Video Background with key to force proper mounting */}
-      <VideoBackground
-        key={`hero-video-${Date.now()}`} // Force remount with unique key
-        src="/hero-background.mp4"
-        className="z-10"
-      />
+      {/* Background: plain black */}
+      <div className="absolute inset-0 z-0 bg-black" />
       
-      {/* Empty content container - video only */}
-      <div className="relative z-[2] h-full w-full">
-        {/* No text content as requested */}
-        
-        {/* Scroll indicator */}
+      {/* Centered video container with padding only on top/bottom */}
+      <div className="relative z-10 flex items-center justify-center h-full w-full py-8">
+        <div className="w-full h-[calc(100%-4rem)] bg-black/60 rounded-xl overflow-hidden shadow-2xl">
+          <VideoBackground
+            key={`hero-video-${Date.now()}`}
+            src="/hero-background.mp4"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+      
+      {/* Content container for overlay UI (scroll indicator etc) */}
+      <div className="relative z-[20] h-full w-full pointer-events-none">
         <motion.div
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center pointer-events-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -37,14 +35,8 @@ const HeroSection: React.FC = () => {
           <div className="w-6 h-10 border-2 border-slate-400 rounded-full flex justify-center p-1">
             <motion.div
               className="w-1 h-2 bg-teal-400 rounded-full"
-              animate={{
-                y: [0, 12, 0],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
             />
           </div>
         </motion.div>

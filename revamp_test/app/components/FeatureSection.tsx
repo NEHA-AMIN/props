@@ -31,7 +31,7 @@ const DigitalAtlasAccessSection = () => {
   const steps = [
     {
       number: "01",
-      title: "Query Digital Atlas directly",
+      title: "Use-Case Specific Applications",
       icon: (
         <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -40,7 +40,7 @@ const DigitalAtlasAccessSection = () => {
     },
     {
       number: "02",
-      title: "API Call",
+      title: "API Access",
       icon: (
         <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -49,16 +49,7 @@ const DigitalAtlasAccessSection = () => {
     },
     {
       number: "03",
-      title: "Plug in Applications",
-      icon: (
-        <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-        </svg>
-      )
-    },
-    {
-      number: "04",
-      title: "Feed into models",
+      title: "Model Integrations",
       icon: (
         <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -138,8 +129,8 @@ const DigitalAtlasAccessSection = () => {
           ))}
         </div>
 
-        {/* Desktop / larger screens: grid layout preserved */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Desktop / larger screens: grid layout (3 columns) */}
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-3 gap-6">
           {steps.map((step, index) => (
             <motion.div
               key={index}

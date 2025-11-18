@@ -107,13 +107,13 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
   }, [src]);
 
   return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
+    <div className={`relative w-full h-full overflow-hidden bg-black ${className}`}>
       {/* Fallback background gradient when video can't play */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-black z-0"></div>
-      
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-black z-0" />
+
       <video
         ref={videoRef}
-        className={`absolute inset-0 w-full h-full z-[1] ${className}`}
+        className={`absolute inset-0 w-full h-full z-[10]`}
         autoPlay
         muted
         loop
@@ -121,8 +121,9 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
         preload="auto"
         style={{
           opacity: 1,
-          width: '100vw',
-          height: '100vh',
+          // Fill the parent container
+          width: '100%',
+          height: '100%',
           objectFit: 'cover',
           objectPosition: 'center center'
         }}
