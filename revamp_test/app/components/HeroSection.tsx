@@ -15,7 +15,6 @@ const HeroSection: React.FC = () => {
       <div className="relative z-10 flex items-center justify-center h-full w-full py-8 md:py-0">
         <div className="w-full h-[calc(100%-4rem)] md:h-full bg-black/60 md:bg-transparent rounded-xl md:rounded-none overflow-hidden shadow-2xl md:shadow-none">
           <VideoBackground
-            key={`hero-video-${Date.now()}`}
             src="/hero-background.mp4"
             className="w-full h-full object-cover"
           />
