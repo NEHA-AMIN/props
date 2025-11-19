@@ -21,7 +21,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onVideoLoad }) => {
       <div className="relative z-10 flex items-center justify-center h-full w-full py-8 md:py-0">
         <div className="w-full h-[calc(100%-4rem)] md:h-full bg-black/60 md:bg-transparent rounded-xl md:rounded-none overflow-hidden shadow-2xl md:shadow-none">
           <VideoBackground
-            src="/hero-background.mp4"
+            videoSources={{
+              highest: '/hero-background.mp4',      // 47MB - Very fast connections only
+              high: '/hero-background-1.mp4',       // 26MB - Fast connections
+              medium: '/hero-background-2.mp4',     // 14MB - Default for most users
+              low: '/hero-background-3.mp4'         // 7.8MB - Mobile/slow connections
+            }}
             className="w-full h-full object-cover"
             onLoad={onVideoLoad}
           />
