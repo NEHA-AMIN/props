@@ -6,9 +6,10 @@ import FoldingCubeLoader from "./FoldingCubeLoader";
 interface VideoBackgroundProps {
   src: string;
   className?: string;
+  onLoad?: () => void;
 }
 
-export default function VideoBackground({ src, className = "" }: VideoBackgroundProps) {
+export default function VideoBackground({ src, className = "", onLoad }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isMountedRef = useRef(true);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,6 +51,8 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
         
         if (isMountedRef.current) {
           setIsLoaded(true);
+          // Call onLoad callback when video is loaded
+          onLoad?.();
         }
         
         // Ensure video starts playing
@@ -75,6 +78,7 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
     // If video is already ready (cached), mark as loaded
     if (video.readyState >= 2) {
       setIsLoaded(true);
+      onLoad?.();
     }
     
     // User interaction handlers
@@ -116,6 +120,7 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
     const onLoadedData = () => {
       if (isMountedRef.current) {
         setIsLoaded(true);
+        onLoad?.();
       }
     };
     
@@ -140,7 +145,7 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
         // video.load();
       }
     };
-  }, [src]);
+  }, [src, onLoad]);
 
   return (
     <div className={`relative w-full h-full overflow-hidden bg-black ${className}`}>
