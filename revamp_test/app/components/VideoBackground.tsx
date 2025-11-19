@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import FoldingCubeLoader from "./FoldingCubeLoader";
 
 interface VideoBackgroundProps {
   src: string;
@@ -13,6 +14,8 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
   // Use a ref to track component mount status
   const isMountedRef = useRef(true);
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     const video = videoRef.current;
     
@@ -21,6 +24,9 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
     // Set mounted flag
     isMountedRef.current = true;
     
+    // Reset loaded state when src changes
+    setIsLoaded(false);
+
     // Force load the video
     video.load();
     
@@ -46,6 +52,8 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
         
         // Start playing
         await video.play();
+        // Mark video as loaded once playback starts
+        if (isMountedRef.current) setIsLoaded(true);
         
         // Ensure video is not stuck at the beginning
         if (video.currentTime === 0) {
@@ -61,6 +69,10 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
     
     // Play video immediately
     playVideo();
+    // If the video is already in a ready state (from cache), mark as loaded
+    if (video.readyState >= 2) {
+      setIsLoaded(true);
+    }
     
     // Add event listeners for various scenarios
     const events = ['click', 'touchstart', 'keydown'];
@@ -93,6 +105,10 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
       }, 300);
     };
     
+    // When the video has enough data to play, mark as loaded so the loader can hide
+    const onLoadedData = () => setIsLoaded(true);
+    video.addEventListener('loadeddata', onLoadedData);
+    video.addEventListener('canplay', onLoadedData);
     video.addEventListener('error', handleVideoError);
     
     // Cleanup
@@ -100,6 +116,8 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
       events.forEach(event => document.removeEventListener(event, handleUserInteraction));
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       video.removeEventListener('error', handleVideoError);
+      video.removeEventListener('loadeddata', onLoadedData);
+      video.removeEventListener('canplay', onLoadedData);
       video.pause();
       video.src = "";
       video.load();
@@ -111,16 +129,24 @@ export default function VideoBackground({ src, className = "" }: VideoBackground
       {/* Fallback background gradient when video can't play */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-black z-0" />
 
+      {/* Loader overlay - visible until video reports it's ready */}
+      {!isLoaded && (
+        <div className="absolute inset-0 z-[30] flex items-center justify-center bg-black/60">
+          <div className="w-20 h-20">
+            <FoldingCubeLoader />
+          </div>
+        </div>
+      )}
+
       <video
         ref={videoRef}
-        className={`absolute inset-0 w-full h-full z-[10]`}
+        className={`absolute inset-0 w-full h-full z-[10] transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
         style={{
-          opacity: 1,
           // Fill the parent container
           width: '100%',
           height: '100%',
