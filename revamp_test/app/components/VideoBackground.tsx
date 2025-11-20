@@ -42,6 +42,8 @@ export default function VideoBackground({
       const connection = (navigator as any).connection || 
                         (navigator as any).mozConnection || 
                         (navigator as any).webkitConnection;
+
+      console.log('🌐 Network Info:', connection || 'No connection info available');
       
       let connectionSpeed: ConnectionSpeed = 'medium';
       

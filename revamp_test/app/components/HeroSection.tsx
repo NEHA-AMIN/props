@@ -22,10 +22,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onVideoLoad }) => {
         <div className="w-full h-[calc(100%-4rem)] md:h-full bg-black/60 md:bg-transparent rounded-xl md:rounded-none overflow-hidden shadow-2xl md:shadow-none">
           <VideoBackground
             videoSources={{
-              highest: '/hero-background.webm',
-              high: '/hero-background-1.webm',
-              medium: '/hero-background-2.webm',
-              low: '/hero-background-3.webm'
+              highest: 'https://res.cloudinary.com/dl20l7ldt/video/upload/v1763545654/tog_1_jbxrun.mp4',
+              high: 'https://res.cloudinary.com/dl20l7ldt/video/upload/v1763545654/tog_1_jbxrun.mp4',
+              medium: 'https://res.cloudinary.com/dl20l7ldt/video/upload/v1763545654/tog_1_jbxrun.mp4',
+              low: 'https://res.cloudinary.com/dl20l7ldt/video/upload/v1763545654/tog_1_jbxrun.mp4'
             }}
             className="w-full h-full object-cover"
             onLoad={onVideoLoad}
