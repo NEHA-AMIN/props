@@ -271,7 +271,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                           // show optimistic overlay immediately to improve perceived speed
                           setIsNavigating(true);
                           // fallback: hide overlay after a timeout so it never gets stuck
-                          // setTimeout(() => setIsNavigating(false), 8000);
+                          setTimeout(() => setIsNavigating(false), 8000);
                         }}
                       >
                         Learn More

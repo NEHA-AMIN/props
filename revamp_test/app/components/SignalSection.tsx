@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { submitContactToHubspot } from '@/app/actions/hubspot';
 import SplitText from './SplitText';
 import { GradientButton } from '@/components/ui/gradient-button';
 
@@ -15,9 +16,48 @@ const SignalSection: React.FC = () => {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resultMessage, setResultMessage] = useState<string | null>(null);
+  const [isSent, setIsSent] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Intentionally no backend hookup here; this is a design-first section.
+    setIsSubmitting(true);
+    setResultMessage(null);
+
+    try {
+      const form = e.currentTarget;
+      const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement | null;
+      const email = emailInput?.value?.trim() || '';
+
+      const formData = new FormData();
+      // We only collect email in this simplified form; provide a fallback name
+      formData.append('name', email || '');
+      formData.append('email', email);
+      formData.append('company', '');
+      formData.append('message', 'Subscribe to The Signal');
+      formData.append('pageUri', window.location.href);
+
+      // add hubspot tracking cookie if present
+      const hutk = document.cookie.split('; ').find((c) => c.trim().startsWith('hubspotutk='))?.split('=')[1];
+      if (hutk) formData.append('hutk', hutk);
+
+      const res = await submitContactToHubspot(formData as any);
+
+      if (res?.success) {
+        setIsSent(true);
+        form.reset();
+        // Auto-clear the 'Sent' state after a brief confirmation period
+        setTimeout(() => setIsSent(false), 2000);
+      } else {
+        setResultMessage(`❌ ${res?.message || 'Submission failed. Please try again.'}`);
+      }
+    } catch (err) {
+      console.error('Signal subscription error:', err);
+      setResultMessage('❌ Error submitting. Try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleAnimationComplete = () => {
@@ -120,11 +160,17 @@ const SignalSection: React.FC = () => {
                 variant="variant"
                 className="w-full sm:w-auto h-12 px-6 rounded-none sm:rounded-r-2xl sm:rounded-l-none rounded-b-2xl sm:rounded-b-none text-sm font-semibold no-outline"
                 aria-label="Get The Signal"
+                disabled={isSubmitting || isSent}
               >
-                Get The Signal
+                {isSubmitting ? 'Submitting...' : isSent ? 'Sent' : 'Get The Signal'}
               </GradientButton>
             </div>
             <p className="mt-3 text-sm text-gray-300 dark:text-gray-300">No spam. Only the signal.</p>
+            {resultMessage && (
+              <p className="mt-3 text-sm" role="status">
+                {resultMessage}
+              </p>
+            )}
           </motion.form>
         </div>
       </div>
