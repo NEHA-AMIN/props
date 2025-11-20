@@ -61,7 +61,7 @@ const DigitalAtlasSection = () => {
               <div className="rounded-2xl overflow-hidden bg-black shadow-lg">
                 <div className="w-full h-[48vh] sm:h-[40vh] relative">
                   <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
-                    <source src="/scan.mp4" type="video/mp4" />
+                    <source src="https://res.cloudinary.com/doiftjxrr/video/upload/v1763633767/scan_o3p0bb.mp4" type="video/mp4" />
                   </video>
                 </div>
                 <div className="py-6 px-4 text-center">
@@ -79,7 +79,7 @@ const DigitalAtlasSection = () => {
               <div className="rounded-2xl overflow-hidden bg-black shadow-lg">
                 <div className="w-full h-[48vh] sm:h-[40vh] relative">
                   <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
-                    <source src="/digi2.mp4" type="video/mp4" />
+                    <source src="https://res.cloudinary.com/doiftjxrr/video/upload/v1763633610/DA_gjg1ju.mp4" type="video/mp4" />
                   </video>
                 </div>
                 <div className="py-6 px-4 text-center">
@@ -128,7 +128,7 @@ const DigitalAtlasSection = () => {
               loop
               playsInline
             >
-              <source src="/scan.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/doiftjxrr/video/upload/v1763633767/scan_o3p0bb.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </motion.video>
             
@@ -144,7 +144,7 @@ const DigitalAtlasSection = () => {
               loop
               playsInline
             >
-              <source src="/digi2.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/doiftjxrr/video/upload/v1763633610/DA_gjg1ju.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </motion.video>
           </div>
