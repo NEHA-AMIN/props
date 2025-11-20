@@ -245,7 +245,7 @@ const CaseStudySubPart = () => {
           <div className="flex-1 relative mt-6 lg:mt-0 order-1 lg:order-2">
             <div className="rounded-xl overflow-hidden shadow-lg">
               {/* Case Study Video/GIF implementation */}
-              {currentStudy.image.endsWith('.webm') ? (
+              {currentStudy.image.endsWith('.mp4') ? (
                 <video
                   key={currentStudy.id}
                   className="w-full h-48 sm:h-64 md:h-80 lg:h-[420px] object-cover"
@@ -254,7 +254,7 @@ const CaseStudySubPart = () => {
                   loop
                   playsInline
                 >
-                  <source src={currentStudy.image} type="video/webm" />
+                  <source src={currentStudy.image} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               ) : (

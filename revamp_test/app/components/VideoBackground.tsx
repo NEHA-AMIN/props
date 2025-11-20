@@ -19,10 +19,10 @@ type ConnectionSpeed = 'very-fast' | 'fast' | 'medium' | 'slow';
 
 export default function VideoBackground({ 
   videoSources = {
-    highest: '/hero-background.webm',
-    high: '/hero-background-1.webm',
-    medium: '/hero-background-2.webm',
-    low: '/hero-background-3.webm'
+    highest: '/hero-background.mp4',
+    high: '/hero-background-1.mp4',
+    medium: '/hero-background-2.mp4',
+    low: '/hero-background-3.mp4'
   },
   poster,
   className = "", 
@@ -267,7 +267,7 @@ export default function VideoBackground({
             objectPosition: 'center center'
           }}
         >
-          <source src={selectedVideoSrc} type="video/webm" />
+          <source src={selectedVideoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       )}
