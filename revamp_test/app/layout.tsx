@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Propheus - We Infer the World",
+  title: "Propheus - We're a Physical AI company building the most comprehensive knowledge representation of every place on earth.",
   description: "We turn maps into meaning, enabling AI agents that reason about the world through location, data, and context.",
   viewport: "width=device-width, initial-scale=1",
   themeColor: [

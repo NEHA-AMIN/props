@@ -115,7 +115,7 @@ npm start
 ## Pages Preview
 
 ### Home (/)
-1. **Hero** - "We infer the world, so you dominate"
+1. **Hero** - "We're a Physical AI company building the most comprehensive knowledge representation of every place on earth., so you dominate"
 2. **Industries** - 4 flip cards overview
 3. **How It Works** - 3 steps
 4. **Command Center** - Story blocks

@@ -40,7 +40,7 @@ You should now see:
 
 The page should show sections in this order:
 1. **Navbar** - Fixed at top
-2. **Hero** - "We infer the world, so you dominate"
+2. **Hero** - "We're a Physical AI company building the most comprehensive knowledge representation of every place on earth., so you dominate"
 3. **Industries** - Flip cards for different industries
 4. **How It Works** - Process explanation
 5. **Command Center** - Story blocks

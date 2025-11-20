@@ -147,7 +147,7 @@ export default function ClientPageWrapper() {
 
 ```typescript
 export const metadata: Metadata = {
-  title: 'Propheus - We Infer the World',
+  title: 'Propheus - We're a Physical AI company building the most comprehensive knowledge representation of every place on earth.',
   description: '...',
   openGraph: { ... },
   twitter: { ... },
