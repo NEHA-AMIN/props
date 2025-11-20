@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { GradientButton } from '@/components/ui/gradient-button';
 import { motion } from 'framer-motion';
+import FoldingCubeLoader from './FoldingCubeLoader';
+import { usePathname } from 'next/navigation';
 
 // Define the case study type
 interface CaseStudy {
@@ -31,10 +33,18 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pathname = usePathname();
+
+  // Clear optimistic overlay when the route actually changes
+  useEffect(() => {
+    if (isNavigating) setIsNavigating(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
@@ -151,6 +161,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
   };
 
   return (
+    <>
     <div 
       className="relative w-full overflow-hidden py-4 md:py-8"
       onTouchStart={handleTouchStart}
@@ -256,6 +267,12 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                         prefetch={false}
                         tabIndex={isActive ? 0 : -1}
                         aria-label={`Learn more about ${study.title}`}
+                        onClick={() => {
+                          // show optimistic overlay immediately to improve perceived speed
+                          setIsNavigating(true);
+                          // fallback: hide overlay after a timeout so it never gets stuck
+                          // setTimeout(() => setIsNavigating(false), 8000);
+                        }}
                       >
                         Learn More
                       </Link>
@@ -284,6 +301,18 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
         ))}
       </div>
     </div>
+    {isNavigating && (
+      <div
+        className="fixed inset-0 z-[9999] bg-black flex items-center justify-center"
+        role="status"
+        aria-live="polite"
+      >
+        <div className="w-24 h-24">
+          <FoldingCubeLoader />
+        </div>
+      </div>
+    )}
+    </>
   );
 };
 
