@@ -92,7 +92,7 @@ const SignalSection: React.FC = () => {
           {/* Animated Headline with SplitText */}
             {hasAnimated ? (
             <h4 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white tracking-tight leading-relaxed">
-              Subscribe to The Newsletter
+              Join the Signal
             </h4>
           ) : (
             <SplitText
@@ -123,7 +123,7 @@ const SignalSection: React.FC = () => {
             }}
             viewport={{ once: true }}
           >
-            We dissect emerging geospatial trends, deconstruct successful enterprise strategies, and deliver the critical insights that will define the next decade of Physical AI.
+            Our Newsletter where we dissect emerging geospatial trends, deconstruct successful enterprise strategies, and deliver the critical insights that will define the next decade of Physical AI.
           </motion.p>
 
           {/* Form: single elegant line with integrated button */}
