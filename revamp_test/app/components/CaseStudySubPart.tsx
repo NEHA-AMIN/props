@@ -24,7 +24,7 @@ const caseStudies: CaseStudy[] = [
       'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace, reducing cannibalization, and prioritizing high-yield catchments.',
       'The coffee chain was able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
     ],
-    image: '/Case study 1.webm',
+    image: '/Users/neha/Desktop/Propheus/props/revamp_test/public/Case study 1.mp4',
     metricValue: 23,
     metricLabel: 'more viable zones',
     metrics: [
@@ -39,7 +39,7 @@ const caseStudies: CaseStudy[] = [
       'They turned static place data into live, context-rich intelligence with Digital Atlas—enriching every POI with pickup/drop points, rush hours, and weather/event effects.',
       'The super app was able to use these signals to predict demand, optimize driver allocation and routing, and adjust pricing in near real time improving on-time deliveries.'
     ],
-    image: '/Case study 2.webm',
+    image: '/Users/neha/Desktop/Propheus/props/revamp_test/public/Case study 2.mp4',
     metricValue: 12,
     metricLabel: 'booking conversions',
     metrics: [
@@ -69,7 +69,7 @@ const caseStudies: CaseStudy[] = [
       'The brand was able to fuse its sales data with Digital Atlas real-world signals—(demographics, anchor POIs etc ) —to score SKU potential and deliver a ranked, outlet-specific list for reps.',
       'They was able to pilot, refine, and scale what worked—growing basket size, easing over-reliance on top SKUs, and accelerating new SKU penetration across large retailers.'
     ],
-    image: '/Case study 4.webm',
+    image: '/Users/neha/Desktop/Propheus/props/revamp_test/public/Case study 4.mp4',
     metricValue: 12,
     metricLabel: 'sales uplift',
     metrics: [
