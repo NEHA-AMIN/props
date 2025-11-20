@@ -149,7 +149,7 @@ const resourcesData: Resource[] = [
     id: "16",
     title: "Personalized Discovery & Recommendations",
     description:
-      "Surface contextual signals like neighborhood vibe, proximity to experiences, and real-time demand to match travelers.",
+      "Surface contextual signals like neighborhood vibe, proximity to experiences.",
     category: "Travel",
     image: "https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -201,7 +201,7 @@ const resourcesData: Resource[] = [
     id: "22",
     title: "Site Selection",
     description:
-      "Score locations with footfall/dwell, demographics/income, anchors & transit, safety/noise, zoning, competitor/supply density, and pipeline—prioritize sites and avoid cannibalization.",
+      "Score locations with footfall/dwell, demographics/income, anchors & transit, safety/noise, zoning, competitor/supply density, and pipeline.",
     category: "Real Estate",
     image: "https://images.pexels.com/photos/280222/pexels-photo-280222.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -217,7 +217,7 @@ const resourcesData: Resource[] = [
     id: "24",
     title: "Property Valuation",
     description:
-      "Estimate dynamic value of a commercial property based on indicators like current and future potential, neighbourhood attractiveness, and change in tenant mix.",
+      "Estimate dynamic value of a commercial property based on indicators like current and future potential,.",
     category: "Real Estate",
     image: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -227,7 +227,7 @@ const resourcesData: Resource[] = [
     id: "25",
     title: "Retail Insights",
     description:
-      "Overlay real-world signals onto retail and network performance to explain why certain stores underperform or spike, reasoning across subscriber clusters, ARPU bands, device mix, SIM activations, and competitor presence to surface root causes.",
+      "Overlay real-world signals onto retail and network performance to explain why certain stores underperform or spike.",
     category: "Telecom",
     image: "https://images.pexels.com/photos/163097/twitter-facebook-together-exchange-of-information-163097.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
@@ -243,7 +243,7 @@ const resourcesData: Resource[] = [
     id: "27",
     title: "Campaign Orchestration",
     description:
-      "Automatically orchestrate outbound campaigns (SMS, push, WhatsApp etc) by leveraging behavioral, network, and real-world signals.",
+      "Automatically orchestrate outbound campaigns (SMS, push, WhatsApp etc) .",
     category: "Telecom",
     image: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800"
   }
@@ -300,7 +300,7 @@ const ResourceCard: React.FC<{ resource: Resource }> = ({ resource }) => {
         
         {/* Content Container - Bottom section */}
         <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 md:p-6 z-20 transition-all duration-700 ease-in-out md:group-hover:-translate-y-8 lg:group-hover:-translate-y-4">
-          <div className="space-y-2.5 sm:space-y-3 pb-14 sm:pb-16 md:pb-12 lg:pb-14">
+          <div className="space-y-2.5 sm:space-y-3 pb-14 sm:pb-16 md:pb-16 lg:pb-16">
             {/* Title - Always visible */}
             <h3 className="text-lg sm:text-base md:text-lg lg:text-xl font-bold text-white leading-tight transition-all duration-700 ease-in-out">
               {resource.title}
