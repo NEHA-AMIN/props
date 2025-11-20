@@ -99,7 +99,6 @@ export default function ContactPage() {
         setErrorMessage(result.message || 'Something went wrong. Please try again.');
       }
     } catch (error) {
-      console.error('Form submission error:', error);
       setSubmitStatus('error');
       setErrorMessage('Failed to submit form. Please try again later.');
     } finally {

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { submitContactToHubspot } from '@/app/actions/hubspot';
+import { submitSignalEmailToHubspot } from '@/app/actions/hubspot';
 import SplitText from './SplitText';
 import { GradientButton } from '@/components/ui/gradient-button';
 
@@ -30,19 +30,11 @@ const SignalSection: React.FC = () => {
       const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement | null;
       const email = emailInput?.value?.trim() || '';
 
-      const formData = new FormData();
-      // We only collect email in this simplified form; provide a fallback name
-      formData.append('name', email || '');
-      formData.append('email', email);
-      formData.append('company', '');
-      formData.append('message', 'Subscribe to The Signal');
-      formData.append('pageUri', window.location.href);
-
-      // add hubspot tracking cookie if present
+      // Get HubSpot tracking cookie if present
       const hutk = document.cookie.split('; ').find((c) => c.trim().startsWith('hubspotutk='))?.split('=')[1];
-      if (hutk) formData.append('hutk', hutk);
 
-      const res = await submitContactToHubspot(formData as any);
+      // Submit to HubSpot Signal form (email only)
+      const res = await submitSignalEmailToHubspot(email, window.location.href, hutk);
 
       if (res?.success) {
         setIsSent(true);
@@ -53,7 +45,6 @@ const SignalSection: React.FC = () => {
         setResultMessage(`❌ ${res?.message || 'Submission failed. Please try again.'}`);
       }
     } catch (err) {
-      console.error('Signal subscription error:', err);
       setResultMessage('❌ Error submitting. Try again later.');
     } finally {
       setIsSubmitting(false);
