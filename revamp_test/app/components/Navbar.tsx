@@ -66,19 +66,33 @@ const Navbar: React.FC = () => {
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center justify-end space-x-12">
               {[
+                { name: 'Playground', href: '/playground' },
                 { name: 'Industries', href: '/industries' },
                 { name: 'Resources', href: '/resources' },
                 { name: 'Contact', href: '/contact' },
+                { name: 'About', href: '/about' },
               ].map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="relative text-slate-300 hover:text-primary-300 transition-colors duration-200 font-normal text-base group"
-                >
-                  {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[3px] bg-gradient-to-r from-primary-400/80 to-secondary-400/80 group-hover:w-full transition-all duration-300 blur-[3px] shadow-[0_0_8px_rgba(45,212,191,0.7)]" />
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-primary-400 to-secondary-400 group-hover:w-full transition-all duration-300 shadow-[0_0_5px_rgba(45,212,191,1)]" />
-                </Link>
+                link.href.startsWith('http') ? (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="relative text-slate-300 hover:text-primary-300 transition-colors duration-200 font-normal text-base group"
+                  >
+                    {link.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[3px] bg-gradient-to-r from-primary-400/80 to-secondary-400/80 group-hover:w-full transition-all duration-300 blur-[3px] shadow-[0_0_8px_rgba(45,212,191,0.7)]" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-primary-400 to-secondary-400 group-hover:w-full transition-all duration-300 shadow-[0_0_5px_rgba(45,212,191,1)]" />
+                  </a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="relative text-slate-300 hover:text-primary-300 transition-colors duration-200 font-normal text-base group"
+                  >
+                    {link.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[3px] bg-gradient-to-r from-primary-400/80 to-secondary-400/80 group-hover:w-full transition-all duration-300 blur-[3px] shadow-[0_0_8px_rgba(45,212,191,0.7)]" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-primary-400 to-secondary-400 group-hover:w-full transition-all duration-300 shadow-[0_0_5px_rgba(45,212,191,1)]" />
+                  </Link>
+                )
               ))}
             </div>
 
@@ -173,23 +187,41 @@ const Navbar: React.FC = () => {
           {/* Navigation Links */}
           <div className="flex-1 flex flex-col justify-start pt-16 px-8 space-y-2">
             {[
+              { name: 'Playground', href: '/playground', delay: 50 },
               { name: 'Industries', href: '/industries', delay: 100 },
               { name: 'Resources', href: '/resources', delay: 200 },
               { name: 'Contact', href: '/contact', delay: 300 },
+              { name: 'About', href: '/about', delay: 350 },
             ].map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={closeMenu}
-                className={`group relative block py-6 text-4xl font-light text-white hover:text-cyan-400 transition-all duration-300 ${
-                  isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
-                style={{
-                  transitionDelay: isMenuOpen ? `${link.delay}ms` : '0ms'
-                }}
-              >
-                {link.name}
-              </Link>
+              link.href.startsWith('http') ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className={`group relative block py-6 text-4xl font-light text-white hover:text-cyan-400 transition-all duration-300 ${
+                    isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{
+                    transitionDelay: isMenuOpen ? `${link.delay}ms` : '0ms'
+                  }}
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className={`group relative block py-6 text-4xl font-light text-white hover:text-cyan-400 transition-all duration-300 ${
+                    isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{
+                    transitionDelay: isMenuOpen ? `${link.delay}ms` : '0ms'
+                  }}
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
           </div>
 

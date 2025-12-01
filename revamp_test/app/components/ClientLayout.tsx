@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { ThemeProvider } from '../providers/ThemeProvider';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [animationsEnabled, setAnimationsEnabled] = useState<boolean>(true);
@@ -31,6 +32,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <MotionConfig reducedMotion={animationsEnabled ? 'never' : 'always'}>
         <Navbar />
         {children}
+        <Footer />
       </MotionConfig>
     </ThemeProvider>
   );
