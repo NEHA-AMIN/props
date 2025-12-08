@@ -35,7 +35,8 @@ const VideoModal: React.FC<{
   onClose: () => void;
 }> = ({ videoUrl, title, onClose }) => {
   const videoId = getYouTubeVideoId(videoUrl);
-  const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1` : null;
+  const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1` : null;
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Close on Escape key
   useEffect(() => {
@@ -49,11 +50,15 @@ const VideoModal: React.FC<{
     return () => window.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open and cleanup on unmount
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = 'unset';
+      // Stop video playback when component unmounts
+      if (iframeRef.current) {
+        iframeRef.current.src = '';
+      }
     };
   }, []);
 
@@ -108,6 +113,7 @@ const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
           {embedUrl ? (
             <iframe
+              ref={iframeRef}
               src={embedUrl}
               title={title}
               className="absolute inset-0 w-full h-full"
@@ -322,6 +328,13 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
     selectedCategories.length === 0
       ? typeFilteredStudies
       : typeFilteredStudies.filter((study) => selectedCategories.includes(study.category));
+
+  // Cleanup: Close modal when component unmounts (user navigates away)
+  useEffect(() => {
+    return () => {
+      setVideoModalData(null);
+    };
+  }, []);
 
   // Sync when initial category changes (e.g., via query params)
   useEffect(() => {

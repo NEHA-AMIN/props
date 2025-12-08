@@ -109,6 +109,18 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
     return () => window.removeEventListener('theme-change', handleThemeChange);
   }, []);
 
+  // Reset button state when navigating away from the page
+  useEffect(() => {
+    return () => {
+      // Only reset if not coming from query params
+      if (!searchParams.get('type')) {
+        setSelectedType(undefined);
+        setInitialCategory(undefined);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleButtonClick = (category: string) => {
     setSelectedType(category as 'Case Studies' | 'Use Cases' | 'Blogs');
   };
