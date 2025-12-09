@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="flex items-center justify-between">
         {/* Copyright */}
         <div className="text-gray-300 text-sm">
-          ©Propheus Pte. Ltd. 2025
+          ©Propheus Pvt. Ltd. 2025
         </div>
 
         {/* Links */}

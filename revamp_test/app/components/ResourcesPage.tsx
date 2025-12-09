@@ -122,7 +122,9 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   }, []);
 
   const handleButtonClick = (category: string) => {
-    setSelectedType(category as 'Case Studies' | 'Use Cases' | 'Blogs');
+    const categoryType = category as 'Case Studies' | 'Use Cases' | 'Blogs';
+    // Toggle: if already selected, deselect it; otherwise, select it
+    setSelectedType(selectedType === categoryType ? undefined : categoryType);
   };
   
   return (

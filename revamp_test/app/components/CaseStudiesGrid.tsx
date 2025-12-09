@@ -321,13 +321,19 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   // First filter by type (Case Studies, Use Cases, or Blogs)
   const typeFilteredStudies = selectedType 
     ? caseStudies.filter((study) => study.type === selectedType)
-    : [];
+    : caseStudies; // Show all case studies when no type is selected
 
   // Then filter by selected categories (multiple selection)
   const filteredCaseStudies =
     selectedCategories.length === 0
       ? typeFilteredStudies
       : typeFilteredStudies.filter((study) => selectedCategories.includes(study.category));
+
+  // Reset selected categories when selectedType changes
+  useEffect(() => {
+    setSelectedCategories([]);
+    setIsDropdownOpen(false);
+  }, [selectedType]);
 
   // Cleanup: Close modal when component unmounts (user navigates away)
   useEffect(() => {
@@ -414,11 +420,13 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
                 className={`min-w-[280px] px-6 py-3 rounded-full text-base font-normal transition-all duration-300 flex items-center justify-between ${
                   selectedType
                     ? "bg-gray-800/60 text-gray-300 hover:bg-gray-700/80 hover:text-white border border-gray-700/50 cursor-pointer"
-                    : "bg-gray-800/30 text-gray-500 border border-gray-700/30 cursor-not-allowed"
+                    : "bg-gray-800/30 text-gray-400 border border-gray-700/30 cursor-pointer hover:bg-gray-800/40"
                 }`}
               >
                 <span>
-                  {selectedCategories.length === 0
+                  {!selectedType
+                    ? "Select a type above to filter"
+                    : selectedCategories.length === 0
                     ? "Select categories"
                     : `${selectedCategories.length} selected`}
                 </span>
@@ -492,90 +500,41 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
 
         {/* Case Studies Grid with Gaps and Dividers */}
         <div className="px-6 sm:px-8 lg:px-12 relative">
-          {!selectedType ? (
-            /* Show message when no type is selected */
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center py-24"
-            >
-              <div className="max-w-md mx-auto">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-teal-500/20 to-teal-600/20 border border-teal-500/30 flex items-center justify-center">
-                  <svg className="w-10 h-10 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Select a Type to Get Started
-                </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">
-                  Please choose one of the buttons above (Case Studies, Use Cases, or Blogs) to view relevant content.
-                </p>
-                <motion.div 
-                  className={`inline-flex items-center gap-3 text-teal-400 text-sm cursor-pointer group px-6 py-3 rounded-full transition-all duration-300 ${
-                    highlightScroll 
-                      ? 'border-2 border-teal-400 bg-teal-400/10 shadow-lg shadow-teal-500/30' 
-                      : 'border-2 border-transparent'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  animate={highlightScroll ? { 
-                    scale: [1, 1.1, 1],
-                  } : {}}
-                >
-                  <motion.svg 
-                    className="w-5 h-5 group-hover:text-teal-300" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                    animate={{ y: [0, -4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                  </motion.svg>
-                  <span className="font-semibold group-hover:text-teal-300 transition-colors duration-200">Scroll up to select</span>
-                </motion.div>
-              </div>
-            </motion.div>
-          ) : (
-            <>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedCategories.join(",")}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                >
-                  {filteredCaseStudies.map((study) => (
-                    <CaseStudyCard
-                      key={study.id}
-                      study={study}
-                      onHover={setHoveredCardId}
-                      isActive={hoveredCardId === study.id}
-                      onVideoClick={setVideoModalData}
-                    />
-                  ))}
-                </motion.div>
-              </AnimatePresence>
+          <>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedCategories.join(",")}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {filteredCaseStudies.map((study) => (
+                  <CaseStudyCard
+                    key={study.id}
+                    study={study}
+                    onHover={setHoveredCardId}
+                    isActive={hoveredCardId === study.id}
+                    onVideoClick={setVideoModalData}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
 
-              {/* Empty State */}
-              {filteredCaseStudies.length === 0 && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-center py-16 border border-gray-700/30 rounded-lg"
-                >
-                  <p className="text-gray-400 text-lg">
-                    No {selectedType.toLowerCase()} found for this category.
-                  </p>
-                </motion.div>
-              )}
-            </>
-          )}
+            {/* Empty State */}
+            {filteredCaseStudies.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-16 border border-gray-700/30 rounded-lg"
+              >
+                <p className="text-gray-400 text-lg">
+                  No {selectedType ? selectedType.toLowerCase() : 'content'} found for this category.
+                </p>
+              </motion.div>
+            )}
+          </>
         </div>
       </div>
     </section>

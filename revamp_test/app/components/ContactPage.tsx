@@ -13,8 +13,8 @@ const LOCATIONS = [
     country: 'United States',
     isHQ: true,
     lines: [
-      '303 Twin Dolphin Drive Suite 600,',
-      'Redwood City, CA - 94065',
+      '440 N Wolfe Rd,',
+      'Sunnyvale, CA - 94085',
     ],
   },
   {
@@ -152,7 +152,7 @@ export default function ContactPage() {
                 animate={{ opacity: 1, y: 0 }} 
                 transition={{ duration: 0.8, delay: 0.4 }} 
               > 
-                Have questions? Want to see a demo? We're here to help you unlock the power of location intelligence. 
+                Have questions? Want to see a demo? We're here to help you unlock the power of real-world intelligence. 
               </motion.p>
               
               {/* CTA Button */}
