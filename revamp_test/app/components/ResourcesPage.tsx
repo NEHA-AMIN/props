@@ -74,11 +74,11 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   const { theme, resolvedTheme } = useTheme();
   const [isThemeTransitioning, setIsThemeTransitioning] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [selectedType, setSelectedType] = useState<'Case Studies' | 'Use Cases' | 'Blogs' | undefined>(undefined);
+  const [selectedType, setSelectedType] = useState<'Case Studies' | 'Use Cases' | undefined>(undefined);
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
   const searchParams = useSearchParams();
 
-  const buttonCategories = ['Case Studies', 'Use Cases', 'Blogs'];
+  const buttonCategories = ['Case Studies', 'Use Cases'];
 
   // Handle SSR hydration
   useEffect(() => {
@@ -89,8 +89,8 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   useEffect(() => {
     const type = searchParams.get('type');
     const category = searchParams.get('category');
-    if (type === 'Use Cases' || type === 'Case Studies' || type === 'Blogs') {
-      setSelectedType(type as 'Case Studies' | 'Use Cases' | 'Blogs');
+    if (type === 'Use Cases' || type === 'Case Studies') {
+      setSelectedType(type as 'Case Studies' | 'Use Cases');
     }
     if (category) {
       setInitialCategory(category);
@@ -122,7 +122,7 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   }, []);
 
   const handleButtonClick = (category: string) => {
-    const categoryType = category as 'Case Studies' | 'Use Cases' | 'Blogs';
+    const categoryType = category as 'Case Studies' | 'Use Cases';
     // Toggle: if already selected, deselect it; otherwise, select it
     setSelectedType(selectedType === categoryType ? undefined : categoryType);
   };

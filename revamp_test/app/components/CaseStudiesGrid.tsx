@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type CaseStudy = {
@@ -11,7 +12,7 @@ export type CaseStudy = {
   tagline?: string;
   href?: string;
   videoUrl?: string;
-  type: 'Case Studies' | 'Use Cases' | 'Blogs';
+  type: 'Case Studies' | 'Use Cases';
 };
 
 // Helper function to extract YouTube video ID
@@ -131,13 +132,131 @@ const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   );
 };
 
+// PDF Modal Component
+const PDFModal: React.FC<{
+  pdfUrl: string;
+  title: string;
+  onClose: () => void;
+}> = ({ pdfUrl, title, onClose }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
+  // Prevent body scroll and hide navbar
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    
+    const navbar = document.querySelector('nav');
+    const originalDisplay = navbar ? (navbar as HTMLElement).style.display : '';
+    if (navbar) {
+      (navbar as HTMLElement).style.display = 'none';
+    }
+    
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      if (navbar) {
+        (navbar as HTMLElement).style.display = originalDisplay;
+      }
+    };
+  }, []);
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onClose();
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  if (!mounted) return null;
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[10000] bg-black"
+      onClick={handleBackdropClick}
+    >
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div
+          className="relative w-full h-full max-w-7xl max-h-[95vh] bg-gray-900 rounded-lg overflow-hidden shadow-2xl flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-4 bg-gray-800 border-b border-gray-700 flex-shrink-0 relative z-[10001]">
+            <h3 className="text-xl font-semibold text-white truncate pr-4">
+              {title}
+            </h3>
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={handleClose}
+              onMouseDown={handleClose}
+              className="p-2.5 rounded-lg hover:bg-gray-700 transition-colors group cursor-pointer flex-shrink-0"
+              aria-label="Close"
+            >
+              <svg
+                className="w-5 h-5 text-gray-300 group-hover:text-white pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* PDF Viewer */}
+          <div className="flex-1 w-full bg-gray-800 overflow-auto relative">
+            <iframe
+              src={pdfUrl}
+              title={title}
+              className="w-full h-full min-h-[5000px]"
+              style={{ border: 'none' }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
 export type CaseStudiesGridProps = {
   caseStudies?: CaseStudy[];
-  selectedType?: 'Case Studies' | 'Use Cases' | 'Blogs';
+  selectedType?: 'Case Studies' | 'Use Cases';
   initialCategory?: string;
 };
 
 export const defaultCaseStudies: CaseStudy[] = [
+  // Case Studies
+  {
+    id: "1",
+    title: "How a Global Snack Manufacturer Unlocked $48M in Revenue with Al-Powered Product Recommendations",
+    category: "CPG",
+    description: "Discover how AI-powered product recommendations transformed a global snack manufacturer's revenue strategy",
+    date: "December 22, 2025",
+    imageGradient: "from-amber-600 via-orange-500 to-red-600",
+    tagline: "$48M Revenue\nUnlocked",
+    href: "/Product Recommendation Case Study (3).pdf",
+    type: "Case Studies",
+  },
   // Use Cases with image URLs and video URLs
   {
     id: "4",
@@ -203,7 +322,8 @@ const CaseStudyCard: React.FC<{
   onHover: (id: string | null) => void;
   isActive: boolean;
   onVideoClick?: (study: CaseStudy) => void;
-}> = ({ study, onHover, isActive, onVideoClick }) => {
+  onPdfClick?: (study: CaseStudy) => void;
+}> = ({ study, onHover, isActive, onVideoClick, onPdfClick }) => {
   const [spotX, setSpotX] = useState(0);
   const [spotY, setSpotY] = useState(0);
 
@@ -216,14 +336,21 @@ const CaseStudyCard: React.FC<{
   // Check if this has a YouTube video
   const hasVideo = study.videoUrl && (study.videoUrl.includes('youtube.com') || study.videoUrl.includes('youtu.be'));
   
-  // Get background image from href
-  const backgroundImageUrl = study.href;
+  // Check if this is a PDF file
+  const isPDF = study.href && study.href.endsWith('.pdf');
+  
+  // Get background image from href (unless it's a PDF)
+  const backgroundImageUrl = isPDF ? undefined : study.href;
 
   const handleClick = (e: React.MouseEvent) => {
     if (hasVideo && onVideoClick) {
       e.preventDefault();
       // Create a temporary study object with href as videoUrl for the modal
       onVideoClick({ ...study, href: study.videoUrl });
+    } else if (isPDF && onPdfClick) {
+      e.preventDefault();
+      // Open PDF in modal
+      onPdfClick(study);
     }
   };
 
@@ -281,7 +408,7 @@ const CaseStudyCard: React.FC<{
           {/* Read More Button - Shown on hover */}
           <div className="overflow-hidden transition-all duration-700 ease-in-out max-h-0 opacity-0 group-hover:max-h-16 group-hover:opacity-100">
             <button className="mt-2 text-sm font-bold text-gray-100 hover:text-teal-300 transition-colors duration-200 flex items-center gap-1">
-              Watch Now ↓
+              {hasVideo ? 'Watch Now ↓' : isPDF ? 'View & Download ↓' : 'Read More ↓'}
             </button>
           </div>
         </div>
@@ -289,19 +416,22 @@ const CaseStudyCard: React.FC<{
     </div>
   );
 
-  // If not a video, wrap in an anchor tag for external links
-  if (!hasVideo) {
-    return (
-      <a
-        key={study.id}
-        href={study.href || "#"}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {cardContent}
-      </a>
-    );
+  // If it's a PDF or video, handle click event directly
+  if (isPDF || hasVideo) {
+    return cardContent;
   }
+
+  // If not a video or PDF, wrap in an anchor tag for external links
+  return (
+    <a
+      key={study.id}
+      href={study.href || "#"}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {cardContent}
+    </a>
+  );
 
   return cardContent;
 };
@@ -316,6 +446,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   const [highlightScroll, setHighlightScroll] = useState(false);
   const [videoModalData, setVideoModalData] = useState<CaseStudy | null>(null);
+  const [pdfModalData, setPdfModalData] = useState<CaseStudy | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // First filter by type (Case Studies, Use Cases, or Blogs)
@@ -339,6 +470,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
   useEffect(() => {
     return () => {
       setVideoModalData(null);
+      setPdfModalData(null);
     };
   }, []);
 
@@ -395,6 +527,17 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
             videoUrl={videoModalData.href || ''}
             title={videoModalData.title}
             onClose={() => setVideoModalData(null)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* PDF Modal */}
+      <AnimatePresence>
+        {pdfModalData && (
+          <PDFModal
+            pdfUrl={pdfModalData.href || ''}
+            title={pdfModalData.title}
+            onClose={() => setPdfModalData(null)}
           />
         )}
       </AnimatePresence>
@@ -517,6 +660,7 @@ export const CaseStudiesGrid: React.FC<CaseStudiesGridProps> = ({
                     onHover={setHoveredCardId}
                     isActive={hoveredCardId === study.id}
                     onVideoClick={setVideoModalData}
+                    onPdfClick={setPdfModalData}
                   />
                 ))}
               </motion.div>
