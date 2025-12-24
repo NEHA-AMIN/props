@@ -25,8 +25,8 @@ const caseStudies: CaseStudy[] = [
       'The coffee chain was able to see real demand at a micro-market level with Digital Atlas - identifying whitespace, reducing cannibalization, and prioritizing high-yield catchments.',
       'The coffee chain was able to turn those signals into a clear 2030 expansion plan with Digital Atlas - where to open next, in what order, and with confidence.'
     ],
-      image: 'https://res.cloudinary.com/doiftjxrr/video/upload/v1763633101/Case_Study_1_n8jtvq.mp4',
-      cloudinary: 'https://res.cloudinary.com/doiftjxrr/video/upload/v1763633101/Case_Study_1_n8jtvq.mp4',
+      image: 'https://res.cloudinary.com/dtmcz8fs8/video/upload/v1766572869/Case_study_1_ip2xga.webm',
+      cloudinary: 'https://res.cloudinary.com/dtmcz8fs8/video/upload/v1766572869/Case_study_1_ip2xga.webm',
     metricValue: 23,
     metricLabel: 'more viable zones',
     metrics: [
@@ -41,8 +41,8 @@ const caseStudies: CaseStudy[] = [
       'They turned static place data into live, context-rich intelligence with Digital Atlas—enriching every POI with pickup/drop points, rush hours, and weather/event effects.',
       'The super app was able to use these signals to predict demand, optimize driver allocation and routing, and adjust pricing in near real time improving on-time deliveries.'
     ],
-    image: 'https://res.cloudinary.com/doiftjxrr/video/upload/v1763633164/Case_Study_2_jsextj.mp4',
-    cloudinary: 'https://res.cloudinary.com/doiftjxrr/video/upload/v1763633164/Case_Study_2_jsextj.mp4',
+    image: 'https://res.cloudinary.com/dtmcz8fs8/video/upload/v1766572881/Case_study_2_atlaoz.webm',
+    cloudinary: 'https://res.cloudinary.com/dtmcz8fs8/video/upload/v1766572881/Case_study_2_atlaoz.webm',
     metricValue: 12,
     metricLabel: 'booking conversions',
     metrics: [
@@ -72,8 +72,8 @@ const caseStudies: CaseStudy[] = [
       'The brand was able to fuse its sales data with Digital Atlas real-world signals—(demographics, anchor POIs etc ) —to score SKU potential and deliver a ranked, outlet-specific list for reps.',
       'They was able to pilot, refine, and scale what worked—growing basket size, easing over-reliance on top SKUs, and accelerating new SKU penetration across large retailers.'
     ],
-    image: 'https://res.cloudinary.com/doiftjxrr/video/upload/v1763632277/Case_Study_4_ho2kv0.mp4',
-    cloudinary: 'https://res.cloudinary.com/doiftjxrr/video/upload/v1763632277/Case_Study_4_ho2kv0.mp4',
+    image: 'https://res.cloudinary.com/dtmcz8fs8/video/upload/v1766572906/Case_study_4_ye1h2e.webm',
+    cloudinary: 'https://res.cloudinary.com/dtmcz8fs8/video/upload/v1766572906/Case_study_4_ye1h2e.webm',
     metricValue: 12,
     metricLabel: 'sales uplift',
     metrics: [
@@ -250,8 +250,8 @@ const CaseStudySubPart = () => {
             <div className="rounded-xl overflow-hidden shadow-lg">
               {/* Case Study Video/GIF implementation */}
               {(
-                (currentStudy.image && currentStudy.image.endsWith('.mp4')) ||
-                (currentStudy.cloudinary && currentStudy.cloudinary.endsWith('.mp4'))
+                (currentStudy.image && (currentStudy.image.endsWith('.mp4') || currentStudy.image.endsWith('.webm'))) ||
+                (currentStudy.cloudinary && (currentStudy.cloudinary.endsWith('.mp4') || currentStudy.cloudinary.endsWith('.webm')))
               ) ? (
                 <video
                   key={currentStudy.id}
@@ -263,10 +263,10 @@ const CaseStudySubPart = () => {
                 >
                   {/* Try Cloudinary first, then local public file as fallback */}
                   {currentStudy.cloudinary && (
-                    <source src={currentStudy.cloudinary} type="video/mp4" />
+                    <source src={currentStudy.cloudinary} type={currentStudy.cloudinary.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
                   )}
                   {currentStudy.image && (
-                    <source src={currentStudy.image} type="video/mp4" />
+                    <source src={currentStudy.image} type={currentStudy.image.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
                   )}
                   Your browser does not support the video tag.
                 </video>
