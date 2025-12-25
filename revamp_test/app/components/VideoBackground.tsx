@@ -19,10 +19,10 @@ type ConnectionSpeed = 'very-fast' | 'fast' | 'medium' | 'slow';
 
 export default function VideoBackground({ 
   videoSources = {
-    highest: '/hero-background.mp4',
-    high: '/hero-background-1.mp4',
-    medium: '/hero-background-2.mp4',
-    low: '/hero-background-3.mp4'
+    highest: 'https://res.cloudinary.com/dsswbejzb/video/upload/v1766597247/hero-background_en6usf.mp4',
+    high: 'https://res.cloudinary.com/dsswbejzb/video/upload/v1766597250/hero-background-1_h5fgt5.mp4',
+    medium: 'https://res.cloudinary.com/dsswbejzb/video/upload/v1766597236/hero-background-2_jgqfbt.mp4',
+    low: 'https://res.cloudinary.com/dsswbejzb/video/upload/v1766597256/hero-background-3_pwuiqv.mp4'
   },
   poster,
   className = "", 
